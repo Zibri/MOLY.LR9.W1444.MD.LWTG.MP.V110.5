@@ -3,7 +3,7 @@
 
 
 #define MAX_APN_LEN             100
-#define MAX_GPRS_USER_NAME_LEN 42
+#define MAX_GPRS_USER_NAME_LEN 33
 #define MAX_GPRS_PASSWORD_LEN  33
 #define MAX_GPRS_APN_LEN       100
 

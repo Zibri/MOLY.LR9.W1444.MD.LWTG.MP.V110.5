@@ -55,14 +55,6 @@
  *
  * removed!
  * removed!
- * [MT6290][CT 800M] mode change band update with NVRAM setting as basis (header file)
- *
- * removed!
- * removed!
- * [CMCC¼W±j«¬mFBI] (B) header/ASN (OA domain)
- *
- * removed!
- * removed!
  * MRS part
  *
  * removed!
@@ -186,7 +178,6 @@ typedef struct {
     kal_uint8   is_band_ori_support[SIZE_LTE_BAND];
     kal_uint8   disable_bw_bmp[LTE_BAND_NUM];
     eas_partial_band_inf_struct partial_band_inf;
-    kal_uint8   nvram_lte_band[SIZE_LTE_BAND]; 
 } eas_capability_context_struct;
 
 typedef enum {
@@ -247,13 +238,6 @@ kal_uint32 mrs_eas_convert_to_best_dl_earfcn_mfbi(MRS_SIM_INDEX sim_index,
                                                   kal_uint8     lte_band_num,
                                                   kal_uint16   *lte_band_list_ptr,
                                                   eas_bandwidth_enum band_width);
-
-kal_uint32 mrs_eas_convert_to_best_dl_earfcn_mfbi_freq_pri(MRS_SIM_INDEX sim_index,
-                                                  kal_uint32    dl_earfcn,
-                                                  kal_uint16    band_indicator,
-                                                  kal_uint8     lte_band_num,
-                                                  kal_uint16   *lte_band_list_ptr,
-                                                  kal_bool      freq_pri);
 
 kal_uint32 mrs_eas_convert_ul_earfcn_to_target_band(kal_uint32    ul_earfcn,
                                                               kal_uint16    target_band);
@@ -328,10 +312,6 @@ void mrs_eas_band_control_func(kal_uint16 lte_band, eas_band_control_enum band_c
 kal_bool mrs_eas_is_mcc_match_country(eas_country_enum country,kal_uint8 mcc1,kal_uint8 mcc2,kal_uint8 mcc3);
 
 void mrs_eas_add_remove_band(kal_uint16 lte_band, eas_band_control_enum band_ctrl_info);
-
-void mrs_eas_get_context_nvram_lte_band(kal_uint8* p_lte_band_mask, MRS_SIM_INDEX sim_index);
-
-void mrs_eas_set_context_nvram_lte_band(kal_uint8* p_lte_band_mask, MRS_SIM_INDEX sim_index);
 
 #endif /* _MRS_EAS_CAPABILITY_H */
 

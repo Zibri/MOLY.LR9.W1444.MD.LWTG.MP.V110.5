@@ -63,6 +63,10 @@
  * removed!
  * removed!
  * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  * removed!
  * removed!
  * removed!
@@ -401,6 +405,7 @@ extern void l4c_rrce_pch_txrx_ind_hdlr(local_para_struct *local_para_ptr, peer_b
 extern void l4c_eval_rat_change_ind_hdlr(local_para_struct * local_para_ptr, peer_buff_struct * peer_buff_ptr);
 extern void l4c_eval_rat_change_cnf_hdlr(local_para_struct * local_para_ptr, peer_buff_struct * peer_buff_ptr);
 extern void l4c_eval_cell_power_level_ind_hdlr(local_para_struct *local_para_ptr, peer_buff_struct *peer_buff_ptr);
+extern void l4c_eval_sr_failure_ind_hdlr(local_para_struct *local_para_ptr, peer_buff_struct *peer_buff_ptr);
 extern void l4csm_rat_change_ind_hdlr(local_para_struct * local_para_ptr, peer_buff_struct * peer_buff_ptr);
 extern void l4csm_rat_change_cnf_hdlr(local_para_struct * local_para_ptr, peer_buff_struct * peer_buff_ptr);
 extern void l4c_eval_connected_drb_ind_hdlr(local_para_struct * local_para_ptr, peer_buff_struct * peer_buff_ptr);

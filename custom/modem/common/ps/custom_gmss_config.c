@@ -64,6 +64,10 @@
  * removed!
  * removed!
  * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  * removed!
  *
  * removed!
@@ -232,9 +236,7 @@ gmss_rat_enum gmss_custom_get_cs_rat(plmn_id_struct loc, l4c_irat_type_enum irat
         else if(irat_type == MD_BASED_IRAT_LCG) // WCDMA is not supported
         {
             if ((loc.mcc1 == 4 && loc.mcc2 == 6 && loc.mcc3 == 0) ||
-                (loc.mcc1 == 4 && loc.mcc2 == 5 && loc.mcc3 == 5) ||
-                (loc.mcc1 == 4 && loc.mcc2 == 4 && loc.mcc3 == 0) ||
-                (loc.mcc1 == 4 && loc.mcc2 == 5 && loc.mcc3 == 0))
+                (loc.mcc1 == 4 && loc.mcc2 == 5 && loc.mcc3 == 5))
             {
                 return GMSS_RAT_CDMA2000_1xRTT;
             }
@@ -296,9 +298,7 @@ gmss_op_mode_enum gmss_custom_determine_op_mode_by_loc(plmn_id_struct* new_loc, 
         else if(irat_type == MD_BASED_IRAT_LCG) // WCDMA is not supported
         {
             if ((new_loc->mcc1 == 4 && new_loc->mcc2 == 6 && new_loc->mcc3 == 0) ||
-                (new_loc->mcc1 == 4 && new_loc->mcc2 == 5 && new_loc->mcc3 == 5) ||
-                (new_loc->mcc1 == 4 && new_loc->mcc2 == 4 && new_loc->mcc3 == 0) ||
-                (new_loc->mcc1 == 4 && new_loc->mcc2 == 5 && new_loc->mcc3 == 0))
+                (new_loc->mcc1 == 4 && new_loc->mcc2 == 5 && new_loc->mcc3 == 5))
             {
                 /* LC mode while in China/Macau/Japan/South Korea */
                 return GMSS_OP_MODE_LC;

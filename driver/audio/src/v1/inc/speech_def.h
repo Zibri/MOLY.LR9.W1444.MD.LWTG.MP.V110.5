@@ -102,10 +102,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -215,11 +211,7 @@
 #elif defined(MT6752)
 	#include "dpram_6752.h"				
 #elif defined(MT6735)
-#if defined(__AUTOMOTIVE_TELEMATICS__)	
-#include "dpram_2635.h"	
-#else
-#include "dpram_6735.h"		
-#endif
+	#include "dpram_6735.h"				
 #else 
 	#error Need DSP guys give the dpram_xxxx.h file
 #endif

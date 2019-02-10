@@ -76,10 +76,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -1698,7 +1694,7 @@ void nvram_gen_database_key(void)
     sprintf(output_pathname, "nvram_auto_gen/custom_nvram_database.h");
     nvram_gen_create_file(&database_h,base_path,output_pathname);
 
-#if defined(__NVRAM_SECRET_DATA__) && !defined(__NVRAM_HIDE_DATABASE_KEY__)
+#ifdef __NVRAM_SECRET_DATA__
     fprintf(database_h, "typedef enum \n");
     fprintf(database_h, "{\n");
 
@@ -2071,7 +2067,7 @@ int main(int argc, char *argv[])
         nvram_gen_secro();
     #endif
     
-    #if !defined(__VENDOR_RELEASE__)
+    #if !defined(__VENDOR_RELEASE__) && !defined(__NVRAM_HIDE_DATABASE_KEY__)
         printf("nvram_gen_database_key\n");
         nvram_gen_database_key();
     #endif

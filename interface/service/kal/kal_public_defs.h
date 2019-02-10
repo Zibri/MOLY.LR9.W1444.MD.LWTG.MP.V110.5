@@ -918,6 +918,10 @@ typedef enum {
     #define INLINE_MODIFIER     static
 #endif /* Cross RVCT/GCC/VC9 Compiler marco definition */
 
+#undef INLINE
+#define INLINE          inline
+#undef INLINE_MODIFIER
+#define INLINE_MODIFIER	static
 
 #if defined(__ARMCC_VERSION)
     #define GET_RETURN_ADDRESS(a) a=__return_address()

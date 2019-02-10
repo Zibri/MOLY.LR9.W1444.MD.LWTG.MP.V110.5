@@ -61,10 +61,6 @@
  *
  * removed!
  * removed!
- * [mt2635] Add mode par 16=>48 for __AUTOMOTIVE_TELEMATICS__.
- *
- * removed!
- * removed!
  * HAC
  *
  * removed!
@@ -139,11 +135,7 @@ typedef struct _AUDIO_CUSTOM_PARAM_STRUCT
    char volume[3][7];
    /* speech enhancement */
    unsigned short speech_common_para[12];
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-   unsigned short speech_mode_para[8][48];
-#else
    unsigned short speech_mode_para[8][16];
-#endif
    unsigned short speech_volume_para[4];//in the feature, should extend to [MAX_VOL_CATE][MAX_VOL_TYPE][4]
    /* debug info */
    unsigned short debug_info[16];
@@ -173,11 +165,7 @@ typedef struct _AUDIO_CUSTOM_PARAM_STRUCT
 typedef struct _AUDIO_CUSTOM_WB_PARAM_STRUCT_
 {
    /* WB speech enhancement */
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-   unsigned short speech_mode_wb_para[8][48];
-#else
    unsigned short speech_mode_wb_para[8][16];
-#endif
    /* WB speech input FIR */
    short          sph_wb_fir[6][90];
    /* WB speech output FIR */
@@ -187,11 +175,7 @@ typedef struct _AUDIO_CUSTOM_WB_PARAM_STRUCT_
 typedef struct _AUDIO_CUSTOM_WB_PARAM_STRUCT_
 {
     /* WB speech enhancement */
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-    unsigned short speech_mode_wb_para[8][48];
-#else	
     unsigned short speech_mode_wb_para[8][16];
-#endif
     /* WB speech input FIR */
     short          sph_wb_in_fir[6][90];
     /* WB speech output FIR */
@@ -215,13 +199,8 @@ typedef struct _AUDIO_CUSTOM_DMNR_PARAM_STRUCT_
 
 typedef struct _AUDIO_CUSTOM_MAGI_CONFERENCE_STRUCT_
 {
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-	unsigned short sph_voice_tracking_mode_para[48]; 
-	unsigned short sph_voice_tracking_mode_wb_para[48];
-#else
-   unsigned short sph_voice_tracking_mode_para[16]; 
-   unsigned short sph_voice_tracking_mode_wb_para[16];
-#endif	
+	unsigned short sph_voice_tracking_mode_para[16]; 
+	unsigned short sph_voice_tracking_mode_wb_para[16];
 	
 } AUDIO_CUSTOM_MAGI_CONFERENCE_STRUCT;
 
@@ -242,17 +221,11 @@ typedef struct _AUDIO_NXP_SMARTPA_PARAMETER_STRUCT_
 
 typedef struct _AUDIO_CUSTOM_HAC_PARAM_STRUCT
 {
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-   /* speech enhancement */
-   unsigned short speech_hac_mode_nb_para[48];
-   /* WB speech enhancement */
-   unsigned short speech_hac_mode_wb_para[48];
-#else
 	/* speech enhancement */
 	unsigned short speech_hac_mode_nb_para[16];
 	/* WB speech enhancement */
 	unsigned short speech_hac_mode_wb_para[16];
-#endif
+
 	/* speech input FIR */
 	short 			sph_hac_in_fir[45];
 	/* speech output FIR */

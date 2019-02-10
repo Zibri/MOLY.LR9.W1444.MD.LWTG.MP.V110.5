@@ -66,6 +66,10 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -229,6 +233,11 @@ extern const kal_uint32 DISABLE_SRVCC_IE_PLMN_NUM;
 #define DISABLE_PAGING_CSMT_FLAG_PLMN_END "FFFFFF"
 extern const char *DISABLE_PAGING_CSMT_FLAG_PLMN[];
 extern const kal_uint32 DISABLE_PAGING_CSMT_FLAG_PLMN_NUM;
+
+/* Enable CSMT flag in paging response for specific PLMNs */
+#define ENABLE_PAGING_CSMT_FLAG_PLMN_END "FFFFFF"
+extern const char *ENABLE_PAGING_CSMT_FLAG_PLMN[];
+extern const kal_uint32 ENABLE_PAGING_CSMT_FLAG_PLMN_NUM;
 
 
 /*************************************************************************

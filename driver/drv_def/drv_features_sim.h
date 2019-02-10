@@ -62,11 +62,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -459,8 +454,4 @@
 #endif
 
 #define SIM_DRV_EINT_MASK_ENABLE 1
-
-
-//#define SIM_DRV_RETRY_3V_WHEN_CMD_FAIL
-
 #endif /*ifndef __DRV_FEATURES_SIM_H__*/

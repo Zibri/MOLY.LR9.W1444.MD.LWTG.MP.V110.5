@@ -112,6 +112,10 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -1823,6 +1827,12 @@ typedef struct
     kal_uint8  pattern;   /* input */
 }rf_test_gsm_rx_test_struct, l4cl1_em_rf_test_gsm_rx_test_req_struct;
 
+typedef struct
+{
+    LOCAL_PARA_HDR
+    
+    kal_int32 rssi_dBm;
+}l4cl1_em_rf_test_gsm_rx_test_ind_struct;
 
 typedef struct
 {

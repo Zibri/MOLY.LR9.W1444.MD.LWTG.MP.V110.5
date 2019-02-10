@@ -1279,11 +1279,9 @@ endif
 		$(IF_ERR_FALSE) $(THEN) $(DEL_FILE) $(strip $(TARGDIR))/DbgInfo_* $(CMD_END)
 	@$(LIST_DIR) "$(strip $(BUILD_TST_DB))/DbgInfo_$(strip $(SLIM_BRANCH))_$(strip $(PROJECT_NAME))_$(strip $(DBG_INFO_VERNO))_*" 1>$(DEV_NUL) 2>&1 $(WITH) \
 		$(IF_ERR_FALSE) $(THEN) $(DEL_FILE) $(strip $(BUILD_TST_DB))/DbgInfo_$(strip $(SLIM_BRANCH))_$(strip $(PROJECT_NAME))_$(strip $(DBG_INFO_VERNO))_* $(CMD_END)
-	@$(IF_EXIST) $(strip $(TARGDIR))/$(strip $(IMG_FILE)) $(THEN)\
-		(echo Generating DbgInfo Database... $(WITH) \
-		$(DBG_INFOGEN) -CFG-"$(strip $(TMPDIR))/~DbgInfoGen.cfg" 2>$(strip $(COMPLOGDIR))/DbgInfoGen.log $(WITH)  \
-		($(IF_ERR_TRUE) $(THEN) (echo DbgInfoGen Error. Please check $(strip $(COMPLOGDIR))/DbgInfoGen.log $(WITH) exit 1) $(CMD_END)))\
-		$(CMD_END)
+	@echo Generating DbgInfo Database...
+	@$(DBG_INFOGEN) -CFG-"$(strip $(TMPDIR))/~DbgInfoGen.cfg" 2>$(strip $(COMPLOGDIR))/DbgInfoGen.log $(WITH)  \
+	($(IF_ERR_TRUE) $(THEN) (echo DbgInfoGen Error. Please check $(strip $(COMPLOGDIR))/DbgInfoGen.log $(WITH) exit 1) $(CMD_END))
 
 	@$(IF_EXIST) $(strip $(BUILD_TST_DB))/DbgInfo_$(strip $(SLIM_BRANCH))_$(strip $(PROJECT_NAME))_$(strip $(DBG_INFO_VERNO))_$(strip $(DBG_BUILD_DATE_TIME)) $(THEN)\
 		($(COPY_FILE) $(strip $(BUILD_TST_DB))/DbgInfo_$(strip $(SLIM_BRANCH))_$(strip $(PROJECT_NAME))_$(strip $(DBG_INFO_VERNO))_$(strip $(DBG_BUILD_DATE_TIME))* $(strip $(TARGDIR))) $(CMD_END)

@@ -100,10 +100,6 @@
  * removed!
  *
  * removed!
- * removed!
- * removed!
- *
- * removed!
  *------------------------------------------------------------------------------
  * Upper this line, this part is controlled by PVCS VM. DO NOT MODIFY!!
  *==============================================================================
@@ -298,7 +294,7 @@ static void eCall_IVS_OnHandler( void *data )
 {
    (void)data;
    
-   PCM4WAY_Start(eCall_IVS_hisr, 1);
+   PCM4WAY_Start(eCall_IVS_hisr, 0);
 }
 
 static void eCall_IVS_OffHandler( void *data ) 
@@ -323,10 +319,9 @@ eCall_Modem_Status eCall_IVS_Open(eCall_Callback handler)
       return eCALL_OPERATION_ALREADY_OPEN;
    }
    
-   //L1SP_EnableSpeechEnhancement(KAL_FALSE);
+   L1SP_EnableSpeechEnhancement(KAL_FALSE);
    
-   //eCallModemIVS = (EcallShell *)audio_alloc_mem_cacheable( sizeof(EcallShell) );
-   eCallModemIVS = (EcallShell *)get_ctrl_buffer( sizeof(EcallShell) );
+   eCallModemIVS = (EcallShell *)audio_alloc_mem_cacheable( sizeof(EcallShell) );
    ASSERT( eCallModemIVS != NULL );
    memset(eCallModemIVS, 0, sizeof(EcallShell));
    
@@ -335,8 +330,7 @@ eCall_Modem_Status eCall_IVS_Open(eCall_Callback handler)
       kal_uint32 reqSize;
       
       reqSize = (kal_uint32) IvsGetMemSize();
-     // eCallModemIVS->allocMem = (void *)audio_alloc_mem_cacheable( reqSize ); 
-     eCallModemIVS->allocMem = (void *)get_ctrl_buffer( reqSize );
+      eCallModemIVS->allocMem = (void *)audio_alloc_mem_cacheable( reqSize );
       memset(eCallModemIVS->allocMem, 0, sizeof(reqSize));
       IvsInit( eCallModemIVS->allocMem );
    }
@@ -386,18 +380,18 @@ eCall_Modem_Status eCall_IVS_Close(void)
    // Deallocate for IVS internal structure
    {
       IvsDeinit();
-	  free_ctrl_buffer( (void *) eCallModemIVS->allocMem );
+      audio_free_mem( (void **) &eCallModemIVS->allocMem );
    }
    
-   free_ctrl_buffer( (void *) eCallModemIVS );
-   //L1SP_EnableSpeechEnhancement(KAL_TRUE);
+   audio_free_mem( (void **) &eCallModemIVS );
+   
+   L1SP_EnableSpeechEnhancement(KAL_TRUE);
    
    return eCALL_OPERATION_SUCCESS;
 }
 
 eCall_Modem_Status eCall_IVS_PutMSD(const kal_uint8 *pMSD, const kal_uint32 uLen)
 {   
-	kal_uint8 i=0;
    if (eCallModemPSAP != NULL) {
       return eCALL_OPERATION_FAIL;
    }
@@ -410,10 +404,7 @@ eCall_Modem_Status eCall_IVS_PutMSD(const kal_uint8 *pMSD, const kal_uint32 uLen
    
    memset(eCallModemIVS->NewMsd, 0, MSD_MAX_LENGTH*sizeof(Ord8));
    memcpy(eCallModemIVS->NewMsd, pMSD, uLen*sizeof(Ord8));
-   for(i=0;i<140;i=i+7)
-   {
-	 kal_trace( TRACE_GROUP_ECALL, ECALL_IVS_PUT_MSD, pMSD[i],pMSD[i+1],pMSD[i+2],pMSD[i+3],pMSD[i+4],pMSD[i+5],pMSD[i+6]);	  	
-   }
+   
    // Check status and copy to current MSD
    if ( IvsTxGetState() == IvsIdle ) {
       memcpy(eCallModemIVS->CurMsd, eCallModemIVS->NewMsd, MSD_MAX_LENGTH*sizeof(Ord8));
@@ -559,7 +550,7 @@ static void eCall_PSAP_hisr(void)
    read_idx  = eCallModemPSAP->pcm_fifo_read;
    write_idx = eCallModemPSAP->pcm_fifo_write;
    
-   if (eCallModemPSAP->pcm_fifo_read == eCallModemPSAP->next_to_process) {
+   if (eCallModemPSAP->pcm_fifo_read == eCallModemIVS->next_to_process) {
       // Processed data isn't enough
       PCM4WAY_FillSE(0);
       PCM4WAY_FillSpk(0);
@@ -656,7 +647,7 @@ static void eCall_PSAP_OnHandler( void *data )
 {
    (void)data;
    
-   PCM4WAY_Start(eCall_PSAP_hisr, 1);
+   PCM4WAY_Start(eCall_PSAP_hisr, 0);
 }
 
 static void eCall_PSAP_OffHandler( void *data ) 
@@ -678,10 +669,9 @@ eCall_Modem_Status eCall_PSAP_Open(eCall_Callback handler)
       return eCALL_OPERATION_ALREADY_OPEN;
    }
    
-   //L1SP_EnableSpeechEnhancement(KAL_FALSE);
+   L1SP_EnableSpeechEnhancement(KAL_FALSE);
    
-   //eCallModemPSAP = (EcallShell *)audio_alloc_mem_cacheable( sizeof(EcallShell) ); 
-   eCallModemPSAP = (EcallShell *)get_ctrl_buffer( sizeof(EcallShell) );
+   eCallModemPSAP = (EcallShell *)audio_alloc_mem_cacheable( sizeof(EcallShell) );
    ASSERT( eCallModemPSAP != NULL );
    memset(eCallModemPSAP, 0, sizeof(EcallShell));
    
@@ -690,8 +680,7 @@ eCall_Modem_Status eCall_PSAP_Open(eCall_Callback handler)
       kal_uint32 reqSize;
       
       reqSize = (kal_uint32) PsapGetMemSize();
-      //eCallModemPSAP->allocMem = (void *)audio_alloc_mem_cacheable( reqSize );
-      eCallModemPSAP->allocMem = (void *)get_ctrl_buffer( reqSize );
+      eCallModemPSAP->allocMem = (void *)audio_alloc_mem_cacheable( reqSize );
       memset(eCallModemPSAP->allocMem, 0, sizeof(reqSize));
       PsapInit( eCallModemPSAP->allocMem );
    }
@@ -745,11 +734,12 @@ eCall_Modem_Status eCall_PSAP_Close(void)
    // Deallocate for PSAP internal structure
    {
       PsapDeinit();
-	  free_ctrl_buffer( (void *) eCallModemPSAP->allocMem );
+      audio_free_mem( (void **) &eCallModemPSAP->allocMem );
    }
    
-   free_ctrl_buffer( (void *) eCallModemPSAP ); 
-   //L1SP_EnableSpeechEnhancement(KAL_TRUE);
+   audio_free_mem( (void **) &eCallModemPSAP );
+   
+   L1SP_EnableSpeechEnhancement(KAL_TRUE);
    
    return eCALL_OPERATION_SUCCESS;
 }

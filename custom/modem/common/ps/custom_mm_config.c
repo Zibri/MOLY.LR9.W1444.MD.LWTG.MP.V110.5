@@ -74,6 +74,14 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -461,8 +469,10 @@ kal_uint32 mm_custom_get_erase_forbidden_la_list_timer_period(void)
  * const kal_uint32 LR_BEFORE_ECC_MCC_LIST[] = {ALL_MCC_ALLOWED}; // UE shall perform LR before ECC regardless of MCC
  *
  *************************************************************************/
-#ifdef __MM_PERFORM_LU_BEFORE_ECC__
+#if defined(__MM_PERFORM_LU_BEFORE_ECC__)
 const kal_uint32 LR_BEFORE_ECC_MCC_LIST[] = {ALL_MCC_ALLOWED};
+#elif defined(__DOCOMO_IOT_LR_BEFORE_ECC__)
+const kal_uint32 LR_BEFORE_ECC_MCC_LIST[] = {440};
 #else
 const kal_uint32 LR_BEFORE_ECC_MCC_LIST[] = {NO_MCC_ALLOWED};
 #endif
@@ -706,6 +716,16 @@ const char *DISABLE_PAGING_CSMT_FLAG_PLMN[] = {"40410", "22201", "46601", "23415
 
 const kal_uint32 DISABLE_PAGING_CSMT_FLAG_PLMN_NUM = sizeof(DISABLE_PAGING_CSMT_FLAG_PLMN)/sizeof(char *);
 
+/*****************************************************************************
+* Enable CSMT flag in paging response
+* 
+* - DISABLE_PAGING_CSMT_FLAG_PLMN_END
+*   - If PLMN is listed in the array, the CSMT flag shall never be set
+*
+*****************************************************************************/
+const char *ENABLE_PAGING_CSMT_FLAG_PLMN[] = {"310410", ENABLE_PAGING_CSMT_FLAG_PLMN_END};
+
+const kal_uint32 ENABLE_PAGING_CSMT_FLAG_PLMN_NUM = sizeof(ENABLE_PAGING_CSMT_FLAG_PLMN)/sizeof(char *);
 
 #ifdef __TC7__CS__SUPPORT__
 /*****************************************************************************

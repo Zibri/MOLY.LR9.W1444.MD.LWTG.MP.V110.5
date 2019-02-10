@@ -115,6 +115,7 @@ extern void UL1D_UeBandCapabilityEx(kal_uint32 *ue_cap);
 #include "sim_ps_struct.h"
 #include "sim_ps_enum.h"
 #include "sim_ps_msgid.h"
+#include "mcd_l3_inc_struct.h"
 
 #define CM_DTMF_P_W_SWITCH_FLAG  KAL_FALSE
 //define codec num
@@ -144,6 +145,7 @@ kal_wchar CUSTOM_AT_IMAGE_DOWNLOAD_FOLDER_NAME[] = {0x0049, 0x006D, 0x0061, 0x00
 
 #include "custom_l4_utility.h"
 
+extern void l4crac_get_current_plmn(plmn_id_rat_struct  *current_plmn);
 
 /*****************************************************************************
 	If customer want to use other character instead of '?' as wild character 
@@ -2471,3 +2473,127 @@ l4c_feature_support_enum custom_query_feature_is_supported(kal_uint8 feature_id)
     }
 }
 
+/* record the SBP ID from SIM card*/
+static kal_uint16 sim_sbp_id[MAX_SIM_NUM]={0};
+
+/*****************************************************************************
+* FUNCTION
+*     custom_judge_sbp_id_use_mcc_mnc()
+* DESCRIPTION
+*     This function is used to judge what operator does the input MCC/MNC belong to
+* PARAMETERS
+*    mcc    [IN]
+*    mnc    [IN]
+* RETURNS
+*   0: unknown/default
+*   others: SBP ID (ex. 17: DOCOMO)
+*****************************************************************************/
+kal_uint16 custom_judge_sbp_id_use_mcc_mnc(kal_uint16 mcc, kal_uint16 mnc)
+{    
+
+    if ( ((mcc == 440) && (mnc == 10)) ||
+         ((mcc == 310) && (mnc == 370)) ||
+         ((mcc == 310) && (mnc == 470)) )
+    {
+        return 17;  // DOCOMO
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+/*****************************************************************************
+* FUNCTION
+*     custom_set_imsi_mapping_to_sbp_id()
+* DESCRIPTION
+*     This function is used to compute the SBP ID according to IMSI
+* PARAMETERS
+*    imsi    [IN]
+*    mnc_length_from_sim    [IN]
+* RETURNS
+*   void
+*****************************************************************************/
+void custom_set_imsi_mapping_to_sbp_id(kal_uint8 *imsi, kal_uint8 mnc_length_from_sim, kal_uint8 sim_id)
+{
+    kal_uint8 out_buff[30];
+    kal_uint16 mcc=0, mnc=0;
+
+    if (sim_id >=MAX_SIM_NUM)
+    {
+        kal_sprintf((kal_char*)out_buff, "SIM_SBP_ID(IMSI): invalid sim_id: %d", sim_id);
+        tst_sys_trace(out_buff);
+        return;
+    }
+
+    mcc = (imsi[0]>>4)*100 + (imsi[1]&0x0f)*10 + (imsi[1]>>4);
+    mnc = (imsi[2]&0x0f)*10 + (imsi[2]>>4);
+    
+    if (mnc_length_from_sim== 3)
+    {
+        mnc = mnc*10 + (imsi[3]&0x0f);
+    }
+    else
+    {
+        // treat the length of mnc is 2 because some SIM card don't have MNC length value in the EF_AD.
+    }
+
+    sim_sbp_id[sim_id] = custom_judge_sbp_id_use_mcc_mnc(mcc, mnc);
+
+    kal_sprintf((kal_char*)out_buff, "SIM_SBP_ID(IMSI)(%d): %d", sim_id, sim_sbp_id[sim_id]);
+    tst_sys_trace(out_buff);
+}
+
+/*****************************************************************************
+* FUNCTION
+*     custom_get_sim_sbp_id()
+* DESCRIPTION
+*     This function is used to get the SBP ID according to the IMSI (SIM1)
+*     Important notice:
+*       - We have open market project with sbp_id set to 0 (default)
+*          But, we still need to enable some operator specific feature according to the inserted SIM card.
+*          So we provide this function for this kind of project.
+*       - Please use this function only when it is needed to enable your operator 
+*          specific SBP feature according to the IMSI under open market project (sbp_id = 0)
+*       - The returned value is meaningful only when SIM task could get IMSI from the SIM card.
+*          If your feature need to be enabled before SIM_READY_IND, please don't use this function.
+*       - The returned value will be updated when SIM task get new IMSI
+*          ex. SIM A inserted(SBP ID=A)-->SIM Error, ex. plug-out (SBP_ID=A), SIM B inserted (SBP ID=B)
+*          If you have concern about race condition, please avoid using this function.
+* PARAMETERS
+*    imsi    [IN]
+* RETURNS
+*   0: unknown/default
+*   others: SBP ID (ex. 17: DOCOMO)
+*****************************************************************************/
+kal_uint16 custom_get_sim_sbp_id()
+{
+    return sim_sbp_id[0];
+}
+/*****************************************************************************
+* FUNCTION
+*     custom_check_ecc_change_rat_retry_allowed_for_plmn()
+* DESCRIPTION
+*     Check if the change RAT retry for ECC reject is not allowed for the particular PLMN
+* PARAMETERS
+*     
+* RETURNS
+*     KAL_TRUE - Allow change RAT retry
+*     KAL_FALSE - Do not allow change RAT retry
+*****************************************************************************/
+kal_bool custom_check_ecc_change_rat_retry_allowed_for_plmn(void)
+{
+	plmn_id_rat_struct plmn_id_ptr;
+
+	l4crac_get_current_plmn(&plmn_id_ptr);
+
+    /* 704.01 is the MCC.MNC for Guatemala*/
+	if((plmn_id_ptr.plmn_id.mcc1 == 7) && (plmn_id_ptr.plmn_id.mcc2 == 0) && (plmn_id_ptr.plmn_id.mcc3 == 4) && (plmn_id_ptr.plmn_id.mnc1 == 0) && (plmn_id_ptr.plmn_id.mnc2 == 1))
+    {
+        return KAL_FALSE;
+	}
+	else
+	{
+        return KAL_TRUE;
+	}
+}

@@ -70,7 +70,7 @@
 /////////////////////////
 // define MIPI bypass feature enable
 /////////////////////////
-#define IS_MIPI_BYPASS_FEATURE_ENABLE  1
+#define IS_MIPI_BYPASS_FEATURE_ENABLE  0
 
 
 ///////////////////////////////////////////////////////////////////
@@ -106,7 +106,7 @@
 
 /*MIPI ASM     */
 /*TDD TX ON    */
-#define  LTE_TDD_MIPI_ASM_TX_ON0   US2OFFCNT(13)
+#define  LTE_TDD_MIPI_ASM_TX_ON0   US2OFFCNT(10)
 #define  LTE_TDD_MIPI_ASM_TX_ON1   0
 
 /*MIPI ASM     */
@@ -127,7 +127,7 @@
 
 /*MIPI PA     */
 /*TDD TX ON    */
-#define  LTE_TDD_MIPI_PA_TX_ON0    US2OFFCNT(13)
+#define  LTE_TDD_MIPI_PA_TX_ON0    US2OFFCNT(12)
 #define  LTE_TDD_MIPI_PA_TX_ON1    US2OFFCNT(9)
 #define  LTE_TDD_MIPI_PA_TX_ON2    0
 
@@ -138,9 +138,9 @@
 
 
 /*** MIPI BYPASS Feature ***/
-#define  LTE_MIPI_BYPASS_BAND_INDICATOR1          LTE_Band38
-#define  LTE_MIPI_BYPASS_BAND_INDICATOR2          LTE_Band40
-#define  LTE_MIPI_BYPASS_BAND_INDICATOR3          LTE_Band41
+#define  LTE_MIPI_BYPASS_BAND_INDICATOR1          LTE_BandNone
+#define  LTE_MIPI_BYPASS_BAND_INDICATOR2          LTE_BandNone
+#define  LTE_MIPI_BYPASS_BAND_INDICATOR3          LTE_BandNone
 #define  LTE_MIPI_BYPASS_BAND_INDICATOR4          LTE_BandNone
 #define  LTE_MIPI_BYPASS_BAND_INDICATOR5          LTE_BandNone
 

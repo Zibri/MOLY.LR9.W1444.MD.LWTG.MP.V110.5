@@ -56,11 +56,6 @@
  * $Modtime:   Aug 02 2005 15:21:54  $
  * $Log:   //mtkvs01/vmdata/Maui_sw/archives/mcu/l1/l1d/m12190.c-arc  $
  *
- * removed!
- * removed!
- * 	
- * 	.
- *
  * 06 02 2016 siyu.li
  * removed!
  * [GL1D].
@@ -2102,21 +2097,6 @@ sRFSETTING2 l1d_rf2;  // RF only
 /* RFSpecialCoef Calibration data         */
 /*----------------------------------------*/
 sRFSpecialCoef RFSpecialCoef;
-
-/*----------------------------------------------------------*/
-/* To fix callback function long time may not be run issue  */
-/* Add feature switch in custom folder                      */
-/*----------------------------------------------------------*/
-
-#ifndef L1D_NVRAM_SPECIAL_SERVICE_SWITCH_ENABLE
-#define L1D_NVRAM_SPECIAL_SERVICE_SWITCH_ENABLE 0
-#endif
-
-#if L1D_NVRAM_SPECIAL_SERVICE_SWITCH_ENABLE
-#define L1D_NVRAM_SPECIAL_SERVICE_SWITCH KAL_TRUE
-#else
-#define L1D_NVRAM_SPECIAL_SERVICE_SWITCH KAL_FALSE
-#endif
 
 /*----------------------------------------*/
 /* VCXO Linear Compensation parameters    */
@@ -5779,7 +5759,7 @@ kal_bool nvram_special_service(void *user_data)
 
 nvram_read_callback_entry l1_callback[] =
 {
-    {nvram_special_service, NULL, MOD_NIL, 0xFF, L1D_NVRAM_SPECIAL_SERVICE_SWITCH},
+    {nvram_special_service, NULL, MOD_NIL, 0xFF, KAL_FALSE},
 };
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 

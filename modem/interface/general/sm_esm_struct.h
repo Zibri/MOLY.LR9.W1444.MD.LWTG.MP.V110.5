@@ -62,10 +62,6 @@
  *
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -137,7 +133,6 @@ typedef struct {
     // no need to include irat_type, source_rat, target_rat, irat_result. because ESM will send this msg to SM only when 4G23 success
     //bearer_ctxt_transfer_struct pdp_info;
     kal_uint8 total_number; // Total number of PDP context/EPS bearer which will transfer to target RAT
-    kal_bool is_sm_local_release; //TRUE means that SM has locally released any PDP without synchronizing the current PDP status with the network before IRAT 23G4.
     bearer_ctxt_struct pdp_context[MAX_TRANSFERRED_BEARER_NUM]; // bearer context which will transfer to target RAT
 } sm_pdp_context_transfer_req_struct; // iRAT success context transfer: Source RAT  --> Target RAT
 

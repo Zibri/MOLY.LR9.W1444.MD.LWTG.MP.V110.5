@@ -106,10 +106,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -852,17 +848,12 @@ AUD_CCCI_MSG_T spcIO_msgMapper(SPCIO_MSG_FROM_SPC spcIoMsg)
 		case SPCIO_MSG_FROM_SPC_BGSND_ON_ACK: ccciMsgCmd = MSG_M2A_BGSND_ON_ACK; break;
 		case SPCIO_MSG_FROM_SPC_BGSND_OFF_ACK: ccciMsgCmd = MSG_M2A_BGSND_OFF_ACK; break;
 		case SPCIO_MSG_FROM_SPC_BGSND_CONFIG_ACK: ccciMsgCmd = MSG_M2A_BGSND_CONFIG_ACK; break;
-		case SPCIO_MSG_FROM_IVS_SWITCH_ACK: ccciMsgCmd = MSG_M2A_IVS_SWITCH_ACK; break;
-		case SPCIO_MSG_FROM_PSAP_SWITCH_ACK: ccciMsgCmd = MSG_M2A_PSAP_SWITCH_ACK; break;
-		case SPCIO_MSG_FROM_IVS_SEND_ACK: ccciMsgCmd = MSG_M2A_IVS_SEND_ACK; break;
-		case SPCIO_MSG_FROM_PSAP_SEND_ACK: ccciMsgCmd = MSG_M2A_PSAP_SEND_ACK; break;
 
 
 		case SPCIO_MSG_FROM_SPC_PNW_DLDATA_REQUEST: ccciMsgCmd = MSG_M2A_PNW_DL_DATA_REQUEST; break;
 		case SPCIO_MSG_FROM_SPC_BGS_DATA_REQUEST: ccciMsgCmd = MSG_M2A_BGSND_DATA_REQUEST; break;
 		case SPCIO_MSG_FROM_SPC_CTM_DATA_REQUEST: ccciMsgCmd = MSG_M2A_CTM_DATA_REQUEST; break;
 		case SPCIO_MSG_FROM_SPC_DACA_ULDATA_REQUEST: ccciMsgCmd = MSG_M2A_DACA_UL_DATA_REQUEST; break;
-		case SPCIO_MSG_FROM_SPC_MSD_DATA_ACK: ccciMsgCmd = MSG_M2A_ECALL_MSD_ACK; break;
 
 		case SPCIO_MSG_FROM_SPC_PNW_ULDATA_NOTIFY: ccciMsgCmd = MSG_M2A_PNW_UL_DATA_NOTIFY; break;
 		case SPCIO_MSG_FROM_SPC_REC_DATA_NOTIFY: ccciMsgCmd = MSG_M2A_REC_DATA_NOTIFY; break;

@@ -71,10 +71,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -548,7 +544,6 @@
 #include "ul1_nvram_def.h"
 #include "audio_nvram_def.h"
 #include "ex_nvram_def.h"
-#include "nvram_msgid.h"
 /*
  * Macro
  */
@@ -1875,15 +1870,7 @@ void nvram_ltable_register(nvram_ltable_entry_struct *table)
 // The return value not used now, always return KAL_TRUE
 kal_bool nvram_register_read_req(nvram_read_callback_struct *entry)
 {
-    nvram_callback_req_struct *local_data;
     entry->processed = KAL_FALSE;
-    /*send a message to NVRAM to wakeup NVRAM task*/
-    local_data = (nvram_callback_req_struct*) construct_local_para(sizeof(nvram_callback_req_struct), TD_CTRL);
-    local_data->ref_count = 1;
-    local_data->access_id = 0;
-    local_data->cfun_addr = (void*)(entry->callback);
-    nvram_send_ilm(MOD_NVRAM, MSG_ID_NVRAM_CALLBACK_REQ, local_data, NULL);
-    
     return KAL_TRUE;
 }
 

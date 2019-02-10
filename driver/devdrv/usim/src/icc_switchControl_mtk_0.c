@@ -62,22 +62,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  *
  * removed!
@@ -681,10 +665,7 @@
 #endif /*__CLKG_DEFINE__*/
 
 
-#if defined(LPWR_SLIM)
-#include "sleepdrv_interface.h"
-extern void DRV_ICC_CLKSRC_Lock(kal_uint32 hwInterfaceNo, kal_bool fLock);
-#endif
+
 extern kal_uint32 SIM_GetCurrentTime(void);
 #define	SIM_NULLBYTE_ISSUE
 #ifdef	SIM_NULLBYTE_ISSUE
@@ -2176,14 +2157,6 @@ void SIM_HISR_Multiple(void)
 			if((SIM_Reg(SIM0_BASE_ADDR_MTK + SIM_CTRL_MTK) & 0x2) != 0x2)
 				ASSERT(0);
 #endif
-
-#if defined(LPWR_SLIM)
-                  if((KAL_TRUE == SimCard->clkStop) && (hw_cb->issueCardStatus == SIM_CLOCK_STOP_TIME_ENHANCE)) 
-                  {   
-                      SleepDrv_SleepEnable(hw_cb->smHandler);  //unlock sleep mode
-                  }
-#endif
-
 	               break;
 
 	            default: /*normal command case*/
@@ -2467,7 +2440,7 @@ void SIM_HISR2_Multiple(void)
 
 	if ( sim_int & SIM_STS_TOUT)
 	{
-	   DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC70, 0x8, SimCard->State, drv_get_current_time(), SimCard->cmdState, hw_cb->simInterface);
+	   DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC70, 0x8, SimCard->State, drv_get_current_time(), 0, hw_cb->simInterface);
 	   //dbg_print("703SIM_STS_TOUT\r\n");
 	   if(SimCard->State == SIM_WAIT_FOR_ATR)
 	   {
@@ -2517,14 +2490,6 @@ void SIM_HISR2_Multiple(void)
 			if((SIM_Reg(SIM0_BASE_ADDR_MTK + SIM_CTRL_MTK) & 0x2) != 0x2)
 				ASSERT(0);
 #endif
-
-#if defined(LPWR_SLIM)
-                  if((KAL_TRUE == SimCard->clkStop) && (hw_cb->issueCardStatus == SIM_CLOCK_STOP_TIME_ENHANCE)) 
-                  {
-                      SleepDrv_SleepEnable(hw_cb->smHandler);  //unlock sleep mode
-                  }
-#endif
-
 	               break;
 
 	            default: /*normal command case*/
@@ -4206,21 +4171,6 @@ static kal_uint16 SIM_CMD(kal_uint8  *txData,kal_uint16  txSize,kal_uint8  *resu
 	DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC16, txSize,*Error,*result,*(result+1),drv_get_current_time());
 #endif
 
-  	if((hw_cb->issueCardStatus == SIM_CLOCK_STOP_TIME_ENHANCE) && (SimCard->clkStop == KAL_TRUE))
-	{
-		if((0x9000 == SW && 0x12 == txData[1]) || 0x9100 == (SW & 0xFF00))
-		{
-			hw_cb->doNotStopSimClock = 1;
-			kal_sprintf(sim_dbg_str, "Do not stop SIM clock this time\n\r");
-			DRV_ICC_print_str(sim_dbg_str);
-		}
-              else if((0x80 == txData[0]) && (0x14 == txData[1]))
-              {
-                    hw_cb->doNotStopSimClock = 0;
-			kal_sprintf(sim_dbg_str, "free 26M because of special command\n\r");
-			DRV_ICC_print_str(sim_dbg_str);
-              }
-	}
 #if defined(__SIM_HOT_SWAP_SUPPORT__)
 	if(usim_dcb->present == KAL_FALSE)
 	{
@@ -4235,7 +4185,7 @@ static kal_uint16 SIM_CMD(kal_uint8  *txData,kal_uint16  txSize,kal_uint8  *resu
 
       // dbg_print("SW=%x\r\n",SW);
       // for clock stop mode
-      if((SimCard->clkStop == KAL_TRUE&&*(txData+1)!=0x88) && (hw_cb->issueCardStatus != SIM_CLOCK_STOP_TIME_ENHANCE))
+      if(SimCard->clkStop == KAL_TRUE&&*(txData+1)!=0x88)
       {
          kal_uint32 t1,tout=20;
       if((DRV_Reg32(SIM0_BASE_ADDR_MTK + SIM_BRR_MTK) &0x03)==SIM_BRR_CLK_Div8) 
@@ -4264,15 +4214,6 @@ static kal_uint16 SIM_CMD(kal_uint8  *txData,kal_uint16  txSize,kal_uint8  *resu
 
 	 if(SimCard->Fi/SimCard->TOUT_Factor>=64) //For slow cards
 		SIM_Idle_MTK(SimCard->clkStopLevel, hw_cb);
-      }
-      else if((SimCard->clkStop == KAL_TRUE&&*(txData+1)!=0x88 && hw_cb->doNotStopSimClock == 0) && (hw_cb->issueCardStatus == SIM_CLOCK_STOP_TIME_ENHANCE))
-      {		
-		SIM_DisAllIntr();
-		SIM_ClearBits(SIM0_BASE_ADDR_MTK + SIM_CONF_MTK, SIM_CONF_TOUTEN);
-		SIM_SetTOUT((1860/(DRV_Reg32(SIM0_BASE_ADDR_MTK + SIM_BRR_MTK) >> 2) + 1 + 16) >> 2, hw_cb); 
-		SIM_SetBits(SIM0_BASE_ADDR_MTK + SIM_CONF_MTK, SIM_CONF_TOUTEN);
-		SimCard->cmdState = SIM_StopClk;
-		SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_IRQEN_MTK,SIM_IRQEN_TOUT);
       }
       else
       {

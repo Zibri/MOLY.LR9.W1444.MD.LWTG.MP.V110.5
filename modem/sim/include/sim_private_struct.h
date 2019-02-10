@@ -71,6 +71,10 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -619,6 +623,7 @@ typedef struct
     kal_uint8 ct_mode;
     kal_uint8 had_change_limited_to_normal_once;
 #endif
+	kal_uint8 pli_count;
 }sat_context_struct;
 #endif /* __SAT__ */
 

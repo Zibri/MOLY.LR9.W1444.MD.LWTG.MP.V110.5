@@ -4071,12 +4071,6 @@ ifdef DHL_MONITOR_MODE_SUPPORT
   endif
 endif
 
-ifdef AUTOMOTIVE_TELEMATICS
-  ifeq ($(strip $(AUTOMOTIVE_TELEMATICS)),TRUE)
-    COM_DEFS += __AUTOMOTIVE_TELEMATICS__
-  endif
-endif
-
 #############################################################################################
 # Add PPP_SUPPORT feature rule here
 # firstly, set/reset PS_DIALUP and TCPIP_OVER_CSD sub_feature_option
@@ -5807,19 +5801,6 @@ ifdef L1_LOCK_AFCDAC_AT_STARTUP_SUPPORT
   endif
 endif
 
-ifneq ($(filter MT6735,$(strip $(PLATFORM))),)
-  ifeq ($(strip $(AFC_VCXO_TYPE)),VCXO)
-    ifeq ($(strip $(L1_GPS_CO_CLOCK_SUPPORT)),FALSE)
-      $(warning ERROR: please enable L1_GPS_CO_CLOCK_SUPPORT when PLATFORM = MT6735 and AFC_VCXO_TYPE = VCXO)
-      DEPENDENCY_CONFLICT = TRUE
-    endif
-    ifeq ($(strip $(L1_LOCK_AFCDAC_AT_STARTUP_SUPPORT)),FALSE)
-      $(warning ERROR: please enable L1_LOCK_AFCDAC_AT_STARTUP_SUPPORT when PLATFORM = MT6735 and AFC_VCXO_TYPE = VCXO)
-      DEPENDENCY_CONFLICT = TRUE
-    endif
-  endif
-endif
-
 ifdef CCCI_FS_SUPPORT
   ifeq ($(strip $(CCCI_FS_SUPPORT)), TRUE)
     COM_DEFS += __CCCIFS_SUPPORT__
@@ -6384,12 +6365,6 @@ endif
 ifdef DEPENDENCY_CONFLICT
   ifeq ($(strip $(DEPENDENCY_CONFLICT)),TRUE)
     $(error PLEASE check above dependency errors!)
-  endif
-endif
-
-ifdef OPTIMIZED_GEN90_2G_APC_CONTROL_FLOW_SUPPORT
-  ifeq ($(strip $(OPTIMIZED_GEN90_2G_APC_CONTROL_FLOW_SUPPORT)),TRUE)
-    COM_DEFS += __OPTIMIZED_GEN90_2G_APC_CONTROL_FLOW_SUPPORT__
   endif
 endif
 

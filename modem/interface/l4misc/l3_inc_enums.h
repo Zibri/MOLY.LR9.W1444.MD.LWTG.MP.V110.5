@@ -63,6 +63,13 @@
  * removed!
  * removed!
  * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -3658,4 +3665,9 @@ typedef enum
 
 } integ_protect_status;
 
+typedef enum
+{
+        SR_FAILURE_CAUSE_AC_BARRED,
+        SR_FAILURE_CAUSE_NW_REJ_CONN
+}sr_failure_cause_enum;
 #endif // ifndef _l3_INC_ENUMS_H

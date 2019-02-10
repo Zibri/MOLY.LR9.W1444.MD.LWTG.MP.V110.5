@@ -54,11 +54,22 @@
  *
  * removed!
  * removed!
+ * Gen90 DoCoMo VoLTE patch back - IMS header file+NVRAM[IMC]
+ *
+ * removed!
+ * removed!
+ * Handling of new AT command AT+ECT for ect_type blind and assured.
+ *
+ * removed!
+ * removed!
+ * USSD patch back
+ *
+ * removed!
+ * removed!
  * Implemented AT+ECMPCID URC handling for camped cell ID.
  *
  * removed!
  * removed!
- * 	
  * 	at+erat do ims dereg
  *
  * removed!
@@ -71,9 +82,9 @@
  *
  * removed!
  * removed!
- * 	
+ *
  * 	[MOLY00160167] [Focus][WWFT][Portugal][Lisboa][MT6755][Jade-M][VDF][VOLTE][SQC Excluded] Rejected call stays active on originating UE (LTECSR) - LR9.W1444.MD.LTWG.MP
- * 	
+ *
  * 	Patched "[MOLY00148364] [ODGR-VoLTE-VoWiFi-V7.0_IMS_CALL_40]Early media handling changes for Orange" and fixed CID for MSG_ID_IMCB_IMC_CC_INCOMING_RTPPKT_IND.
  *
  * removed!
@@ -220,10 +231,14 @@ MODULE_MSG_BEGIN( MSG_ID_IMC_CODE_BEGIN )
       MSG_ID_IMSP_IMC_IMS_WFC_SUPPORT_REQ,
       MSG_ID_IMSP_IMC_WIFISTA_REQ,
 
+      /* USSI */
+      MSG_ID_IMSP_IMC_SEND_USSD_REQ,
+
       /* ss */
       MSG_ID_IMSP_IMC_SS_BEGIN,
         MSG_ID_IMSP_IMC_SS_SET_VIDEO_ABILITY_REQ,        
         MSG_ID_IMSP_IMC_SS_CONFERENCE_CONTROL_REQ,        
+        MSG_ID_IMSP_IMC_SS_ECT_REQ,
       MSG_ID_IMSP_IMC_SS_END,
 
       /* cc */
@@ -242,6 +257,8 @@ MODULE_MSG_BEGIN( MSG_ID_IMC_CODE_BEGIN )
       /* AT+CDU=0 */
       MSG_ID_IMSP_IMC_QUERY_URI_TYPE_REQ,
 
+      /* +ESRFAIL:<cause> */
+      MSG_ID_IMSP_IMC_SERVICE_REQUEST_FAIL_REQ,
 
       /* IMS voice/sms capability setting */
       MSG_ID_IMSP_IMC_SET_VOICE_CAPABILITY_REQ,
@@ -312,7 +329,7 @@ MODULE_MSG_BEGIN( MSG_ID_IMC_CODE_BEGIN )
   MSG_ID_IMC_END,
 
 MODULE_MSG_END( MSG_ID_IMC_CODE_TAIL )
-	/*------------------- IMC_MSG_CODE_END-----------------------*/
+    /*------------------- IMC_MSG_CODE_END-----------------------*/
 
 
 #endif /* _IMC_MSGID_H_ */

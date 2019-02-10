@@ -290,13 +290,6 @@ typedef enum{
  T1_EDC_INDEX		=		4
 }usim_t1_header_index_enum;
 
-typedef enum
-{
-	SIM_NORMAL = 0,
-	SIM_SLOW_CLOCK,
-	SIM_CLOCK_STOP_TIME_ENHANCE
-} usim_process_hitorical_enum;
-
 #if defined(SIM_DRV_IC_USB)
 typedef enum{
 	SIM_ICUSB_INIT,

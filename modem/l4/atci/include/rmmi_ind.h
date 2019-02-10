@@ -58,6 +58,14 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -1053,6 +1061,7 @@ extern void l4c_packets_flush_rind(kal_uint8 context_id);
 
 extern void l4c_nw_rat_select_rind(kal_uint32 gmss_rat, plmn_id_struct *plmn_id, kal_uint8 status);
 
+extern void l4c_rx_rssi_report_rind(l4c_rat_enum rat, kal_int32* rssi_dBm);
 extern void l4c_nw_duplex_mode_change_rind(kal_bool is_wcdma_mode_activated,
                                    kal_bool is_tdscdma_mode_activated,
                                    kal_bool is_ltefdd_mode_activated,
@@ -1068,6 +1077,9 @@ extern void l4c_cfun_1_rind(void);
 extern void sim_rsa_ind_1_rind(kal_uint8 msg_id_type, kal_uint8 *data);
 
 extern void l4c_reg_combined_cause_rind(emm_cause_enum emm_cause, esm_cause_enum esm_cause);
+#ifdef __LTE_RAT__
+extern void l4c_eval_sr_failure_rind(sr_failure_cause_enum failure_cause);
+#endif
 
 #ifdef __BCSFB__
 extern void l4c_nw_erlq_rind(kal_uint32 event,kal_uint32 band);

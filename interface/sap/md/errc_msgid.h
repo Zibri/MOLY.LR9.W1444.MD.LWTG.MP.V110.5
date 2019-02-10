@@ -55,6 +55,11 @@
  *
  * removed!
  * removed!
+ * 	
+ * 	-msg id.
+ *
+ * removed!
+ * removed!
  * [MT6290][CMCC 2016 new requirement] HSFR + EPLMN (evth table) (OA part).
  *
  * removed!
@@ -445,6 +450,7 @@ MSG_ID_RSVAE_EAS_FREQUENCY_SCAN_PREEMPT_IND,
 MSG_ID_LTECSR_ERRC_VOLTE_STATUS_NTF,
 MSG_ID_LTECSR_ERRC_VOLTE_CALL_SILENCE_NTF,
 MSG_ID_EAS_GAS_BSIC_ENH_IND,
+MSG_ID_EVAL_ERRC_CAMERA_STATUS_IND,
 MSG_ID_EXEVT_RCV_END,
 MSG_ID_INEVT_BEGIN,
 MSG_ID_ERRC_SPV_RCM_INIT_REQ,

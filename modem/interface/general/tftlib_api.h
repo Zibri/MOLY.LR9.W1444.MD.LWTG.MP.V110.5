@@ -55,10 +55,6 @@
  *
  * removed!
  * removed!
- * [TFTLIB] include new header file.
- *
- * removed!
- * removed!
  * TFTLIB check-in related interface
  *
  * removed!
@@ -101,9 +97,6 @@
 #include "tftlib_common_struct.h"
 #include "tftlib_common_enum.h"
 #include "l3_inc_enums.h"
-#include "l4_ps_api.h"
-#include "sim_public_enum.h"
-
 
 
 /* TFT Library API for SM/ESM */

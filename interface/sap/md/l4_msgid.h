@@ -72,6 +72,13 @@
  * removed!
  * removed!
  * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -1731,7 +1738,6 @@ MODULE_MSG_BEGIN( MSG_ID_PS_CODE_BEGIN )
 
    // re-usage 4G LPP CP message to reset LCS pos info during SUPL testing
    MSG_ID_L4C_EVAL_NW_RESET_UE_STORED_POS_INFO_IND,
-
    MSG_ID_L4CAS_SET_PLMN_LIST_PREFERENCE_REQ,
 
    MSG_ID_L4CAS_SET_HSPA_PREFERENCE_REQ, //mtk02285, hspa_mmi
@@ -1774,7 +1780,8 @@ MODULE_MSG_BEGIN( MSG_ID_PS_CODE_BEGIN )
    MSG_ID_L4C_ME_VOLTE_RECONFIGURE_REQ,
    MSG_ID_L4C_ME_VOLTE_RECONFIGURE_CNF,
    MSG_ID_L4C_EVAL_CONNECTED_DRB_IND,
-   MSG_ID_PS_CODE_END = MSG_ID_L4C_EVAL_CONNECTED_DRB_IND,
+   MSG_ID_L4C_EVAL_SR_FAILURE_IND,
+   MSG_ID_PS_CODE_END = MSG_ID_L4C_EVAL_SR_FAILURE_IND,
    /*----------AS_MSG_CODE_END -----------------*/
 MODULE_MSG_END( MSG_ID_PS_CODE_TAIL )	       
 

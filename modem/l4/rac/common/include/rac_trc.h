@@ -59,6 +59,11 @@
  * removed!
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -459,6 +464,9 @@ TRC_MSG(RAC_TRC_rac_update_last_domain, "[RAC] rac_update_last_domain()")
 #endif /* __GSM_RAT__ || __UMTS_RAT__ */
 
 TRC_MSG(RAC_TRC_rac_e_get_detach_domain_by_rat_mode, "rac_e_get_detach_domain_by_rat_mode()")
+TRC_MSG(RAC_TRC_rac_e_send_gmss_resu_req, "erac_send_gmss_resu_req()")
+TRC_MSG(RAC_TRC_erac_change_vdp_by_ims_config, "rac_e_change_vdp_by_ims_config()")
+TRC_MSG(RAC_TRC_erac_judge_is_dcm_hplmn, "rac_e_judge_is_dcm_hplmn()")
 TRC_MSG(RAC_TRC_rac_e_change_usage_setting_by_sim, "rac_e_change_usage_setting_by_sim")
 #endif /* __LTE_RAT__ */
 
@@ -498,6 +506,10 @@ TRC_MSG(RAC_TRC_SMS_OVER_IP_SGS, "[RAC] SMS over IP = %Mkal_bool, SMS over SGS =
 TRC_MSG(RAC_TRC_TIN, "[RAC] TIN = %Mtin_enum")
 TRC_MSG(RAC_TRC_UE_MODE, "[RAC] UE Mode = %Mue_mode_enum")
 TRC_MSG(RAC_TRC_VDP_CHANGE_DUE_TO_IMS_ONOFF, "[RAC] VDP Change to %Ml4_voice_domain_preference_enum because of IMS on/off")
+TRC_MSG(RAC_TRC_CHANGE_UEMODE_BY_CDMA2000, "[RAC] Change UE mode to ps mode 2 due to cdma2000 condition")
+TRC_MSG(RAC_TRC_VDP_CHANGE_DUE_TO_IMS_ONOFF_BY_ROAMING, "[RAC] VDP Change to %Ml4_voice_domain_preference_enum due to IMS = %Mkal_bool, DCM home = %Mkal_bool")
+TRC_MSG(RAC_TRC_CHANGE_IMS_ONOFF_BY_ROAMING, "[RAC] DCM hplmn = %Mkal_bool, IMS = %Mkal_bool, prev IMS = %Mkal_bool")
+
 TRC_MSG(RAC_TRC_SET_RUNTIME_UE_MODE, "[RAC] set runtime UE Mode from %Mue_mode_enum to %Mue_mode_enum")
 TRC_MSG(RAC_TRC_NVRAM_UE_MODE, "[RAC] NVRAM UE Mode = %Mue_mode_enum")
 TRC_MSG(RAC_TRC_NOT_SEND_UE_MODE_UPDATE_REQ, "[RAC] UE Mode parameters are the same, do not send UE_MODE_PARAM_UPDATE_REQ")
@@ -515,10 +527,12 @@ TRC_MSG(RAC_TRC_LAST_ATTACH_DOMAIN, "[RAC] last attach domain %Mdomain_id_enum")
 TRC_MSG(RAC_TRC_SET_LAST_ATTACH_DOMAIN, "[RAC] set last attach domain as %Mdomain_id_enum")
 TRC_MSG(RAC_TRC_UPDATE_NEW_ATTACH_DOMAIN, "[RAC] update attach domain by sending ATTACH_REQ")
 TRC_MSG(RAC_TRC_TO_UPDATE_LAST_ATTACH_DOMAIN, "[RAC] update last attach domain when detach = %Mkal_bool, service = %Mdomain_id_enum")
+TRC_MSG(RAC_TRC_DCM_HPLMN_FLAG, "[RAC] is_on_dcm_hplmn_flag = %Mkal_bool, changed = %Mkal_bool")
 TRC_MSG(RAC_TRC_DISABLE_CS_DETACH_FOR_SET_MULTIRAT, "[RAC] not notify MM to detach CS domain for setting as multi-RAT")
 
 
 #endif /* __LTE_RAT__ */
+TRC_MSG(RAC_TRC_HPLMN_RECORD_FLAG, "[RAC] hplmn_record_flag = %Mkal_bool")
 
 TRC_MSG(RAC_CURRENT_ACTION,"[RAC] current action: %Mrac_action_enum")
 TRC_MSG(UNEXPECTED_MESSAGE,"[RAC] Unexpected message for RAC in state: %d")

@@ -74,14 +74,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -186,12 +178,8 @@ void spc_record_sendRAWPcmData(void);
 // CTM
 // ----------------------------------------------------------------------------
 void spc_ctm_sendDumpDebugData(void);
-// ----------------------------------------------------------------------------
-// ECALL
-// ----------------------------------------------------------------------------
-#if defined(__ECALL_SUPPORT__)	
-void spc_eCall_Msd_Data(kal_uint16 offset, kal_int16 length);
-#endif
+
+
 // ----------------------------------------------------------------------------
 // AUDL running functions Related
 // ----------------------------------------------------------------------------

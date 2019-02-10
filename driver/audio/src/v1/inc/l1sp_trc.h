@@ -574,7 +574,6 @@ BEGIN_TRACE_MAP(MOD_L1SP)
    TRC_MSG(ECALL_PSAP_MODEM_FAST_REMAIN_IDLE, "[eCall][PSAP] remaining in IDLE mode")
    TRC_MSG(ECALL_PSAP_MODEM_FAST_MODULATION, "[eCall][PSAP] fast modulator chosen (metric: %d)")
    TRC_MSG(ECALL_PSAP_MODEM_ROBUST_MODULATION, "[eCall][PSAP] robust modulator chosen (metric: %d)")
-   TRC_MSG(ECALL_IVS_PUT_MSD, "[eCall][IVS] eCall_IVS_PutMSD,%d,%d,%d,%d,%d,%d,%d")
 
 	// pcm record
 	TRC_MSG(PCMREC_HISR_DATA_DROP_DSP, "[pcmRec] Drop dsp data due to buffer full, wFrameIdx = %d, rFrameIdx = %d")

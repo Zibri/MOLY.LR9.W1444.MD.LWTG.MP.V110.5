@@ -77,10 +77,6 @@
  * removed!
  * removed!
  *
- * removed!
- * removed!
- * removed!
- *
  *------------------------------------------------------------------------------
  * Upper this line, this part is controlled by PVCS VM. DO NOT MODIFY!!
  *==============================================================================
@@ -543,19 +539,6 @@ typedef struct
     nvram_errno_enum result;   /* the result of the requirement */
 } nvram_bin_region_cnf_struct;
 
-/*************************************************************
- *  <GROUP Local_Parameter_Structure>
- *  Related Message: MSG_ID_NVRAM_CALLBACK_REQ
- *************************************************************/
-typedef struct
-{
-    /* DOM-NOT_FOR_SDK-BEGIN */
-    kal_uint8		ref_count;
-    kal_uint16      msg_len;
-    /* DOM-NOT_FOR_SDK-END */
-    kal_uint8       access_id;                 /* app use, no use to NVRAM, will return in confirm primitive*/
-    void *cfun_addr;
-} nvram_callback_req_struct;
 
 #endif /* NVRAM_STRUCT_H */
 

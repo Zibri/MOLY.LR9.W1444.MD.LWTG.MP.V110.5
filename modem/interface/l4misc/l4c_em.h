@@ -73,6 +73,10 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -259,6 +263,8 @@ extern kal_bool l4c_eq_set_rx_path_req(kal_uint8 src_id,
                                        kal_uint8 cmd_type,
                                        kal_uint8 rx_path,
                                        kal_bool nvram_write);
+
+extern void l4c_rx_rssi_verify_ind_hdlr(msg_type msg_id,local_para_struct *local_para_ptr);
 
 extern kal_bool l4c_force_tx_ant_req(kal_uint8 src_id,
                                  kal_uint8 cmd_type,

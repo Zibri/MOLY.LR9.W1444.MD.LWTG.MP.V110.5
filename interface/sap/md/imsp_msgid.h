@@ -72,16 +72,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -101,6 +91,12 @@
  *
  * removed!
  * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -110,6 +106,21 @@
  * removed!
  * removed!
  *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
  * removed!
  * removed!
  *
@@ -363,6 +374,7 @@ MODULE_MSG_BEGIN( MSG_ID_IMSP_CODE_BEGIN )
     MSG_ID_IMSP_IMC_SS_SUBSCRIBE_CONTROL_IND,
     MSG_ID_IMSP_IMC_SS_CONFERENCE_CONTROL_IND,
     MSG_ID_IMSP_IMC_SS_PROGRESS_NOTIFY_IND,
+    MSG_ID_IMSP_IMC_SS_ECT_IND,
     MSG_ID_IMSP_IMC_ECFG_SET_CNF, 
     MSG_ID_IMSP_IMC_ECFG_GET_CNF, 
     MSG_ID_IMSP_IMC_CC_CSSU_IND,
@@ -385,13 +397,19 @@ MODULE_MSG_BEGIN( MSG_ID_IMSP_CODE_BEGIN )
     MSG_ID_IMSP_IMC_CC_MEDIA_MOD_IND,
     MSG_ID_IMSP_IMC_CC_VIDEO_CAP_IND,
 
+    /* USSI */
+    MSG_ID_IMSP_IMC_SEND_USSD_CNF,
+    MSG_ID_IMSP_IMC_RECV_USSD_IND,
+
     /* IMS voice/sms capability setting */
     MSG_ID_IMSP_IMC_SET_VOICE_CAPABILITY_CNF,
     MSG_ID_IMSP_IMC_SET_SMS_CAPABILITY_CNF,
     MSG_ID_IMSP_IMC_IMS_VOLTE_SUPPORT_CNF,
 
     MSG_ID_IMSP_IMC_SWITCH_PREFER_RAT_CNF,
-
+    /* AT+ECT */
+    MSG_ID_IMSP_IMC_SS_ECT_CNF,
+    
   MSG_ID_IMSP_IMC_RANGE_END, 
 
   /* LTECSR -> IMSP */
