@@ -24,6 +24,7 @@ make(){
     	cp $OUT/bin/'~GNSZ6737M_65_N(LWG_DSDS).mak' temp_modem/modem_1_lwg_n.mak
     	cp $OUT/dhl/database/mdm_layout_desc.dat temp_modem/mdm_layout_desc_1_lwg_n.dat
     	cp $OUT/bin/GNSZ6737M_65_N_MDBIN_PCB01_MT6735_S00.MOLY_LR9_W1444_MD_LWTG_MP_V110_5.bin temp_modem/modem_1_lwg_n.img
+    	cp $OUT/bin/MT6735_MP_SPI_MT6735_DSPMOLY_LR9_W1444_MD_LWTG_MP_V110_5.bin temp_modem/dsp_1_lwg_n.bin
     	cp $OUT/dhl/database/catcher_filter.bin temp_modem/catcher_filter_1_lwg_n.bin
     	cp $OUT/dhl/database/DbgInfo_LR9.W1444.MD.LWTG.* temp_modem/
     	cp $OUT/dhl/database/BPLGUInfoCustomAppSrcP_MT6735_S00_MOLY_LR9_W1444_MD_LWTG_MP_V110_5 temp_modem/BPLGUInfoCustomAppSrcP_MT6735_S00_MOLY_LR9_W1444_MD_LWTG_MP_V110_5_1_lwg_n
