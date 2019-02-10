@@ -98,26 +98,44 @@
 /*MT6169*/#define    LTE_PDATA_OFF            0x00000000
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND1 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band1_PR1      0x00000005	
-/*MT6169*/#define    PDATA_LTE_Band1_PR2      0x00000005
+/*MT6169*/#define    PDATA_LTE_Band1_PR1      0x00000010	
+/*MT6169*/#define    PDATA_LTE_Band1_PR2      0x00000010
 /*MT6169*/#define    PDATA_LTE_Band1_PR3      LTE_PDATA_OFF
 /*MT6169*/
-/*MT6169*/#define    PDATA_LTE_Band1_PT1      0x00000001	
-/*MT6169*/#define    PDATA_LTE_Band1_PT2      0x00000001	
+/*MT6169*/#define    PDATA_LTE_Band1_PT1      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band1_PT2      0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band1_PT3      LTE_PDATA_OFF
 /*MT6169*/
+/*MT6169*///* ------------- PDATA_BAND2 Start --------------------*/
+/*MT6169*/#define    PDATA_LTE_Band2_PR1      0x00000018	
+/*MT6169*/#define    PDATA_LTE_Band2_PR2      0x00000018
+/*MT6169*/#define    PDATA_LTE_Band2_PR3      LTE_PDATA_OFF
+/*MT6169*/
+/*MT6169*/#define    PDATA_LTE_Band2_PT1      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band2_PT2      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band2_PT3      LTE_PDATA_OFF
+/*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND3 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band3_PR1      0x00000080	
-/*MT6169*/#define    PDATA_LTE_Band3_PR2      0x00000080	
+/*MT6169*/#define    PDATA_LTE_Band3_PR1      0x00000004	
+/*MT6169*/#define    PDATA_LTE_Band3_PR2      0x00000004	
 /*MT6169*/#define    PDATA_LTE_Band3_PR3      LTE_PDATA_OFF
 /*MT6169*/                         
 /*MT6169*/#define    PDATA_LTE_Band3_PT1      0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band3_PT2      0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band3_PT3      LTE_PDATA_OFF
 /*MT6169*/
+/*MT6169*///* ------------- PDATA_BAND4 Start --------------------*/
+/*MT6169*/#define    PDATA_LTE_Band4_PR1      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band4_PR2      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band4_PR3      LTE_PDATA_OFF
+/*MT6169*/                         
+/*MT6169*/#define    PDATA_LTE_Band4_PT1      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band4_PT2      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band4_PT3      LTE_PDATA_OFF
+/*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND5 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band5_PR1      0x00000000	
-/*MT6169*/#define    PDATA_LTE_Band5_PR2      0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band5_PR1      0x0000001C	
+/*MT6169*/#define    PDATA_LTE_Band5_PR2      0x0000001C	
 /*MT6169*/#define    PDATA_LTE_Band5_PR3      LTE_PDATA_OFF
 /*MT6169*/                         
 /*MT6169*/#define    PDATA_LTE_Band5_PT1      0x00000000	
@@ -125,8 +143,8 @@
 /*MT6169*/#define    PDATA_LTE_Band5_PT3      LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND7 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band7_PR1      0x00000100	
-/*MT6169*/#define    PDATA_LTE_Band7_PR2      0x00000100	
+/*MT6169*/#define    PDATA_LTE_Band7_PR1      0x00000002	
+/*MT6169*/#define    PDATA_LTE_Band7_PR2      0x00000002	
 /*MT6169*/#define    PDATA_LTE_Band7_PR3      LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*/#define    PDATA_LTE_Band7_PT1      0x00000000	
@@ -134,44 +152,52 @@
 /*MT6169*/#define    PDATA_LTE_Band7_PT3      LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND8 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band8_PR1     0x00004000	
-/*MT6169*/#define    PDATA_LTE_Band8_PR2     0x00004000	
+/*MT6169*/#define    PDATA_LTE_Band8_PR1     0x00000006	
+/*MT6169*/#define    PDATA_LTE_Band8_PR2     0x00000006	
 /*MT6169*/#define    PDATA_LTE_Band8_PR3     LTE_PDATA_OFF
 /*MT6169*/                          
 /*MT6169*/#define    PDATA_LTE_Band8_PT1     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band8_PT2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band8_PT3     LTE_PDATA_OFF
 /*MT6169*/
-/*MT6169*///* ------------- PDATA_BAND27 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band27_PR1     0x00000000
-/*MT6169*/#define    PDATA_LTE_Band27_PR2     0x00000000	
-/*MT6169*/#define    PDATA_LTE_Band27_PR3     LTE_PDATA_OFF
+/*MT6169*///* ------------- PDATA_BAND17 Start --------------------*/
+/*MT6169*/#define    PDATA_LTE_Band17_PR1     0x0000000C	
+/*MT6169*/#define    PDATA_LTE_Band17_PR2     0x0000000C	
+/*MT6169*/#define    PDATA_LTE_Band17_PR3     LTE_PDATA_OFF
 /*MT6169*/                          
-/*MT6169*/#define    PDATA_LTE_Band27_PT1     0x00000000	
-/*MT6169*/#define    PDATA_LTE_Band27_PT2     0x00000000	
-/*MT6169*/#define    PDATA_LTE_Band27_PT3     LTE_PDATA_OFF
+/*MT6169*/#define    PDATA_LTE_Band17_PT1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band17_PT2     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band17_PT3     LTE_PDATA_OFF
+/*MT6169*///* ------------- PDATA_BAND20 Start --------------------*/
+/*MT6169*/#define    PDATA_LTE_Band20_PR1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band20_PR2     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band20_PR3     LTE_PDATA_OFF
+/*MT6169*/                          
+/*MT6169*/#define    PDATA_LTE_Band20_PT1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band20_PT2     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band20_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND28 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band28_PR1     0x00000825	
-/*MT6169*/#define    PDATA_LTE_Band28_PR2     0x00000825	
+/*MT6169*/#define    PDATA_LTE_Band28_PR1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band28_PR2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band28_PR3     LTE_PDATA_OFF
 /*MT6169*/                          
-/*MT6169*/#define    PDATA_LTE_Band28_PT1     0x00000021	
-/*MT6169*/#define    PDATA_LTE_Band28_PT2     0x00000021	
+/*MT6169*/#define    PDATA_LTE_Band28_PT1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band28_PT2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band28_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND28_2 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band28_2_PR1     0x00000821	
-/*MT6169*/#define    PDATA_LTE_Band28_2_PR2     0x00000821	
+/*MT6169*/#define    PDATA_LTE_Band28_2_PR1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band28_2_PR2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band28_2_PR3     LTE_PDATA_OFF
 /*MT6169*/                          
-/*MT6169*/#define    PDATA_LTE_Band28_2_PT1     0x00000021	
-/*MT6169*/#define    PDATA_LTE_Band28_2_PT2     0x00000021	
+/*MT6169*/#define    PDATA_LTE_Band28_2_PT1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band28_2_PT2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band28_2_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND38 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band38_PR1     0x00000200	
-/*MT6169*/#define    PDATA_LTE_Band38_PR2     0x00000200	
+/*MT6169*/#define    PDATA_LTE_Band38_PR1     0x00000014	
+/*MT6169*/#define    PDATA_LTE_Band38_PR2     0x00000014	
 /*MT6169*/#define    PDATA_LTE_Band38_PR3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*/#define    PDATA_LTE_Band38_PT1     0x00000000	
@@ -179,17 +205,17 @@
 /*MT6169*/#define    PDATA_LTE_Band38_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND39 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band39_PR1     0x00000281	
-/*MT6169*/#define    PDATA_LTE_Band39_PR2     0x00000281	
+/*MT6169*/#define    PDATA_LTE_Band39_PR1     0x00000004	
+/*MT6169*/#define    PDATA_LTE_Band39_PR2     0x00000004	
 /*MT6169*/#define    PDATA_LTE_Band39_PR3     LTE_PDATA_OFF
 /*MT6169*/
-/*MT6169*/#define    PDATA_LTE_Band39_PT1     0x00000001	
-/*MT6169*/#define    PDATA_LTE_Band39_PT2     0x00000001	
+/*MT6169*/#define    PDATA_LTE_Band39_PT1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band39_PT2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band39_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND40 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band40_PR1     0x0000034C	
-/*MT6169*/#define    PDATA_LTE_Band40_PR2     0x0000034C	
+/*MT6169*/#define    PDATA_LTE_Band40_PR1     0x00000002	
+/*MT6169*/#define    PDATA_LTE_Band40_PR2     0x00000002	
 /*MT6169*/#define    PDATA_LTE_Band40_PR3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*/#define    PDATA_LTE_Band40_PT1     0x00000000	
@@ -197,8 +223,8 @@
 /*MT6169*/#define    PDATA_LTE_Band40_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND41 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band41_PR1     0x00000200	
-/*MT6169*/#define    PDATA_LTE_Band41_PR2     0x00000200	
+/*MT6169*/#define    PDATA_LTE_Band41_PR1     0x00000014	
+/*MT6169*/#define    PDATA_LTE_Band41_PR2     0x00000014	
 /*MT6169*/#define    PDATA_LTE_Band41_PR3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*/#define    PDATA_LTE_Band41_PT1     0x00000000	
@@ -206,8 +232,8 @@
 /*MT6169*/#define    PDATA_LTE_Band41_PT3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*///* ------------- PDATA_BAND41_2 Start --------------------*/
-/*MT6169*/#define    PDATA_LTE_Band41_2_PR1     0x00000200	
-/*MT6169*/#define    PDATA_LTE_Band41_2_PR2     0x00000200	
+/*MT6169*/#define    PDATA_LTE_Band41_2_PR1     0x00000000	
+/*MT6169*/#define    PDATA_LTE_Band41_2_PR2     0x00000000	
 /*MT6169*/#define    PDATA_LTE_Band41_2_PR3     LTE_PDATA_OFF
 /*MT6169*/
 /*MT6169*/#define    PDATA_LTE_Band41_2_PT1     0x00000000	
@@ -220,34 +246,34 @@
 /*MT6169*//*  MB1,MB2 => freq: 1475MHz ~ 2170MHz                  */
 /*MT6169*//*  LB1-LB3 => freq: 734MHz ~ 960MHz                    */
 /*MT6169*//*------------------------------------------------------*/
-/*MT6169*/#define    LTE_Band1_RX_IO_SEL          RX_IO_HB3	
-/*MT6169*/#define    LTE_Band3_RX_IO_SEL          RX_IO_HB3
-/*MT6169*/#define    LTE_Band5_RX_IO_SEL          RX_IO_LB2	
+/*MT6169*/#define    LTE_Band1_RX_IO_SEL          RX_IO_HB1	
+/*MT6169*/#define    LTE_Band2_RX_IO_SEL          RX_IO_MB2
+/*MT6169*/#define    LTE_Band3_RX_IO_SEL          RX_IO_HB3	
+/*MT6169*/#define    LTE_Band4_RX_IO_SEL          RX_IO_MB2
 /*MT6169*/#define    LTE_Band7_RX_IO_SEL          RX_IO_HB2
-/*MT6169*/#define    LTE_Band8_RX_IO_SEL          RX_IO_LB1
-/*MT6169*/#define    LTE_Band27_RX_IO_SEL         RX_IO_LB3
-/*MT6169*/#define    LTE_Band28_RX_IO_SEL         RX_IO_LB3
-/*MT6169*/#define    LTE_Band28_2_RX_IO_SEL       RX_IO_LB3
-/*MT6169*/#define    LTE_Band38_RX_IO_SEL         RX_IO_HB1
+/*MT6169*/#define    LTE_Band5_RX_IO_SEL          RX_IO_LB3
+/*MT6169*/#define    LTE_Band17_RX_IO_SEL         RX_IO_LB1
+/*MT6169*/#define    LTE_Band20_RX_IO_SEL         RX_IO_LB1
+/*MT6169*/#define    LTE_Band38_RX_IO_SEL         RX_IO_HB3
 /*MT6169*/#define    LTE_Band39_RX_IO_SEL         RX_IO_MB2
-/*MT6169*/#define    LTE_Band40_RX_IO_SEL         RX_IO_HB1
-/*MT6169*/#define    LTE_Band41_RX_IO_SEL         RX_IO_HB1
-/*MT6169*/#define    LTE_Band41_2_RX_IO_SEL       RX_IO_HB2
+/*MT6169*/#define    LTE_Band40_RX_IO_SEL         RX_IO_HB2
+/*MT6169*/#define    LTE_Band41_RX_IO_SEL         RX_IO_HB3
+/*MT6169*/#define    LTE_Band8_RX_IO_SEL          RX_IO_LB2
 
 /*MT6169*/
-/*MT6169*/#define    LTE_Band1_RXD_IO_SEL         RXD_IO_HB1
-/*MT6169*/#define    LTE_Band3_RXD_IO_SEL         RXD_IO_MB1
-/*MT6169*/#define    LTE_Band5_RXD_IO_SEL         RXD_IO_LB1
+/*MT6169*/#define    LTE_Band1_RXD_IO_SEL         RXD_IO_HB3
+/*MT6169*/#define    LTE_Band2_RXD_IO_SEL         RXD_IO_HB1
+/*MT6169*/#define    LTE_Band3_RXD_IO_SEL         RXD_IO_MB2
+/*MT6169*/#define    LTE_Band4_RXD_IO_SEL         RXD_IO_MB2
 /*MT6169*/#define    LTE_Band7_RXD_IO_SEL         RXD_IO_HB2
-/*MT6169*/#define    LTE_Band8_RXD_IO_SEL         RXD_IO_LB3
-/*MT6169*/#define    LTE_Band27_RXD_IO_SEL        RXD_IO_LB2
-/*MT6169*/#define    LTE_Band28_RXD_IO_SEL        RXD_IO_LB2
-/*MT6169*/#define    LTE_Band28_2_RXD_IO_SEL      RXD_IO_LB2
+/*MT6169*/#define    LTE_Band5_RXD_IO_SEL         RXD_IO_LB1
+/*MT6169*/#define    LTE_Band17_RXD_IO_SEL        RXD_IO_LB2
+/*MT6169*/#define    LTE_Band20_RXD_IO_SEL        RXD_IO_LB3
 /*MT6169*/#define    LTE_Band38_RXD_IO_SEL        RXD_IO_HB3
 /*MT6169*/#define    LTE_Band39_RXD_IO_SEL        RXD_IO_MB2
-/*MT6169*/#define    LTE_Band40_RXD_IO_SEL        RXD_IO_HB3
+/*MT6169*/#define    LTE_Band40_RXD_IO_SEL        RXD_IO_HB2
 /*MT6169*/#define    LTE_Band41_RXD_IO_SEL        RXD_IO_HB3
-/*MT6169*/#define    LTE_Band41_2_RXD_IO_SEL      RXD_IO_HB3
+/*MT6169*/#define    LTE_Band8_RXD_IO_SEL         RXD_IO_LB2
 
 /*MT6169*/
 /*MT6169*//*------------------------------------------------------*/
@@ -257,33 +283,33 @@
 /*MT6169*//*  LB1-LB4 => freq: 699MHz ~ 915MHz                    */
 /*MT6169*//*------------------------------------------------------*/
 /*MT6169*/#define    LTE_Band1_TX_IO_SEL          TX_IO_MB2
+/*MT6169*/#define    LTE_Band2_TX_IO_SEL          TX_IO_MB2
 /*MT6169*/#define    LTE_Band3_TX_IO_SEL          TX_IO_MB2
-/*MT6169*/#define    LTE_Band5_TX_IO_SEL          TX_IO_LB2
+/*MT6169*/#define    LTE_Band4_TX_IO_SEL          TX_IO_MB2
 /*MT6169*/#define    LTE_Band7_TX_IO_SEL          TX_IO_HB1
-/*MT6169*/#define    LTE_Band8_TX_IO_SEL          TX_IO_LB2
-/*MT6169*/#define    LTE_Band27_TX_IO_SEL         TX_IO_LB2
-/*MT6169*/#define    LTE_Band28_TX_IO_SEL         TX_IO_LB2
-/*MT6169*/#define    LTE_Band28_2_TX_IO_SEL       TX_IO_LB2
-/*MT6169*/#define    LTE_Band38_TX_IO_SEL         TX_IO_HB1
-/*MT6169*/#define    LTE_Band39_TX_IO_SEL         TX_IO_MB2	
+/*MT6169*/#define    LTE_Band5_TX_IO_SEL          TX_IO_LB4
+/*MT6169*/#define    LTE_Band17_TX_IO_SEL         TX_IO_LB4
+/*MT6169*/#define    LTE_Band20_TX_IO_SEL         TX_IO_LB4
+/*MT6169*/#define    LTE_Band38_TX_IO_SEL         TX_IO_HB1	
+/*MT6169*/#define    LTE_Band39_TX_IO_SEL         TX_IO_MB1
 /*MT6169*/#define    LTE_Band40_TX_IO_SEL         TX_IO_HB1
 /*MT6169*/#define    LTE_Band41_TX_IO_SEL         TX_IO_HB1
-/*MT6169*/#define    LTE_Band41_2_TX_IO_SEL       TX_IO_HB1
+/*MT6169*/#define    LTE_Band8_TX_IO_SEL          TX_IO_LB4
 /*MT6169*/
 /*MT6169*//*------------------------------------------------------*/
 /*MT6169*//*  BAND_INDICATOR1 ~ BAND_INDICATOR14                  */
 /*MT6169*//*------------------------------------------------------*/
 /*MT6169*/#define    BAND_INDICATOR1              LTE_Band1
 /*MT6169*/#define    BAND_INDICATOR2              LTE_Band3
-/*MT6169*/#define    BAND_INDICATOR3              LTE_Band5
-/*MT6169*/#define    BAND_INDICATOR4              LTE_Band7
+/*MT6169*/#define    BAND_INDICATOR3              LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR4              LTE_BandNone
 /*MT6169*/#define    BAND_INDICATOR5              LTE_Band8
-/*MT6169*/#define    BAND_INDICATOR6              LTE_Band28
-/*MT6169*/#define    BAND_INDICATOR7              LTE_Band38
-/*MT6169*/#define    BAND_INDICATOR8              LTE_Band39
-/*MT6169*/#define    BAND_INDICATOR9              LTE_Band40
-/*MT6169*/#define    BAND_INDICATOR10             LTE_Band41
-/*MT6169*/#define    BAND_INDICATOR11             LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR6              LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR7              LTE_Band20
+/*MT6169*/#define    BAND_INDICATOR8              LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR9              LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR10             LTE_BandNone
+/*MT6169*/#define    BAND_INDICATOR11             LTE_Band7
 /*MT6169*/#define    BAND_INDICATOR12             LTE_BandNone
 /*MT6169*/#define    BAND_INDICATOR13             LTE_BandNone
 /*MT6169*/#define    BAND_INDICATOR14             LTE_BandNone
@@ -292,16 +318,16 @@
 /*MT6169*//*------------------------------------------------------*/
 /*MT6169*//*  BAND_INDICATOR1 ~ BAND_INDICATOR14 for SVLTE        */
 /*MT6169*//*------------------------------------------------------*/
-/*MT6169*/#define    BAND_SVLTE_INDICATOR1        LTE_Band1
-/*MT6169*/#define    BAND_SVLTE_INDICATOR2        LTE_Band3
-/*MT6169*/#define    BAND_SVLTE_INDICATOR3        LTE_Band5
-/*MT6169*/#define    BAND_SVLTE_INDICATOR4        LTE_Band7
+/*MT6169*/#define    BAND_SVLTE_INDICATOR1        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR2        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR3        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR4        LTE_BandNone
 /*MT6169*/#define    BAND_SVLTE_INDICATOR5        LTE_BandNone
 /*MT6169*/#define    BAND_SVLTE_INDICATOR6        LTE_BandNone
-/*MT6169*/#define    BAND_SVLTE_INDICATOR7        LTE_Band38
-/*MT6169*/#define    BAND_SVLTE_INDICATOR8        LTE_Band39
-/*MT6169*/#define    BAND_SVLTE_INDICATOR9        LTE_Band40
-/*MT6169*/#define    BAND_SVLTE_INDICATOR10       LTE_Band41
+/*MT6169*/#define    BAND_SVLTE_INDICATOR7        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR8        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR9        LTE_BandNone
+/*MT6169*/#define    BAND_SVLTE_INDICATOR10       LTE_BandNone
 /*MT6169*/#define    BAND_SVLTE_INDICATOR11       LTE_BandNone
 /*MT6169*/#define    BAND_SVLTE_INDICATOR12       LTE_BandNone
 /*MT6169*/#define    BAND_SVLTE_INDICATOR13       LTE_BandNone
@@ -339,13 +365,6 @@
 /*MT6169*/#define LTE_Band3_DELTA_TC1      0x0000
 /*MT6169*/
 /*MT6169*/
-/*MT6169*///* ------------- MPR_BAND4 Start --------------------*/
-/*MT6169*/#define LTE_Band4_MPR_QPSK1      0x0100 // 0x0100
-/*MT6169*/#define LTE_Band4_MPR_16QAM0     0x0100 // 0x0100
-/*MT6169*/#define LTE_Band4_MPR_16QAM1     0x0200 // 0x0200
-/*MT6169*/#define LTE_Band4_DELTA_TC0      0x0000 // 0x0180
-/*MT6169*/#define LTE_Band4_DELTA_TC1      0x0000 // 0x0180
-/*MT6169*/
 /*MT6169*///* ------------- MPR_BAND5 Start --------------------*/
 /*MT6169*/#define LTE_Band5_MPR_QPSK1      0x0100 // 0x0100
 /*MT6169*/#define LTE_Band5_MPR_16QAM0     0x0100 // 0x0100
@@ -367,47 +386,12 @@
 /*MT6169*/#define LTE_Band8_DELTA_TC0      0x0000
 /*MT6169*/#define LTE_Band8_DELTA_TC1      0x0000
 /*MT6169*/
-/*MT6169*///* ------------- MPR_BAND12 Start -------------------*/
-/*MT6169*/#define LTE_Band12_MPR_QPSK1     0x0100
-/*MT6169*/#define LTE_Band12_MPR_16QAM0    0x0100
-/*MT6169*/#define LTE_Band12_MPR_16QAM1    0x0200
-/*MT6169*/#define LTE_Band12_DELTA_TC0     0x0000
-/*MT6169*/#define LTE_Band12_DELTA_TC1     0x0000
-/*MT6169*/
-/*MT6169*///* ------------- MPR_BAND13 Start -------------------*/
-/*MT6169*/#define LTE_Band13_MPR_QPSK1     0x0100
-/*MT6169*/#define LTE_Band13_MPR_16QAM0    0x0100
-/*MT6169*/#define LTE_Band13_MPR_16QAM1    0x0200
-/*MT6169*/#define LTE_Band13_DELTA_TC0     0x0000
-/*MT6169*/#define LTE_Band13_DELTA_TC1     0x0000
-/*MT6169*/
 /*MT6169*///* ------------- MPR_BAND17 Start -------------------*/
 /*MT6169*/#define LTE_Band17_MPR_QPSK1     0x0100
 /*MT6169*/#define LTE_Band17_MPR_16QAM0    0x0100
 /*MT6169*/#define LTE_Band17_MPR_16QAM1    0x0200
 /*MT6169*/#define LTE_Band17_DELTA_TC0     0x0000
 /*MT6169*/#define LTE_Band17_DELTA_TC1     0x0000
-/*MT6169*/
-/*MT6169*///* ------------- MPR_BAND20 Start -------------------*/
-/*MT6169*/#define LTE_Band20_MPR_QPSK1     0x0100
-/*MT6169*/#define LTE_Band20_MPR_16QAM0    0x0100
-/*MT6169*/#define LTE_Band20_MPR_16QAM1    0x0200
-/*MT6169*/#define LTE_Band20_DELTA_TC0     0x0000
-/*MT6169*/#define LTE_Band20_DELTA_TC1     0x0000
-/*MT6169*/
-/*MT6169*///* ------------- MPR_BAND26 Start --------------------*/
-/*MT6169*/#define LTE_Band26_MPR_QPSK1      0x0100 // 0x0100
-/*MT6169*/#define LTE_Band26_MPR_16QAM0     0x0100 // 0x0100
-/*MT6169*/#define LTE_Band26_MPR_16QAM1     0x0200 // 0x0200
-/*MT6169*/#define LTE_Band26_DELTA_TC0      0x0000 // 0x0180
-/*MT6169*/#define LTE_Band26_DELTA_TC1      0x0000 // 0x0180
-/*MT6169*/
-/*MT6169*///* ------------- MPR_BAND27 Start --------------------*/
-/*MT6169*/#define LTE_Band27_MPR_QPSK1      0x0100
-/*MT6169*/#define LTE_Band27_MPR_16QAM0     0x0100
-/*MT6169*/#define LTE_Band27_MPR_16QAM1     0x0200
-/*MT6169*/#define LTE_Band27_DELTA_TC0      0x0000
-/*MT6169*/#define LTE_Band27_DELTA_TC1      0x0000
 /*MT6169*/
 /*MT6169*///* ------------- MPR_BAND28 Start --------------------*/
 /*MT6169*/#define LTE_Band28_MPR_QPSK1      0x0100
@@ -581,35 +565,35 @@
 /*MT6169*/// 3. Since there are only TWO sub-bands, BAND_SPLIT_INDICATOR1_DL_END3 should be 0
 /*MT6169*/// 4. The way to define the UL frequency is the same as the way DL does
 /*MT6169*///
-/*MT6169*/#define BAND_SPLIT_INDICATOR1         LTE_Band28
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_NUM     2     // the num of part of splitting band
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END1 7806  // the end DL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END2 8030  // the end DL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END3 0     // the end DL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END1 7256  // the end UL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END2 7480  // the end UL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END3 0     // the end UL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
-/*MT6169*/#define BAND_INDICATOR1_POWER_COMP    0     // It is the real HW power difference between bypass path and filter path, Unit: S(6,8) dB
-/*MT6169*/                                            // If bypass > filter by 1.5dB, the value is  384 (= 1.5*256)
-/*MT6169*/                                            // If bypass < filter by 0.5dB, the value is -128 (=-0.5*256)
-/*MT6169*/#define BAND_INDICATOR1_COUPLER_COMP  0     // It is the expected power difference between bypass path and filter path, Unit: S(6,8) dB
-/*MT6169*/                                            // If bypass > filter by 0.5dB, the value is  128 (= 0.5*256)
-/*MT6169*/                                            // If bypass < filter by 1.5dB, the value is -384 (=-1.5*256)
+/*MT6169*/#define BAND_SPLIT_INDICATOR1         LTE_BandNone
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_NUM     0 // the num of part of splitting band
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END1 0 // the end DL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END2 0 // the end DL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_DL_END3 0 // the end DL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END1 0 // the end UL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END2 0 // the end UL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR1_UL_END3 0 // the end UL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
+/*MT6169*/#define BAND_INDICATOR1_POWER_COMP    512 // It is the real HW power difference between bypass path and filter path, Unit: S(6,8) dB
+/*MT6169*/                                        // If bypass > filter by 1.5dB, the value is  384 (= 1.5*256)
+/*MT6169*/                                        // If bypass < filter by 0.5dB, the value is -128 (=-0.5*256)
+/*MT6169*/#define BAND_INDICATOR1_COUPLER_COMP  0 // It is the expected power difference between bypass path and filter path, Unit: S(6,8) dB
+/*MT6169*/                                        // If bypass > filter by 0.5dB, the value is  128 (= 0.5*256)
+/*MT6169*/                                        // If bypass < filter by 1.5dB, the value is -384 (=-1.5*256)
 /*MT6169*/
-/*MT6169*/#define BAND_SPLIT_INDICATOR2         LTE_Band41
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_NUM     2   // the num of part of splitting band
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END1 26301   // the end DL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END2 26900   // the end DL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END3 0   // the end DL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END1 26301   // the end UL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END2 26900   // the end UL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
-/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END3 0   // the end UL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2         LTE_BandNone
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_NUM     0 // the num of part of splitting band
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END1 0 // the end DL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END2 0 // the end DL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_DL_END3 0 // the end DL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END1 0 // the end UL frequency of the 1st part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END2 0 // the end UL frequency of the 2nd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split
+/*MT6169*/#define BAND_SPLIT_INDICATOR2_UL_END3 0 // the end UL frequency of the 3rd part of splitting band PLUS 0.1MHz, unit: 100KHz, set to 0 if no part is split or only two parts are split
 /*MT6169*/#define BAND_INDICATOR2_POWER_COMP    512 // It is the real HW power difference between bypass path and filter path, Unit: S(6,8) dB
-/*MT6169*/                                          // If bypass > filter by 1.5dB, the value is  384 (= 1.5*256)
-/*MT6169*/                                          // If bypass < filter by 0.5dB, the value is -128 (=-0.5*256)
-/*MT6169*/#define BAND_INDICATOR2_COUPLER_COMP  0   // It is the expected power difference between bypass path and filter path, Unit: S(6,8) dB
-/*MT6169*/                                          // If bypass > filter by 0.5dB, the value is  128 (= 0.5*256)
-/*MT6169*/                                          // If bypass < filter by 1.5dB, the value is -384 (=-1.5*256)
+/*MT6169*/                                        // If bypass > filter by 1.5dB, the value is  384 (= 1.5*256)
+/*MT6169*/                                        // If bypass < filter by 0.5dB, the value is -128 (=-0.5*256)
+/*MT6169*/#define BAND_INDICATOR2_COUPLER_COMP  0 // It is the expected power difference between bypass path and filter path, Unit: S(6,8) dB
+/*MT6169*/                                        // If bypass > filter by 0.5dB, the value is  128 (= 0.5*256)
+/*MT6169*/                                        // If bypass < filter by 1.5dB, the value is -384 (=-1.5*256)
 /*MT6169*/
 /*MT6169*/#define BAND_SPLIT_INDICATOR3         LTE_BandNone
 /*MT6169*/#define BAND_SPLIT_INDICATOR3_NUM     0   // the num of part of splitting band

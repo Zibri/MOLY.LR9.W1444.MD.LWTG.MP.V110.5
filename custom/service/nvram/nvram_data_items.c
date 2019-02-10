@@ -5317,9 +5317,9 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             0x00009C40, // rtp_rtcp_local_port_start = 40000
             0x00001388, // rtp_rtcp_local_port_range = 5000
             0x00001388, // rtcp_interval = 5000
-            0x0000, 0x0000, // sip_dscp, sip_priority
-            0x0000, 0x0000, // audio_dscp, audio_priority
-            0x0000, 0x0000, // video_dscp, video_priority
+            0x001A, 0x0007, // sip_dscp, sip_priority
+            0x0028, 0x0005, // audio_dscp, audio_priority
+            0x0020, 0x0004, // video_dscp, video_priority
             0x000927C0, // register_expiry = 600000
             0x000007D0, // UA_reg_t1_timer = 2000
             0x00003E80, // UA_reg_t2_timer = 16000
@@ -5383,8 +5383,8 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             0x00,                   // UA_call_mo_invite_to_bw_cnf_time = 0
             0x00,                   // ipv6_zero_compression = 0 (0:disable, 1:enable)
             0x00,                   // support_max_retry_algo = 0 
-            0x00,                   // pad2-2
-            0x00,                   // pad2-3
+            0x3C,                   // UA_ussd_nw_timeout_timer
+            0x00,                   // UA_ussd_setup_timeout_timer
             {
                 'V' , 'o' , 'L' , 'T' , // user_agent = "VoLTE/WFC UA"
                 'E' , '/' , 'W' , 'F' ,
@@ -5673,7 +5673,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00,                   // rel_conf_if_no_participant = 0
            0x00,                   // add_no_fork = 0
            0x00,                   // TMO_specific_SDP = 0
-           0x00,                   // call_ringing_timer_timeout = 0
+           0x0000,                 // call_ringing_timer_timeout = 0
            0x00,                   // call_ringback_timer_timeout = 0
            0x0A,                   // call_tcall_timer_timeout = 10
            0x00,                   // call_refreshcall_timer_expire = 0
@@ -5693,6 +5693,10 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00,                   // pad3[3]
            0x00,
            0x00,
+           0x00,                   // wait_second_invite_for_hold = 0
+           0x00,                   // video_conf_if_one_is_video = 0
+           0x00,                   // dereg_send_bye = 0
+           0x00,                   // use_183_for_early_media = 0 
 
            /* SMS */
            0x00,                   // force_psi_scheme_to_tel = 0
@@ -5700,6 +5704,8 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00,                   // update_call_id_with_host = 0
            0x00,                   // add_no_fork_in_SMS = 0
            0x00,                   // nsn_specific = 0
+           0x00,                   // mo_retry_after_504 = 0
+           0x00,                   // send_timerF_expiry = 0
            0x00,                   // pad4[3]
            0x00,
            0x00,                   
@@ -5761,7 +5767,10 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00000000,             // UA_reg_h_timer = 0
            0x00000000,             // UA_reg_i_timer = 0
            0x00000000,             // UA_reg_j_timer = 0
-           0x00000000              // UA_reg_k_timer = 0
+           0x00000000,             // UA_reg_k_timer = 0
+           0x00000000,             // try_n_next_pcscf_5626 = 0
+           0x00,                   // try_same_pcscf_if_retry_after = 0
+           0x00                    // contact_wildcard_dereg = 0
         },
 
         /* nvram_imc_struct */
@@ -5802,6 +5811,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             0x01,                   // sms_support = 1
             0x01,                   // voice_support = 1
             0x00,                    // video_over_ps_support = 0 (0:disable, 1:enable)
+            0x00,                    // ussd_support = 0 (0:disable, 1:enable)
             0x01,                    // resource_allocation_mode = 1 (0:UE initial, 1: NW only)(reference to TS24.167, ICSI_Resource_Allocation_Mode)
             0x01,                    // icsi_resource_allocation_mode_1 = 1
             0x01,                    // icsi_resource_allocation_mode_2 = 1

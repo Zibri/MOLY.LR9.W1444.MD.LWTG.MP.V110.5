@@ -108,16 +108,16 @@
 /*MT6169*/ #if IS_2G_MIPI_ENABLE
 /*MT6169*/ #define  PDATA_8PSK              0x00000000                              /*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PR1       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PR2       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PR2       (0x00000000          |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PR3       (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_GSM_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_GSM_PR2          (0x00000000          |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PR3          (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_DCS_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_DCS_PR2          (0x00000000         |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PR3          (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_PCS_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PR2          (0x00000001           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_PCS_PR3          (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PT1       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PT2       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
@@ -128,13 +128,13 @@
 /*MT6169*/ #define  PDATA_GSM850_PT2M1_8G  (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PT2M2_8G  (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2          (0x00000000          |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT3          (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2M2_8G     (0x00000000          |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
@@ -142,63 +142,63 @@
 /*MT6169*/ #define  PDATA_DCS_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2M2_8G     (0x00000000          |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_PCS_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2          (0x00000001           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2B         (0x00000001           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_PCS_PT3          (0x00000000                             )/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M1_G8     (0x00000001|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M2_G8     (0x00000001|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M1_8G     (0x00000001           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M2_8G     (0x00000001           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_INIT             (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #define  PDATA_IDLE             (0x00000000                             )/*MIPI ENABLE*/
 /*MT6169*/ #else
-/*MT6169*/ #define  PDATA_8PSK              0x00800000                              /*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_8PSK              0x00000000                              /*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PR1       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PR2       (0x00480000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PR2       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PR3       (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PR2          (0x00A80000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM_PR3          (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_DCS_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PR2          (0x00C80000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_DCS_PR3          (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_PCS_PR1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PR2          (0x00E80000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PR2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_PCS_PR3          (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PT1       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2       (0x00280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2B      (0x01280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2       (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2B      (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM850_PT3       (0x00000000                             )/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2M1_G8  (0x01280000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2M2_G8  (0x01280000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2M1_8G  (0x00280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM850_PT2M2_8G  (0x01280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2M1_G8  (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2M2_G8  (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2M1_8G  (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM850_PT2M2_8G  (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2          (0x00280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2B         (0x01280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_GSM_PT3          (0x00000000                             )/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2M1_G8     (0x01280000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2M2_G8     (0x01280000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2M1_8G     (0x00280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_GSM_PT2M2_8G     (0x01280000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_GSM_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2          (0x00C00000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2B         (0x01680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_DCS_PT3          (0x00000000                             )/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2M1_G8     (0x01680000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2M2_G8     (0x01680000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2M1_8G     (0x00680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_DCS_PT2M2_8G     (0x01680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_DCS_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_PCS_PT1          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2          (0x00C00000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2B         (0x01680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2          (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2B         (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_PCS_PT3          (0x00000000                             )/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M1_G8     (0x01680000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M2_G8     (0x01680000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M1_8G     (0x00680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
-/*MT6169*/ #define  PDATA_PCS_PT2M2_8G     (0x01680000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M1_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M2_G8     (0x00000000|PDATA_8PSK|PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M1_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
+/*MT6169*/ #define  PDATA_PCS_PT2M2_8G     (0x00000000           |PDATA_GSM_ERR_DET)/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_INIT             (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #define  PDATA_IDLE             (0x00000000                             )/*MIPI DISABLE*/
 /*MT6169*/ #endif
@@ -261,15 +261,15 @@
 /*MT6169*/ /**************************************/
 /*MT6169*/
 /*MT6169*/ #if IS_2G_MIPI_ENABLE
-/*MT6169*/ #define GSM850_PATH_SEL IORX_LB2/*MIPI ENABLE*/
-/*MT6169*/ #define GSM_PATH_SEL    IORX_LB1/*MIPI ENABLE*/
+/*MT6169*/ #define GSM850_PATH_SEL IORX_LB3/*MIPI ENABLE*/
+/*MT6169*/ #define GSM_PATH_SEL    IORX_LB2/*MIPI ENABLE*/
 /*MT6169*/ #define DCS_PATH_SEL    IORX_HB3/*MIPI ENABLE*/
 /*MT6169*/ #define PCS_PATH_SEL    IORX_MB1/*MIPI ENABLE*/
 /*MT6169*/ #else
-/*MT6169*/ #define GSM850_PATH_SEL IORX_LB1/*MIPI DISABLE*/
+/*MT6169*/ #define GSM850_PATH_SEL IORX_LB3/*MIPI DISABLE*/
 /*MT6169*/ #define GSM_PATH_SEL    IORX_LB2/*MIPI DISABLE*/
-/*MT6169*/ #define DCS_PATH_SEL    IORX_MB1/*MIPI DISABLE*/
-/*MT6169*/ #define PCS_PATH_SEL    IORX_HB1/*MIPI DISABLE*/
+/*MT6169*/ #define DCS_PATH_SEL    IORX_HB3/*MIPI DISABLE*/
+/*MT6169*/ #define PCS_PATH_SEL    IORX_MB1/*MIPI DISABLE*/
 /*MT6169*/ #endif
 /*MT6169*/
 /*MT6169*/ /**************************************/
@@ -389,50 +389,42 @@
 /*MT6169*/ /*----------------------------------------------*/
 /*MT6169*/ /*   One-bin Support Definition                 */
 /*MT6169*/ /*----------------------------------------------*/
-/*MT6169*/ #if IS_2G_DRDI_SUPPORT
-/*MT6169*/    #if IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1
+/*MT6169*/
+/*MT6169*/ #if IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1
 /*MT6169*/ #include "mml1_custom_drdi.h"
 /*MT6169*/ /* Constants to enable "Dynamic Initialization RF parameters" mechanism                 */
 /*MT6169*/ #define L1D_CUSTOM_GPIO_ENABLE            MML1_CUSTOM_GPIO_ENABLE
 /*MT6169*/ #define L1D_CUSTOM_ADC_ENABLE             MML1_CUSTOM_ADC_ENABLE
 /*MT6169*/ #define L1D_CUSTOM_BARCODE_ENABLE         MML1_CUSTOM_BARCODE_ENABLE
 /*MT6169*/
-/*MT6169*/ #define L1D_CUSTOM_DYNAMIC_SUPPORT        (L1D_CUSTOM_GPIO_ENABLE||L1D_CUSTOM_ADC_ENABLE||L1D_CUSTOM_BARCODE_ENABLE)
+/*MT6169*/ #define L1D_CUSTOM_DYNAMIC_SUPPORT        (L1D_CUSTOM_GPIO_ENABLE|L1D_CUSTOM_ADC_ENABLE|L1D_CUSTOM_BARCODE_ENABLE)
 /*MT6169*/
-/*MT6169*/       #if (IS_MML1_DRDI_ENABLE && IS_MML1_DRDI_REMAP_ENABLE)
-/*MT6166*/ #define L1D_CUSTOM_TOTAL_SET_NUMS         MML1_DRDI_REMAP_GGE_REAL_SET_NUMS
-/*MT6169*/       #else
 /*MT6169*/ #define L1D_CUSTOM_GPIO_SET_CALC          MML1_CUSTOM_GPIO_NUMS_IN_CALC
 /*MT6169*/ #define L1D_CUSTOM_ADC_SET_CALC           MML1_CUSTOM_ADC_NUMS_IN_CALC
 /*MT6169*/ #define L1D_CUSTOM_BARCODE_SET_CALC       MML1_CUSTOM_BARCODE_NUMS_IN_CALC
-/*MT6169*/ #define L1D_CUSTOM_TOTAL_SET_NUMS         (L1D_CUSTOM_GPIO_SET_CALC*L1D_CUSTOM_ADC_SET_CALC*L1D_CUSTOM_BARCODE_SET_CALC)
-/*MT6169*/       #endif
-/*MT6169*/       #if IS_MIPI_SUPPORT && L1D_CUSTOM_DYNAMIC_SUPPORT
-/*MT6169*/ #define IS_MIPI_DRDI_SUPPORT              1
-/*MT6169*/       #else
+/*MT6169*/
+/*MT6166*/ #define L1D_CUSTOM_TOTAL_SET_NUMS         (L1D_CUSTOM_GPIO_SET_CALC*L1D_CUSTOM_ADC_SET_CALC*L1D_CUSTOM_BARCODE_SET_CALC)
+/*MT6169*/
+/*MT6169*/    #if IS_MIPI_SUPPORT && L1D_CUSTOM_DYNAMIC_SUPPORT
+/*MT6169*/ #define IS_MIPI_DRDI_SUPPORT              1 /* For platforms those support MIPI */
+/*MT6169*/    #else
 /*MT6169*/ #define IS_MIPI_DRDI_SUPPORT              0
-/*MT6169*/       #endif
+/*MT6169*/    #endif
 /*MT6169*/
-/*MT6169*/       #if IS_TX_POWER_OFFSET_SUPPORT && L1D_CUSTOM_DYNAMIC_SUPPORT
-/*MT6169*/ #define IS_TX_POWER_OFFSET_DRDI_SUPPORT   1
-/*MT6169*/       #else
-/*MT6169*/ #define IS_TX_POWER_OFFSET_DRDI_SUPPORT   0
-/*MT6169*/       #endif
-/*MT6169*/
-/*MT6169*/       #if L1D_CUSTOM_DYNAMIC_SUPPORT
+/*MT6169*/    #if L1D_CUSTOM_DYNAMIC_SUPPORT
 /*MT6169*/ #define L1D_CUSTOM_PDATA_DRDI_SUPPORT     1 /* Do not modify this define */
-/*MT6169*/       #endif
+/*MT6169*/    #endif
 /*MT6169*/
 /*MT6169*/ #define L1D_CUSTOM_DEBUG_ENABLE           0 /* Enable  this , DRDI debug message will show at L1 log */
 /*MT6169*/
-/*MT6169*/       #if IS_MIPI_DRDI_SUPPORT
-/*MT6169*/          #if IS_2G_MIPI_ENABLE
-/*MT6169*/          #else
+/*MT6169*/ #if IS_MIPI_DRDI_SUPPORT
+/*MT6169*/    #if IS_2G_MIPI_ENABLE
+/*MT6169*/    #else
 /*MT6169*/ #error "Must set IS_2G_MIPI_ENABLE( at l1d_custom_mipi.h ) to 1"
-/*MT6169*/          #endif
-/*MT6169*/       #endif
+/*MT6169*/    #endif
+/*MT6169*/ #endif
 /*MT6169*/ 
-/*MT6169*/    #else /*IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1*/
+/*MT6169*/ #else /*IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1*/
 /*MT6169*/ /* Constants to enable "Dynamic Initialization RF parameters" mechanism                 */
 /*MT6169*/ #define L1D_CUSTOM_GPIO_ENABLE            0
 /*MT6169*/ #define L1D_CUSTOM_ADC_ENABLE             0
@@ -539,36 +531,35 @@
 /*MT6169*/ /*--------------------------------------------------------------------------------------*/
 /*MT6169*/
 /*MT6169*/ /* Constants for the second and third index base to be calculated */
-/*MT6169*/       #if L1D_CUSTOM_GPIO_ENABLE
+/*MT6169*/    #if L1D_CUSTOM_GPIO_ENABLE
 /*MT6169*/ #define L1D_CUSTOM_GPIO_NUMS_IN_CALC      L1D_CUSTOM_GPIO_SET_NUMS
-/*MT6169*/       #else
+/*MT6169*/    #else
 /*MT6169*/ #define L1D_CUSTOM_GPIO_NUMS_IN_CALC      1
-/*MT6169*/       #endif
+/*MT6169*/    #endif
 /*MT6169*/
-/*MT6169*/       #if L1D_CUSTOM_ADC_ENABLE
+/*MT6169*/    #if L1D_CUSTOM_ADC_ENABLE
 /*MT6169*/ #define L1D_CUSTOM_ADC_NUMS_IN_CALC       L1D_CUSTOM_ADC_SET_NUMS
-/*MT6169*/       #else
+/*MT6169*/    #else
 /*MT6169*/ #define L1D_CUSTOM_ADC_NUMS_IN_CALC       1
-/*MT6169*/       #endif
+/*MT6169*/    #endif
 /*MT6169*/
-/*MT6169*/       #if L1D_CUSTOM_BARCODE_ENABLE
+/*MT6169*/    #if L1D_CUSTOM_BARCODE_ENABLE
 /*MT6169*/ #define L1D_CUSTOM_BARCODE_NUMS_IN_CALC   L1D_CUSTOM_BARCODE_SET_NUMS
-/*MT6169*/       #else
+/*MT6169*/    #else
 /*MT6169*/ #define L1D_CUSTOM_BARCODE_NUMS_IN_CALC   1
-/*MT6169*/       #endif
+/*MT6169*/    #endif
 /*MT6169*/
 /*MT6169*/ #define L1D_CUSTOM_TOTAL_SET_NUMS         L1D_CUSTOM_GPIO_NUMS_IN_CALC*L1D_CUSTOM_ADC_NUMS_IN_CALC*L1D_CUSTOM_BARCODE_NUMS_IN_CALC
 /*MT6169*/
 /*MT6169*/ /* Customization constant to be used for customer to determine if the AuxADC calibration*/
 /*MT6169*/ /* is enabled or not                                                                    */
 /*MT6169*/ #define L1D_CUSTOM_ADC_CALIBRATE_ENABLE   0
-/*MT6169*/    #endif /*IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1 */
+/*MT6169*/ #endif
 /*MT6169*/
-/*MT6169*/    #if L1D_CUSTOM_DYNAMIC_SUPPORT
-/*MT6169*/       #if IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1
-/*MT6169*/       #else
+/*MT6169*/ #if L1D_CUSTOM_DYNAMIC_SUPPORT
+/*MT6169*/    #if IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1
+/*MT6169*/    #else
 /*MT6169*/ #error "MT6290 and latter chipsets, always need MMLI DRDI API , please check IS_L1_RF_DRDI_CUSTOM_SETTING_FROM_MML1 at l1d_cid.h "
-/*MT6169*/       #endif
 /*MT6169*/    #endif
 /*MT6169*/ #endif
 /*MT6169*/ /*============================================================================== */

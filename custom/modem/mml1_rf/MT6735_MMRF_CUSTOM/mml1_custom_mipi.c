@@ -105,7 +105,7 @@ MML1_MIPI_INITIAL_CW_T MML1_MIPI_INITIAL_CW_set1[MML1_MIPI_MAX_INITIAL_CW_NUM] =
 MML1_MIPI_USID_CHANGE_T MML1_MIPI_USID_CHANGE_TABLE[MML1_MIPI_MAX_USID_CHANGE_NUM] =
 {
    // USID change type   , port_sel        , current USID , PRODUCT_ID , MANUFACTORY_ID   new USID
-   {USID_REG_W           , MML1_MIPI_PORT0 , 0xF          , 0x85        , 0x1A5        , 0xE     },
+   {USID_REG_W           , MML1_MIPI_PORT1 , 0xF          , 0x0E        , 0x349        , 0xE     },
    {USID_NULL,0,0,0,0,0},
    {USID_NULL,0,0,0,0,0},
    {USID_NULL,0,0,0,0,0},
