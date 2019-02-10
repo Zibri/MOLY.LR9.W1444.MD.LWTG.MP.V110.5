@@ -67,7 +67,6 @@ typedef struct{
    
    //buffer handling
    uint32     bufSize[MAX_NUM_BGSND_PROCESS], bufRead[MAX_NUM_BGSND_PROCESS], bufWrite[MAX_NUM_BGSND_PROCESS]; 
-   uint32     bufDataCount[MAX_NUM_BGSND_PROCESS];
    uint16     buffer[MAX_NUM_BGSND_PROCESS][EXT_BGSND_SRC_BUF_SIZE]; 
    
 }EXT_BGSND_SRC_T;
@@ -95,8 +94,6 @@ static void DSP_BGSND_INIT()
    kal_prompt_trace(MOD_L1SP, "[DSP_BGSND_INIT] Enter");
 	memset(&DSP_BGSnd, 0, sizeof(DSP_BKGSND_T));
 	//has_ul = has_dl = 0;
-	DSP_BGSnd.fSph[0] = KAL_TRUE;
-	DSP_BGSnd.fSph[1] = KAL_TRUE;
 	kal_prompt_trace(MOD_L1SP, "[DSP_BGSND_INIT] Leave");
 }
 
@@ -112,7 +109,6 @@ static void DSP_BGSND_ConfigMixer(kal_bool bSPHFlag, kal_int8 SNDGain, BGSND_PRO
 		DSP_BGSnd.gain[type] = (kal_int16)(32767 >> (7 - SNDGain));
 	}
 	DSP_BGSnd.fSph[type] = bSPHFlag;
-    kal_prompt_trace(MOD_L1SP, "[DSP_BGSND_ConfigMixer] type = %d, DSP_BGSnd.fSph[type] = %d", type, DSP_BGSnd.fSph[type]);
 	kal_prompt_trace(MOD_L1SP, "[DSP_BGSND_ConfigMixer] Leave");
 }
 
@@ -397,7 +393,6 @@ uint32 EXT_BGSND_Start(void (*offHdr)(void),
          	pSrc->bufSize[j]  = EXT_BGSND_SRC_BUF_SIZE;
          	pSrc->bufRead[j]  = 0;
          	pSrc->bufWrite[j] = EXT_BGSND_BUF_PTR_DIFF;
-            pSrc->bufDataCount[j] = 0;
          }   
          if(AM_IsSpeechOn() || AM_IsVoIPOn()){
             EXT_BGSND_ConfigMixer(i, true, DLSNDGain, BGSND_DL_PROCESS); 
@@ -495,7 +490,7 @@ void EXT_BGSND_ULHisr(void)
 	ASSERT( type == BGSND_DL_PROCESS || type == BGSND_UL_PROCESS );
 	EXT_BGSND_SRC_T *pSrc = &Ext_BGSnd.src[id];
             
-   count = pSrc->bufDataCount[type];
+   count = (pSrc->bufSize[type] - EXT_BGSND_BUF_PTR_DIFF) - EXT_BGSND_GetFreeSpace(id, type);
 /*   for(j=0; j<MAX_BGSND_BUFFER_PROCESS_BIT; j++){
       if(type & (1<<j)){         
          type = 1<<j;
@@ -640,12 +635,12 @@ void EXT_BGSND_WriteSrcBuffer(uint32 id, kal_uint8 *srcBuf, kal_int32 bufLen, BG
    
    pSrc->len_WriteSrcBuffer_this_time = bufLen;
    
-   
-	if(currentRead > pSrc->bufWrite[type]) {	// one segment
-		
-		freeLen = pSrc->bufSize[type] - pSrc->bufDataCount[type] - EXT_BGSND_BUF_PTR_DIFF;
-        
-        kal_prompt_trace(MOD_L1SP, "[BGS debug] freeLen = %d srcBufLen = %d", freeLen, srcBufLen);		
+	if(currentRead > pSrc->bufWrite[type] || currentRead < EXT_BGSND_BUF_PTR_DIFF) {	// one segment
+		if(currentRead > pSrc->bufWrite[type]){
+			freeLen=currentRead - pSrc->bufWrite[type]-EXT_BGSND_BUF_PTR_DIFF;
+		}else {
+			freeLen=pSrc->bufSize[type] - pSrc->bufWrite[type]-EXT_BGSND_BUF_PTR_DIFF;
+		}
 
 		kal_trace( TRACE_FUNC, L1SND_WRITE_DATA, 1, id, type,  srcBufLen, freeLen, pSrc->bufRead[type], pSrc->bufWrite[type]+srcBufLen ); // using write information which is after memory copy
 		
@@ -653,12 +648,11 @@ void EXT_BGSND_WriteSrcBuffer(uint32 id, kal_uint8 *srcBuf, kal_int32 bufLen, BG
 		memcpy(pSrc->buffer[type]+pSrc->bufWrite[type], srcBuf, srcBufLen*sizeof(uint16));		
 	
 		pSrc->bufWrite[type] += srcBufLen;
-        pSrc->bufDataCount[type] += srcBufLen;
 	}else { // two segment		
 		int32 segment; 
 		kal_uint8 *p2SrcBuf;
 
-		freeLen = pSrc->bufSize[type] - pSrc->bufDataCount[type] - EXT_BGSND_BUF_PTR_DIFF;
+		freeLen= currentRead + pSrc->bufSize[type] - pSrc->bufWrite[type]-EXT_BGSND_BUF_PTR_DIFF;
 
 		kal_trace( TRACE_FUNC, L1SND_WRITE_DATA, 2, id, type,  srcBufLen, freeLen, 0, 0 ); 
 		ASSERT(srcBufLen <= freeLen);
@@ -674,7 +668,6 @@ void EXT_BGSND_WriteSrcBuffer(uint32 id, kal_uint8 *srcBuf, kal_int32 bufLen, BG
 			//update pointer
 			p2SrcBuf = srcBuf + segment*sizeof(kal_uint16); 
 			pSrc->bufWrite[type] += segment;
-            pSrc->bufDataCount[type] += segment;
 			if(pSrc->bufWrite[type]>=pSrc->bufSize[type]){				
 				pSrc->bufWrite[type] = 0; 
 			}
@@ -684,16 +677,12 @@ void EXT_BGSND_WriteSrcBuffer(uint32 id, kal_uint8 *srcBuf, kal_int32 bufLen, BG
 		}
 
 		if(segment>0) { //second segement
-			
 			memcpy(pSrc->buffer[type], p2SrcBuf, segment*sizeof(kal_uint16));	
 			pSrc->bufWrite[type] = segment;
-            pSrc->bufDataCount[type] += segment;
 
 			kal_trace( TRACE_FUNC, L1SND_WRITE_DATA, 4, id, type, 0, 0, pSrc->bufRead[type], pSrc->bufWrite[type]);	
 		}
 	}         
-	
-	
 	kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteSrcBuffer] Leave ");
 }
 
@@ -703,7 +692,7 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
 {
 	volatile uint16 *toPtr;
    int32 count, segment, i;
-   int16 *dataPtr;
+   uint16 *dataPtr;
    uint16 gainFactor;
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] Enter ");   
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] selected_src_id = %d BGSND_PROCESS_TYPE(0->DL, 1->UL)=%d", id, type);   
@@ -715,11 +704,10 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
    
    count = EXT_BGSND_GetDataCount(id, type);   
    toPtr = Ext_BGSnd.buffer[type];   
- 
    
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] count=%d ", count);  
    
-   if (count > BGSND_BUFFER_LEN_WB) 
+   if (count > BGSND_BUFFER_LEN_WB)
       count = BGSND_BUFFER_LEN_WB;         
    
    
@@ -743,33 +731,24 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
 	      
 	      if(pSrc->fSph[type] && MAX_LEVEL_EXT_BGSND_GAIN!=gainFactor){
    	      for (i=0; i<segment; i++) {			
-               
-            kal_int16 tmp = (*dataPtr>>gainFactor);
-            kal_int16 result = (kal_int16)(*toPtr) + tmp;
-            
-            if (((tmp ^ (*toPtr)) >= 0) && ((tmp ^ result) < 0)) {
-                if (tmp < 0)
-                    result = 0x8000;
-                else
-                    result = 0x7FFF;
-                 kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] Saturation1");
-
-            }
-               *toPtr = result;
-               
+               if( *dataPtr < (0x1111111111111111 - *toPtr)){ //limiter
+                  *toPtr += ((*dataPtr)>>gainFactor);     				
+               }else{               
+                  kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] overflows1");  
+                  ASSERT(0);
+               }
                toPtr++;
                dataPtr++;     				
    	      }
    	      pSrc->dspLastSample[type] = *(toPtr-1);
    	   }else{
-	         toPtr   += segment; 
+	         toPtr   += segment;
 	         dataPtr += segment;
 	         
 	         pSrc->dspLastSample[type] = 0;
 	      }   
 
 	      pSrc->bufRead[type] += segment;
-	      pSrc->bufDataCount[type] -= segment;
 	      if (pSrc->bufRead[type] >= pSrc->bufSize[type])
 	         pSrc->bufRead[type] = (pSrc->bufRead[type]-pSrc->bufSize[type]);
 
@@ -781,33 +760,25 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
 	   if (segment > 0) {
 	      dataPtr = &(pSrc->buffer[type][pSrc->bufRead[type]]);
 	      if(pSrc->fSph[type] && MAX_LEVEL_EXT_BGSND_GAIN!=gainFactor){
-   	      for (i=0; i<segment; i++) {  	
-
-            kal_int16 tmp = (*dataPtr>>gainFactor);
-            kal_int16 result = (kal_int16)(*toPtr) + tmp;
-            
-            if (((tmp ^ (*toPtr)) >= 0) && ((tmp ^ result) < 0)) {
-                if (tmp < 0)
-                    result = 0x8000;
-                else
-                    result = 0x7FFF;
-                 kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] Saturation2");
-
-            }
-               *toPtr = result;  
-               toPtr++;  
+   	      for (i=0; i<segment; i++) {  				
+               if( *dataPtr < (0x1111111111111111 - *toPtr)){ //limiter
+                  *toPtr += ((*dataPtr)>>gainFactor);
+               }else{
+                  kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] overflows2");  
+                  ASSERT(0);
+               }
+               toPtr++;
                dataPtr++;     				
    	      }  
    	      pSrc->dspLastSample[type] = *(dataPtr-1);  	      
 	      }else{
-	         toPtr   += segment;  
+	         toPtr   += segment;
 	         dataPtr += segment;
 	         
 	         pSrc->dspLastSample[type] = 0;
 	      }
 	      
 	      pSrc->bufRead[type] += segment;
-          pSrc->bufDataCount[type] -= segment;
 	      if (pSrc->bufRead[type] >= pSrc->bufSize[type])
 	         pSrc->bufRead[type] = (pSrc->bufRead[type]-pSrc->bufSize[type]);
 
@@ -827,23 +798,16 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
       if(pSrc->fSph[type] && MAX_LEVEL_EXT_BGSND_GAIN!=gainFactor){
          for (i=0; i<segment; i++) {
             //*toPtr++ = *dataPtr++;     				
-            kal_int16 tmp = (last_sample>>gainFactor);
-            kal_int16 result = (kal_int16)(*toPtr) + tmp;
-            
-            if (((tmp ^ (*toPtr)) >= 0) && ((tmp ^ result) < 0)) {
-                if (tmp < 0)
-                    result = 0x8000;
-                else
-                    result = 0x7FFF;
-                 kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] Saturation3");
-  
+            if( last_sample < (0x1111111111111111 - *toPtr)){ //limiter
+               *toPtr += (last_sample>>gainFactor);		               
+            }else{
+               kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] overflows3");  
+               ASSERT(0);
             }
-
-            *toPtr = result;	         
-            toPtr++;          	
+            toPtr++;			
          }   
       }else{
-         toPtr += segment;   
+         toPtr += segment;
       } 	
    }//else{ //it means no data should be played, so we don't append to the size of a frame any more
    //   kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] skip fill %d word to DSP with silence pattern, state=%d", count, pSrc->state[type]);      
@@ -863,7 +827,6 @@ void EXT_BGSND_WriteExtBuffer(uint32 id, int gain, BGSND_PROCESS_TYPE type) // T
       
       }        
    }*/
-   	
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_WriteExtBuffer] Leave ");    
 }
 
@@ -876,10 +839,12 @@ int32 EXT_BGSND_GetFreeSpace(uint32 id, BGSND_PROCESS_TYPE type)
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_GetFreeSpace] Enter "); 
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_GetFreeSpace] ## r = %d w = %d size = %d", pSrc->bufSize[type], pSrc->bufRead[type], pSrc->bufWrite[type]); 
    
-
+	count = pSrc->bufSize[type] + pSrc->bufRead[type] - pSrc->bufWrite[type] - EXT_BGSND_BUF_PTR_DIFF; // (int32)ihdl->mh.rbInfo.read - (int32)ihdl->mh.rbInfo.write - 1;
+	if( count > pSrc->bufSize[type] )
+      count = count - pSrc->bufSize[type];
    
    kal_prompt_trace(MOD_L1SP, "[EXT_BGSND_GetFreeSpace] Leave ");    
-	return  (pSrc->bufSize[type] - EXT_BGSND_BUF_PTR_DIFF - pSrc->bufDataCount[type]);	
+	return count;	
 }
 
 

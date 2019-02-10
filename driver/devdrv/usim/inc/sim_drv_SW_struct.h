@@ -61,8 +61,6 @@ typedef struct{
 	kal_bool	IsCardRemove;	
 	kal_uint8 smHandler;
 	kal_bool SlowClock;
-	kal_bool doNotStopSimClock;
-	kal_uint32 issueCardStatus;
 }sim_HW_cb;
 
 typedef struct {
@@ -365,9 +363,6 @@ typedef struct
 	kal_uint8 TB15; // query if support ic usb    
 #if defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__)
 	kal_bool poll_sim_2s;
-#endif
-#if defined(SIM_DRV_RETRY_3V_WHEN_CMD_FAIL)
-	kal_bool retry_3v_prefer;
 #endif
 }usim_dcb_struct;
 

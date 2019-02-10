@@ -62,14 +62,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  *
  * removed!
@@ -452,7 +444,7 @@ usim_status_enum L1sim_Reset_All(sim_power_enum ExpectVolt, sim_power_enum *Resu
 	sim_ctrlDriver *simDriver;
 	usim_status_enum status;
 	kal_uint32 simInterface;
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
+#if defined(LPWR_SLIM)
 	sim_HW_cb *hw_cb;
 #endif
 #ifdef __SIM_HOT_SWAP_SUPPORT__
@@ -545,28 +537,10 @@ usim_status_enum L1sim_Reset_All(sim_power_enum ExpectVolt, sim_power_enum *Resu
 	if(denali_ver==E_DENALI_3)
 		DRV_ICC_SetLp(simInterface, KAL_FALSE);
 #endif //#ifdef __DRV_SIM_LP_MODE__
-
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
-	hw_cb = (sim_HW_cb *)(hwCbArray[simInterface]);
-#endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-    /* Race condition start */
-    /* To avoid the possibly TOUT interrupt to interfere sleep control */
-    IRQMask(hw_cb->mtk_lisrCode);
-#endif
-
 #if defined(LPWR_SLIM)
+	hw_cb = (sim_HW_cb *)(hwCbArray[simInterface]);
 	SleepDrv_SleepDisable(hw_cb->smHandler); //lock sleep mode	
 	DRV_ICC_CLKSRC_Lock(hw_cb->simInterface, KAL_TRUE);
-#endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-	SIM_DisAllIntr();
-	USIM_DISABLE_TOUT();
-	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK,  0xFFFF);
-	IRQUnmask(hw_cb->mtk_lisrCode);
-    /* Race condition end */
 #endif
 
 #ifdef __CUSTOMER_HW_VERIFICATION__
@@ -822,13 +796,10 @@ sim_status L1sim_Cmd_All(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 {
 	sim_ctrlDriver *simDriver;
 	sim_status status;
+
 	kal_uint32 simInterface;
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
+#if defined(LPWR_SLIM) || (defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__))
 	sim_HW_cb *hw_cb;
-#endif
-#if (defined(LPWR_SLIM) && !defined(SIM_DRV_SWITCH_MT6306)) || (defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__))
-	Sim_Card *SimCard;
-	usim_dcb_struct *usim_dcb;
 #endif
 
 #if defined(__DRV_SIM_LP_MODE__)
@@ -847,26 +818,11 @@ sim_status L1sim_Cmd_All(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 	if(0x0 == txData || 0x0 == txSize || 0x0 == rxSize)
 		ASSERT(0);
 
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
+#if defined(LPWR_SLIM) || (defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__))
 	hw_cb = (sim_HW_cb *)(hwCbArray[simInterface]);
 #endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-    /* Race condition start */
-    /* To avoid the possibly TOUT interrupt to interfere sleep control */
-    IRQMask(hw_cb->mtk_lisrCode);
-#endif
-
 #if defined(LPWR_SLIM)
 	SleepDrv_SleepDisable(hw_cb->smHandler); //lock sleep mode		
-#endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-	SIM_DisAllIntr();
-	USIM_DISABLE_TOUT();
-	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK,  0xFFFF);
-	IRQUnmask(hw_cb->mtk_lisrCode);
-    /* Race condition end */
 #endif
 
 #if defined(__DRV_SIM_LP_MODE__)
@@ -877,12 +833,6 @@ sim_status L1sim_Cmd_All(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 
 	/*find out the hooked function table*/
 	simDriver = sim_driverTable[simInterface];
-
-#if (defined(LPWR_SLIM) && !defined(SIM_DRV_SWITCH_MT6306)) || (defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__))
-	SimCard = GET_SIM_CB(simInterface);
-	usim_dcb = GET_USIM_CB(simInterface);
-#endif
-
 	ASSERT(0 != simDriver);
 	simDriver->addMessage(SIM_AL_ACTION_COMMAND, simInterface, (kal_uint32)kal_get_current_thread_ID(), 0);
 	status = simDriver->command(txData, txSize, rxData, rxSize, (sim_HW_cb *)(hwCbArray[simInterface]));
@@ -894,27 +844,19 @@ sim_status L1sim_Cmd_All(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 		DRV_ICC_SetLp(simInterface, KAL_TRUE);
 #endif //#ifdef __DRV_SIM_LP_MODE__
 
-#if defined(LPWR_SLIM)
-	if(status == SIM_SW_STATUS_FAIL) {
-		DRV_ICC_CLKSRC_Lock(hw_cb->simInterface, KAL_FALSE);
-    	SleepDrv_SleepEnable(hw_cb->smHandler);  //unlock sleep mode    
-	}
-	#if !defined(SIM_DRV_SWITCH_MT6306)
-	else if((SimCard->clkStop == KAL_TRUE) && (usim_dcb->phy_proto == T0_PROTOCOL) &&
-            (hw_cb->issueCardStatus == SIM_CLOCK_STOP_TIME_ENHANCE)) {
-	    // Do nothing here if SIM card support clock stop.
-	    // sleep would be enabled in the TOUT HISR.
-	    // Moreover, only the special 4G CT would come here.
-	    // Maybe the common SIM card could come here too...
-	}
-    #endif
-	else {
-	    // In case of SIM card do NOT support clock stop
-    	SleepDrv_SleepEnable(hw_cb->smHandler);  //unlock sleep mode
-    }
-#endif
 
+#if defined(LPWR_SLIM)
+	if(status == SIM_SW_STATUS_FAIL)
+	{
+		DRV_ICC_CLKSRC_Lock(hw_cb->simInterface, KAL_FALSE);
+	}
+	SleepDrv_SleepEnable(hw_cb->smHandler);  //unlock sleep mode    
+#endif
 #if defined(__SIM_HOT_SWAP_POLL_TIMER__) && defined(__SIM_HOT_SWAP_SUPPORT__)
+	Sim_Card *SimCard;
+	usim_dcb_struct *usim_dcb;
+	SimCard = GET_SIM_CB(hw_cb->simInterface);
+	usim_dcb = GET_USIM_CB(hw_cb->simInterface);
 	if(SimCard->poll_sim_2s || usim_dcb->poll_sim_2s) 
 	{
 		sim_hot_swap_poll_timer_rollback(application);
@@ -944,8 +886,8 @@ void L1sim_PowerOff_All(SIM_ICC_APPLICATION application)
 {
 	sim_ctrlDriver *simDriver;
 	kal_uint32 simInterface;
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
-    sim_HW_cb *hw_cb;
+#if defined(LPWR_SLIM)
+	sim_HW_cb *hw_cb;
 #endif
 #if defined(__DRV_SIM_LP_MODE__)
 	CHIP_NAME denali_ver = INT_DenaliVersion();
@@ -980,26 +922,9 @@ void L1sim_PowerOff_All(SIM_ICC_APPLICATION application)
 	}
 #endif
 
-#if defined(LPWR_SLIM) || !defined(SIM_DRV_SWITCH_MT6306)
-	hw_cb = (sim_HW_cb *)(hwCbArray[simInterface]);
-#endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-    /* Race condition start */
-    /* To avoid the possibly TOUT interrupt to interfere sleep control */
-    IRQMask(hw_cb->mtk_lisrCode);
-#endif
-
 #if defined(LPWR_SLIM)
+	hw_cb = (sim_HW_cb *)(hwCbArray[simInterface]);
 	SleepDrv_SleepDisable(hw_cb->smHandler); //lock sleep mode		
-#endif
-
-#if !defined(SIM_DRV_SWITCH_MT6306)
-	SIM_DisAllIntr();
-	USIM_DISABLE_TOUT();
-	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK,  0xFFFF);
-	IRQUnmask(hw_cb->mtk_lisrCode);
-    /* Race condition end */
 #endif
 
 	/*find out the hooked function table*/

@@ -131,10 +131,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -1534,16 +1530,7 @@ void SPE_LoadSpeechPara( uint16 c_para[NUM_COMMON_PARAS], uint16 m_para[NUM_MODE
       dsp_ptr = SAL_ModePar_GetBuf_NB();       
       for(I = SAL_PARAMETERLEN_MODE_NB; --I >= 0 ; )
          *dsp_ptr++ = *para++; 
-#if defined(__AUTOMOTIVE_TELEMATICS__) 	  
-	   //NB Mode par. 16~31
-	  dsp_ptr = SAL_ModePar_GetBuf2_NB();		
-	  for(I = SAL_PARAMETERLEN_MODE_NB; --I >= 0 ; )
-		*dsp_ptr++ = *para++;
-	  //NB Mode par. 32~47
-		dsp_ptr = SAL_ModePar_GetBuf3_NB();	
-	  for(I = SAL_PARAMETERLEN_MODE_NB; --I >= 0 ; )
-		*dsp_ptr++ = *para++;
-#endif	  
+
 
    }
 	
@@ -1554,17 +1541,7 @@ void SPE_LoadSpeechPara( uint16 c_para[NUM_COMMON_PARAS], uint16 m_para[NUM_MODE
       dsp_ptr = SAL_ModePar_GetBuf_WB();       
       for(I = SAL_PARAMETERLEN_MODE_WB; --I >= 0 ; )
          *dsp_ptr++ = *para++; 
-#if defined(__AUTOMOTIVE_TELEMATICS__) 	  
-	  //WB Mode par. 16~31
-	  dsp_ptr = SAL_ModePar_GetBuf2_WB();	 
-	 		 
-	  for(I = SAL_PARAMETERLEN_MODE_NB; --I >= 0 ; )
-		*dsp_ptr++ = *para++;
-	  //WB Mode par. 32~47
-	  dsp_ptr = SAL_ModePar_GetBuf3_WB();	 
-	  for(I = SAL_PARAMETERLEN_MODE_NB; --I >= 0 ; )
-		*dsp_ptr++ = *para++;
-#endif
+
 	}
 #endif		
 

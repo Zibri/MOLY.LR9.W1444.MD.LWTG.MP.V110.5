@@ -1031,14 +1031,14 @@
 #define EL1TX_LOG_RT_CMD_PUSCH_PWR2_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_2S(0x6207, (short)(v1)))
 
 #if defined(L1_CATCHER)
-	#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(v1, v2, v3) do {\
+	#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[1]&0x20)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x6307, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x6307, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
-	#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(v1, v2, v3)
+	#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(v1, v2)
 #endif
-#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x6307, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
+#define EL1TX_LOG_RT_CMD_PUSCH_PWR2_1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x6307, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_RT_CMD_PUCCH_PWR0(v1, v2, v3) do {\
@@ -1071,14 +1071,14 @@
 #define EL1TX_LOG_RT_CMD_PUCCH_PWR2_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_2S(0x6607, (short)(v1)))
 
 #if defined(L1_CATCHER)
-	#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(v1, v2, v3) do {\
+	#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[1]&0x20)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x6707, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x6707, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
-	#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(v1, v2, v3)
+	#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(v1, v2)
 #endif
-#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x6707, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
+#define EL1TX_LOG_RT_CMD_PUCCH_PWR2_1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x6707, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_RT_CMD_PRACH_PWR(v1, v2, v3) do {\
@@ -1181,304 +1181,294 @@
 #define EL1TX_LOG_UMPR_INFO1_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7107, (unsigned char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
-	#define EL1TX_LOG_UMPR_INFO2(v1, v2, v3) do {\
-		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x7207, (short)(v1)), TRC_MERGE_1S2C((short)(v2), (char)(v3), TRC_BOXSTER_PAD));\
-	} while(0)
-#else
-	#define EL1TX_LOG_UMPR_INFO2(v1, v2, v3)
-#endif
-#define EL1TX_LOG_UMPR_INFO2_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x7207, (short)(v1)), TRC_MERGE_1S2C((short)(v2), (char)(v3), TRC_BOXSTER_PAD))
-
-#if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_STATUS(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7307, (unsigned char)(v1), (unsigned char)(v2)), (long)(v3));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7207, (unsigned char)(v1), (unsigned char)(v2)), (long)(v3));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_STATUS(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_STATUS_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7307, (unsigned char)(v1), (unsigned char)(v2)), (long)(v3))
+#define EL1TX_LOG_TAS_STATUS_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7207, (unsigned char)(v1), (unsigned char)(v2)), (long)(v3))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_NORMAL0(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7307, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_NORMAL0(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_NORMAL0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_NORMAL0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7307, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_NORMAL1(v1, v2, v3, v4, v5) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7507, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_NORMAL1(v1, v2, v3, v4, v5)
 #endif
-#define EL1TX_LOG_TAS_NORMAL1_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7507, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_NORMAL1_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_PRE_SWITCH0(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7607, (char)(v1), (char)(v2)), (long)(v3));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7507, (char)(v1), (char)(v2)), (long)(v3));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_PRE_SWITCH0(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_PRE_SWITCH0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7607, (char)(v1), (char)(v2)), (long)(v3))
+#define EL1TX_LOG_TAS_PRE_SWITCH0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7507, (char)(v1), (char)(v2)), (long)(v3))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_PRE_SWITCH1(v1, v2, v3, v4) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7707, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7607, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_PRE_SWITCH1(v1, v2, v3, v4)
 #endif
-#define EL1TX_LOG_TAS_PRE_SWITCH1_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7707, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_PRE_SWITCH1_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7607, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_PHI_STATUS(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7807, (char)(v1), (char)(v2)));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7707, (char)(v1), (char)(v2)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_PHI_STATUS(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_PHI_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7807, (char)(v1), (char)(v2)))
+#define EL1TX_LOG_TAS_PHI_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7707, (char)(v1), (char)(v2)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_PHI_STATUS1(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7907, (char)(v1), (char)(v2)));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7807, (char)(v1), (char)(v2)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_PHI_STATUS1(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_PHI_STATUS1_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7907, (char)(v1), (char)(v2)))
+#define EL1TX_LOG_TAS_PHI_STATUS1_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7807, (char)(v1), (char)(v2)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_DB_STATUS(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7A07, (char)(v1), (char)(v2)));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7907, (char)(v1), (char)(v2)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_DB_STATUS(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_DB_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7A07, (char)(v1), (char)(v2)))
+#define EL1TX_LOG_TAS_DB_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7907, (char)(v1), (char)(v2)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_FTC_STATUS(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7B07, (char)(v1), (char)(v2)));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7A07, (char)(v1), (char)(v2)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_FTC_STATUS(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_FTC_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7B07, (char)(v1), (char)(v2)))
+#define EL1TX_LOG_TAS_FTC_STATUS_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7A07, (char)(v1), (char)(v2)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_CB_STATUS(v1, v2, v3, v4) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7C07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7B07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_CB_STATUS(v1, v2, v3, v4)
 #endif
-#define EL1TX_LOG_TAS_CB_STATUS_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7C07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_CB_STATUS_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7B07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_FORCE_TX(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7D07, (char)(v1), (char)(v2)));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7C07, (char)(v1), (char)(v2)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_FORCE_TX(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_FORCE_TX_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7D07, (char)(v1), (char)(v2)))
+#define EL1TX_LOG_TAS_FORCE_TX_NOFLTR(v1, v2) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x7C07, (char)(v1), (char)(v2)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_FEATURE(v1, v2, v3, v4, v5, v6, v7) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_4_DATA(TRC_MERGE_1S2C(0x7E07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD), (unsigned long)(v6), (unsigned long)(v7));\
+			TRC_SEND_4_DATA(TRC_MERGE_1S2C(0x7D07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD), (unsigned long)(v6), (unsigned long)(v7));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_FEATURE(v1, v2, v3, v4, v5, v6, v7)
 #endif
-#define EL1TX_LOG_TAS_FEATURE_NOFLTR(v1, v2, v3, v4, v5, v6, v7) TRC_SEND_4_DATA(TRC_MERGE_1S2C(0x7E07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD), (unsigned long)(v6), (unsigned long)(v7))
+#define EL1TX_LOG_TAS_FEATURE_NOFLTR(v1, v2, v3, v4, v5, v6, v7) TRC_SEND_4_DATA(TRC_MERGE_1S2C(0x7D07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (char)(v4), (char)(v5), TRC_BOXSTER_PAD), (unsigned long)(v6), (unsigned long)(v7))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_RSRP_DIFF_THD(v1, v2, v3, v4) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7F07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (unsigned char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7E07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (unsigned char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_RSRP_DIFF_THD(v1, v2, v3, v4)
 #endif
-#define EL1TX_LOG_TAS_RSRP_DIFF_THD_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7F07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (unsigned char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_RSRP_DIFF_THD_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x7E07, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), (unsigned char)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_CB_THD(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8007, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x7F07, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_CB_THD(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_CB_THD_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8007, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_CB_THD_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x7F07, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_TPC_HTP_THD(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8107, (short)(v2)), TRC_MERGE_4C((char)(v1), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8007, (short)(v2)), TRC_MERGE_4C((char)(v1), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_TPC_HTP_THD(v1, v2)
 #endif
-#define EL1TX_LOG_TAS_TPC_HTP_THD_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8107, (short)(v2)), TRC_MERGE_4C((char)(v1), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_TPC_HTP_THD_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8007, (short)(v2)), TRC_MERGE_4C((char)(v1), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_TPC_SB_THD(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8207, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8107, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_TPC_SB_THD(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_TPC_SB_THD_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8207, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_TPC_SB_THD_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8107, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_PHI_INFO(v1, v2, v3, v4) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8307, (short)(v4)), TRC_MERGE_4C((char)(v1), (char)(v2), (char)(v3), TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8207, (short)(v4)), TRC_MERGE_4C((char)(v1), (char)(v2), (char)(v3), TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_PHI_INFO(v1, v2, v3, v4)
 #endif
-#define EL1TX_LOG_TAS_PHI_INFO_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8307, (short)(v4)), TRC_MERGE_4C((char)(v1), (char)(v2), (char)(v3), TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_PHI_INFO_NOFLTR(v1, v2, v3, v4) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8207, (short)(v4)), TRC_MERGE_4C((char)(v1), (char)(v2), (char)(v3), TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_DB_INFO0(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x8407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x8307, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_DB_INFO0(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_DB_INFO0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x8407, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_DB_INFO0_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x8307, (char)(v1), (char)(v2)), TRC_MERGE_4C((char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TAS_DB_INFO1(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8507, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8407, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TAS_DB_INFO1(v1, v2, v3)
 #endif
-#define EL1TX_LOG_TAS_DB_INFO1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8507, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TAS_DB_INFO1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8407, (short)(v3)), TRC_MERGE_4C((char)(v1), (char)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_C2K_INFO_1(v1, v2, v3, v4, v5) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8607, (short)(v1)), TRC_MERGE_2S((short)(v2), (unsigned short)(v3)), TRC_MERGE_2S((unsigned short)(v4), (unsigned short)(v5)));\
+			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8507, (short)(v1)), TRC_MERGE_2S((short)(v2), (unsigned short)(v3)), TRC_MERGE_2S((unsigned short)(v4), (unsigned short)(v5)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_C2K_INFO_1(v1, v2, v3, v4, v5)
 #endif
-#define EL1TX_LOG_C2K_INFO_1_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8607, (short)(v1)), TRC_MERGE_2S((short)(v2), (unsigned short)(v3)), TRC_MERGE_2S((unsigned short)(v4), (unsigned short)(v5)))
+#define EL1TX_LOG_C2K_INFO_1_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8507, (short)(v1)), TRC_MERGE_2S((short)(v2), (unsigned short)(v3)), TRC_MERGE_2S((unsigned short)(v4), (unsigned short)(v5)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_C2K_INFO_2(v1) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x8707, (char)(v1), TRC_BOXSTER_PAD));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x8607, (char)(v1), TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_C2K_INFO_2(v1)
 #endif
-#define EL1TX_LOG_C2K_INFO_2_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x8707, (char)(v1), TRC_BOXSTER_PAD))
+#define EL1TX_LOG_C2K_INFO_2_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x8607, (char)(v1), TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TPC_TRICK0(v1, v2, v3, v4, v5) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8807, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_2S((short)(v4), (short)(v5)));\
+			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8707, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_2S((short)(v4), (short)(v5)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TPC_TRICK0(v1, v2, v3, v4, v5)
 #endif
-#define EL1TX_LOG_TPC_TRICK0_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8807, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_2S((short)(v4), (short)(v5)))
+#define EL1TX_LOG_TPC_TRICK0_NOFLTR(v1, v2, v3, v4, v5) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8707, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_2S((short)(v4), (short)(v5)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_TPC_TRICK1(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8907, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8807, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_TPC_TRICK1(v1, v2)
 #endif
-#define EL1TX_LOG_TPC_TRICK1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8907, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_TPC_TRICK1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8807, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_DTX_TRICK0(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8A07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8907, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_DTX_TRICK0(v1, v2)
 #endif
-#define EL1TX_LOG_DTX_TRICK0_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8A07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_DTX_TRICK0_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8907, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_DTX_TRICK1(v1, v2, v3) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8B07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8A07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
 	} while(0)
 #else
 	#define EL1TX_LOG_DTX_TRICK1(v1, v2, v3)
 #endif
-#define EL1TX_LOG_DTX_TRICK1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8B07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
+#define EL1TX_LOG_DTX_TRICK1_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8A07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_DTX_TRICK2(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8C07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8B07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_DTX_TRICK2(v1, v2)
 #endif
-#define EL1TX_LOG_DTX_TRICK2_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8C07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_DTX_TRICK2_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8B07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_DTX_TRICK3(v1, v2, v3, v4) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8D07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_1S2C((short)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_3_DATA(TRC_MERGE_2S(0x8C07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_1S2C((short)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_DTX_TRICK3(v1, v2, v3, v4)
 #endif
-#define EL1TX_LOG_DTX_TRICK3_NOFLTR(v1, v2, v3, v4) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8D07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_1S2C((short)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_DTX_TRICK3_NOFLTR(v1, v2, v3, v4) TRC_SEND_3_DATA(TRC_MERGE_2S(0x8C07, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)), TRC_MERGE_1S2C((short)(v4), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_ACQI_TRICK1(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8E07, (short)(v2)), (unsigned long)(v1));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8D07, (short)(v2)), (unsigned long)(v1));\
 	} while(0)
 #else
 	#define EL1TX_LOG_ACQI_TRICK1(v1, v2)
 #endif
-#define EL1TX_LOG_ACQI_TRICK1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8E07, (short)(v2)), (unsigned long)(v1))
+#define EL1TX_LOG_ACQI_TRICK1_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8D07, (short)(v2)), (unsigned long)(v1))
 
 #if defined(L1_CATCHER)
 	#define EL1TX_LOG_ACQI_TRICK2(v1, v2) do {\
 		if(EL1_TX_1_Trace_Filter[0]==1 && (EL1_TX_1_Trace_Filter[2]&0x10)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8F07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x8E07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define EL1TX_LOG_ACQI_TRICK2(v1, v2)
 #endif
-#define EL1TX_LOG_ACQI_TRICK2_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8F07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define EL1TX_LOG_ACQI_TRICK2_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x8E07, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 
 
@@ -1590,11 +1580,11 @@ void L1TRC_Send_EL1TX_LOG_RT_CMD_PCMAX(char v1);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUSCH_PWR0(char v1, char v2, unsigned char v3, unsigned char v4, unsigned char v5);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUSCH_PWR1(unsigned char v1, char v2, short v3);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUSCH_PWR2(short v1);
-void L1TRC_Send_EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(short v1, short v2, short v3);
+void L1TRC_Send_EL1TX_LOG_RT_CMD_PUSCH_PWR2_1(short v1, short v2);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUCCH_PWR0(char v1, char v2, char v3);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUCCH_PWR1(unsigned char v1, char v2, short v3);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PUCCH_PWR2(short v1);
-void L1TRC_Send_EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(short v1, short v2, short v3);
+void L1TRC_Send_EL1TX_LOG_RT_CMD_PUCCH_PWR2_1(short v1, short v2);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PRACH_PWR(unsigned char v1, char v2, short v3);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_PRACH_PWR_1(unsigned char v1, char v2, short v3, short v4);
 void L1TRC_Send_EL1TX_LOG_RT_CMD_SRS_PWR0(short v1, short v2, unsigned char v3, unsigned char v4, char v5, unsigned char v6);
@@ -1605,7 +1595,6 @@ void L1TRC_Send_EL1TX_LOG_TPC_PHR_RPT(unsigned char v1, char v2, unsigned char v
 void L1TRC_Send_EL1TX_LOG_RX_QUAL_RPT(unsigned char v1, short v2, short v3);
 void L1TRC_Send_EL1TX_LOG_UMPR_INFO0(unsigned char v1, char v2);
 void L1TRC_Send_EL1TX_LOG_UMPR_INFO1(unsigned char v1, char v2, char v3, char v4);
-void L1TRC_Send_EL1TX_LOG_UMPR_INFO2(short v1, short v2, char v3);
 void L1TRC_Send_EL1TX_LOG_TAS_STATUS(unsigned char v1, unsigned char v2, long v3);
 void L1TRC_Send_EL1TX_LOG_TAS_NORMAL0(char v1, char v2, char v3);
 void L1TRC_Send_EL1TX_LOG_TAS_NORMAL1(char v1, char v2, char v3, char v4, char v5);
@@ -1774,7 +1763,6 @@ void Set_EL1_TX_1_Filter(unsigned char *setting);
 #define ChkL1MsgFltr_EL1TX_LOG_RX_QUAL_RPT()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
 #define ChkL1MsgFltr_EL1TX_LOG_UMPR_INFO0()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
 #define ChkL1MsgFltr_EL1TX_LOG_UMPR_INFO1()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
-#define ChkL1MsgFltr_EL1TX_LOG_UMPR_INFO2()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
 #define ChkL1MsgFltr_EL1TX_LOG_TAS_STATUS()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
 #define ChkL1MsgFltr_EL1TX_LOG_TAS_NORMAL0()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()
 #define ChkL1MsgFltr_EL1TX_LOG_TAS_NORMAL1()	ChkL1ClsFltr_EL1_TX_1_tx_internal_info_trace_H()

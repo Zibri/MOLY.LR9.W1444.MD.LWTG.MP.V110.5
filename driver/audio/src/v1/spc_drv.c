@@ -62,23 +62,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -657,7 +640,6 @@
 extern void Spc_PCMNWay_DVT_Test(kal_uint8 uParam);
 extern void Spc_PCMNWay_DVT_Test_by_Rec_Button(kal_uint8 uParam, uint8 format, uint8 sampling_rate_idx, uint8 ch_num_idx);
 #endif // defined(__ENABLE_SPEECH_DVT__)
-void aud_ecall_event_callback(eCall_Modem_Event event, void *param);
 
 typedef enum {
 	SPC_APP_SPEECH_USAGE = 0,	
@@ -799,7 +781,7 @@ void spc_EmInit(kal_bool isNeedBasic, kal_bool isNeedWb, kal_bool isNeedDmnr, ka
 		memcpy(&(audio_par->speech_mode_para[5]), Speech_CARKIT_Mode_Para, 16*sizeof(uint16)) ;
 		memcpy(&(audio_par->speech_mode_para[6]), Speech_AUX1_Mode_Para, 16*sizeof(uint16)) ;
 		memcpy(&(audio_par->speech_mode_para[7]), Speech_AUX2_Mode_Para, 16*sizeof(uint16)) ;	
-		l1sp_setAllSpeechModePara((uint16 *)(audio_par->speech_mode_para), 8 * NUM_MODE_PARAS);
+		l1sp_setAllSpeechModePara((uint16 *)(audio_par->speech_mode_para), 8 * 16);
 	
 	
 		// FIR
@@ -822,7 +804,7 @@ void spc_EmInit(kal_bool isNeedBasic, kal_bool isNeedWb, kal_bool isNeedDmnr, ka
 		memcpy(&(audio_par->speech_mode_wb_para[5]), WB_Speech_CARKIT_Mode_Para, 16*sizeof(uint16)) ;
 		memcpy(&(audio_par->speech_mode_wb_para[6]), WB_Speech_AUX1_Mode_Para, 16*sizeof(uint16)) ;
 		memcpy(&(audio_par->speech_mode_wb_para[7]), WB_Speech_AUX2_Mode_Para, 16*sizeof(uint16)) ;	
-		l1sp_setAllWbSpeechModePara((uint16 *)(audio_par->speech_mode_wb_para), 8 * NUM_MODE_PARAS);
+		l1sp_setAllWbSpeechModePara((uint16 *)(audio_par->speech_mode_wb_para), 8 * 16);
 		
 		extern const signed short WB_Speech_Input_FIR_Coeff[6][90];
 		extern const signed short WB_Speech_Output_FIR_Coeff[6][90];
@@ -1019,10 +1001,6 @@ void Spc_SetSpeechMode_Adaptation( uint8 mode )
    int16 totalModeNum;
 
 	kal_trace( TRACE_INFO, SPC_SET_SPEECHMODE_ADAPT, mode);
-  if(!IS_SPC_ID_SPEECH_CUSTOM_DATA_REQUEST_DONE){ // prevent speech on before EM data sending
-		kal_trace( TRACE_INFO, SPC_ILLEGAL_SPC_APP_BEHAVIOR, SPC_APP_SPEECH_USAGE, SPC_APP_SPEECH_USAGE, 12);
-		return;
-	}	
 
 	//[REMIND] For MT6589, idle recording function are implement in AP side, 
 	// so record mode information is not existing in MD side
@@ -3538,7 +3516,7 @@ void spc_ReceiveEMParameter_common(const kal_uint16 offset, const kal_uint16 len
 #endif // defined(__ENABLE_SPEECH_DVT__)
 	L1SP_LoadCommonSpeechPara(audio_par->speech_common_para);
 	// mode parameter
-   l1sp_setAllSpeechModePara((uint16 *)(audio_par->speech_mode_para), 8 * NUM_MODE_PARAS);
+   l1sp_setAllSpeechModePara((uint16 *)(audio_par->speech_mode_para), 8 * 16);
 
 	// [History] useless
    // memcpy(SPH_VOL_PAR , audio_par->speech_volume_para, sizeof(uint16) * 4);
@@ -3609,7 +3587,7 @@ void spc_ReceiveEMParameter_wb(const kal_uint16 offset, const kal_uint16 length)
    ASSERT(info.length == (length-6));
 
 #ifdef SPC_MSG_ORG_VER	
-	l1sp_setAllWbSpeechModePara((uint16 *)wbPar->speech_mode_wb_para, 8 * NUM_MODE_PARAS );
+	l1sp_setAllWbSpeechModePara((uint16 *)wbPar->speech_mode_wb_para, 8 * 16 );
 	if( wbPar->input_out_fir_flag == 0 ){//input
 		l1sp_setAllWbSpeechFirCoeff_InputOnly((int16 *)(wbPar->sph_wb_fir),  6 * 90);
 	}else if( wbPar->input_out_fir_flag == 1 ){//output
@@ -3618,7 +3596,7 @@ void spc_ReceiveEMParameter_wb(const kal_uint16 offset, const kal_uint16 length)
 		ASSERT(0);
 	} 
 #else 
-	l1sp_setAllWbSpeechModePara((uint16 *)wbPar->speech_mode_wb_para, 8 * NUM_MODE_PARAS );
+	l1sp_setAllWbSpeechModePara((uint16 *)wbPar->speech_mode_wb_para, 8 * 16 );
 	l1sp_setAllWbSpeechFirCoeff_InputOnly((int16 *)(wbPar->sph_wb_in_fir),  6 * 90);
 	l1sp_setAllWbSpeechFirCoeff_OutputOnly((int16 *)(wbPar->sph_wb_out_fir), 6 * 90);
 #endif
@@ -3662,11 +3640,11 @@ void spc_ReceiveHacParameter(const kal_uint16 offset, const kal_uint16 length)
 	ASSERT(info.type== AUD_CCCI_STRMBUF_TYPE_HAC_PARAM);
 	ASSERT(info.length == (length-6));
 	
-	spe_setHacSpeechModePara(hacParam->speech_hac_mode_nb_para, NUM_MODE_PARAS);
+	spe_setHacSpeechModePara(hacParam->speech_hac_mode_nb_para, 16);
 	spe_setHacSpeechFirCoeff_InputOnly(hacParam->sph_hac_in_fir, 45);
 	spe_setHacSpeechFirCoeff_OutputOnly(hacParam->sph_hac_out_fir, 45);
 
-	spe_setHacWbSpeechModePara(hacParam->speech_hac_mode_wb_para, NUM_MODE_PARAS);
+	spe_setHacWbSpeechModePara(hacParam->speech_hac_mode_wb_para, 16);
 	spe_setHacWbSpeechFirCoeff_InputOnly(hacParam->sph_hac_wb_in_fir, 90);
 	spe_setHacWbSpeechFirCoeff_OutputOnly(hacParam->sph_hac_wb_out_fir, 90);
 
@@ -4091,42 +4069,7 @@ void spc_A2M_MsgHandler(kal_uint32 ccciMsg, kal_uint32 ccciResv)
 			// spc_BgSndConfig((msgData16>>8)>>5, (msgData16&0xff)>>5);
 			spc_BgSndConfig((msgData16>>13), ((msgData16&0xff)>>5));
 			break; // SPCIO_MSG_FROM_SPC_BGSND_CONFIG_ACK-- > MSG_M2A_BGSND_CONFIG_ACK
-		case MSG_A2M_IVS_SWITCH: 
-#if defined(__ECALL_SUPPORT__)				
-			if(msgData16 == 1)
-			{
-	 	      eCall_IVS_Open(aud_ecall_event_callback);
-			}
-			else if(msgData16 == 0)
-			{
-			  eCall_IVS_Close();
-    	    }
-			SpcIO_SendMsgToAp(SPCIO_MSG_FROM_IVS_SWITCH_ACK, 0, 0);
-#endif			
-			break; 
-		case MSG_A2M_PSAP_SWITCH: 
-#if defined(__ECALL_SUPPORT__)				
-			 if(msgData16 == 1)
-			 {
-			    eCall_PSAP_Open(aud_ecall_event_callback);
-			 }
-			 else if(msgData16 == 0)
-			 {
-			   eCall_PSAP_Close();
-			 }	
-			 SpcIO_SendMsgToAp(SPCIO_MSG_FROM_PSAP_SWITCH_ACK, 0, 0);
-#endif			 
-			break;	
-		case MSG_A2M_IVS_SEND: 
-#if defined(__ECALL_SUPPORT__)				
-			eCall_IVS_SendStart();
-#endif
-			break;		
-		case MSG_A2M_PSAP_SEND: 
-#if defined(__ECALL_SUPPORT__)			
-			eCall_PSAP_SendStart();
-#endif
-			break;		
+
 		// --------- [0x50] Recevie DATA notify  -----------
 		case MSG_A2M_PNW_DLDATA_NOTIFY: 
 			spc_pcmNWay_writeDlDataDone((kal_uint16)msgData32, msgData16);
@@ -4138,12 +4081,6 @@ void spc_A2M_MsgHandler(kal_uint32 ccciMsg, kal_uint32 ccciResv)
 		case MSG_A2M_DACA_UL_DATA_NOTIFY:
 			spc_daca_writeUlDataDone((kal_uint16)msgData32, msgData16);
 			break;
-		case MSG_A2M_ECALL_MSD: 
-#if defined(__ECALL_SUPPORT__)				
-			spc_eCall_Msd_Data((kal_uint16)msgData32, msgData16);
-			SpcIO_SendMsgToAp(SPCIO_MSG_FROM_SPC_MSD_DATA_ACK, 0, 0);
-#endif			
-			break;		
 
 		// --------- [0x60] Send DATA Ack  ---------------
 		case MSG_A2M_PNW_ULDATA_READ_ACK: 
@@ -4763,26 +4700,5 @@ kal_uint16 get_spcGetEpofTimes(void)
 {
 	return(gSpc.spcGetEpofTimes);
 }
-#if defined(__ECALL_SUPPORT__)	
-void spc_eCall_Msd_Data(kal_uint16 offset, kal_int16 length)
-{
-	spcBufInfo info;	
-	kal_uint16 curOffSet;
-	kal_uint8 Msd[140];
-	#if 1
-	kal_uint8 i;
-	
-	#endif
-	
-	curOffSet = SpcIo_GetDataFromAp(offset, sizeof(spcBufInfo), &info);
-	
-	ASSERT(info.syncWord == 0xA2A2);
-    ASSERT(info.type == AUD_CCCI_ECALL_MSD_TYPE);
-	
-    //ASSERT(info.length == (length - sizeof(spcBufInfo)));
-    SpcIo_GetDataFromAp(curOffSet, 140, Msd);
-	eCall_IVS_PutMSD(Msd,140);
 
 
-}
-#endif

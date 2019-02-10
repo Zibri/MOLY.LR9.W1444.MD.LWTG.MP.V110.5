@@ -520,27 +520,6 @@ void SAL_ENH_Gain_Set_DL(uint16 val)
 	SALI_ENH_Gain_Set_DL(val);
 }
 
-void SAL_ENH_Dynamic_State_Par_Init(void)
-{
-	SALI_ENH_Dynamic_State_Par_Init();
-	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(31), *DSP_SPH_ENH_DYNAMIC_STATE, SAL_UNKNOWN, SAL_UNKNOWN, SAL_UNKNOWN);
-}
-
-void SAL_ENH_Dynamic_State_Set(Sal_Enh_Dyn_Sta_t sta)
-{
-	SALI_ENH_Dynamic_State_Set(sta);
-}
-
-bool SAL_ENH_Dynamic_State_Check(Sal_Enh_Dyn_Sta_t sta)
-{
-	SALI_ENH_Dynamic_State_Check(sta);
-}
-
-void SAL_ENH_Flag_Par_Set(Sal_Enh_Flag_Par_t par)
-{
-	SALI_ENH_Flag_Par_Set(par);
-}
-
 volatile uint16* SAL_CommonPar_GetBuf()
 {
 	volatile uint16 *addr;
@@ -557,23 +536,6 @@ volatile uint16* SAL_ModePar_GetBuf_NB()
 	return addr;
 }
 
-volatile uint16* SAL_ModePar_GetBuf2_NB()
-{
-	volatile uint16 *addr;
-	addr = SALI_Parameter_GetAddr(SALI_PARAMETER_TYPE_MODE2_NB);
-	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(32), ((int)addr)>>16, (int)addr, SAL_UNKNOWN, SAL_UNKNOWN);
-	return addr;
-}
-
-volatile uint16* SAL_ModePar_GetBuf3_NB()
-{
-	volatile uint16 *addr;
-	addr = SALI_Parameter_GetAddr(SALI_PARAMETER_TYPE_MODE3_NB);
-	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(33), ((int)addr)>>16, (int)addr, SAL_UNKNOWN, SAL_UNKNOWN);
-	return addr;
-}
-
-
 volatile uint16* SAL_ModePar_GetBuf_WB()
 {
 	volatile uint16 *addr;
@@ -581,23 +543,6 @@ volatile uint16* SAL_ModePar_GetBuf_WB()
 	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(11), SAL_UNKNOWN, SAL_UNKNOWN, ((int)addr)>>16, (int)addr);
 	return addr;
 }
-
-volatile uint16* SAL_ModePar_GetBuf2_WB()
-{
-	volatile uint16 *addr;
-	addr = SALI_Parameter_GetAddr(SALI_PARAMETER_TYPE_MODE2_WB);
-	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(34), SAL_UNKNOWN, SAL_UNKNOWN, ((int)addr)>>16, (int)addr);
-	return addr;
-}
-
-volatile uint16* SAL_ModePar_GetBuf3_WB()
-{
-	volatile uint16 *addr;
-	addr = SALI_Parameter_GetAddr(SALI_PARAMETER_TYPE_MODE3_WB);
-	L1Audio_Msg_SAL_PROC(SAL_PROC_NAME(35), SAL_UNKNOWN, SAL_UNKNOWN, ((int)addr)>>16, (int)addr);
-	return addr;
-}
-
 
 volatile uint16* SAL_DMNR_GetFltCoefAddr_NB()
 {

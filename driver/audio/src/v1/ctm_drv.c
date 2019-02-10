@@ -61,9 +61,6 @@
  *
  * removed!
  * removed!
- *
- * removed!
- * removed!
  * removed!
  *
  * removed!
@@ -1292,7 +1289,7 @@ void l1ctm_in_task(void *data)
       
             
       // up-link path input : Baudot Demodulator 
-      if(interface != DIRECT_MODE)
+      if(interface == BAUDOT_MODE)
       {
       #if !defined(DUPLEX_BAUDOT)         
          if(ctmFlags & CMF_BAUDOT_OUT_BITS_READY && l1ctm->enquiry_count != -2)
@@ -1327,7 +1324,7 @@ void l1ctm_in_task(void *data)
       }
    
       // down-link path input : CTM receiver 
-      if( l1ctm->interface != DIRECT_MODE ) // Half-duplex CTM for BAUDOT_MODE //mtk01407, 2006-05-22
+      if( l1ctm->interface == BAUDOT_MODE ) // Half-duplex CTM for BAUDOT_MODE //mtk01407, 2006-05-22
       {	
          if(    (!(ctmFlags & CMF_CTM_TX_BITS_READY))  ||  (l1ctmFlags & (LCF_NEGOTIATION | LCF_ACKING)) )
          { ctm_receiver((const uint16*)l1ctm->dl_pcm_fifo[buf_idx], bfi_flag, &ctmFlags, &utf8_code);  }
@@ -1378,7 +1375,7 @@ void l1ctm_in_task(void *data)
                   l1ctmFlags |= LCF_DL_ACKING;
                   l1ctm->enquiry_timeout1 = 0;
                   l1ctm->enquiry_timeout2 = 0;
-                  if(interface != DIRECT_MODE)
+                  if(interface == BAUDOT_MODE)
                      l1ctm->enquiry_count = -1; //0;                                    
                   else if(interface == DIRECT_MODE)
                   {
@@ -1417,7 +1414,7 @@ void l1ctm_in_task(void *data)
                   l1ctm_save_decoded_char(utf8_code, 0);
                #endif    
                
-               if(interface != DIRECT_MODE)
+               if(interface == BAUDOT_MODE)
                {
                   DL_TTY_BUF_PUT_CHAR(utf8_code);               
                }
@@ -1475,7 +1472,7 @@ void l1ctm_in_task(void *data)
                                                                         
   
       // down-link path output    
-      if(interface != DIRECT_MODE)
+      if(interface == BAUDOT_MODE)
       {
          if(ctmFlags & CMF_BAUDOT_OUT_BITS_READY)
          {
@@ -1523,15 +1520,15 @@ void l1ctm_in_task(void *data)
             if(l1ctmFlags & LCF_NEGOTIATION)
             {
                // Yuan comment out to test the ul nego fail problem in LA.
-               //if(interface != DIRECT_MODE && l1ctm->enquiry_timeout1 > 0)   
+               //if(interface == BAUDOT_MODE && l1ctm->enquiry_timeout1 > 0)   
                //   if(UL_TTY_BUF_CHAR_READY())
                //      UL_TTY_BUF_GET_CHAR(utf8_code);            
-               //if(interface != DIRECT_MODE && l1ctm->enquiry_timeout1 > 0)   
+               //if(interface == BAUDOT_MODE && l1ctm->enquiry_timeout1 > 0)   
                   //utf8_code = ENQUIRY_CHAR;
             }
             else 
             {
-               if(interface != DIRECT_MODE && UL_TTY_BUF_CHAR_READY())
+               if(interface == BAUDOT_MODE && UL_TTY_BUF_CHAR_READY())
                {
                   UL_TTY_BUF_GET_CHAR(utf8_code);
                }
@@ -1577,7 +1574,7 @@ void l1ctm_in_task(void *data)
          {
             utf8_code = NO_CHAR;
          
-            if(interface != DIRECT_MODE && UL_TTY_BUF_CHAR_READY())
+            if(interface == BAUDOT_MODE && UL_TTY_BUF_CHAR_READY())
             {
                UL_TTY_BUF_GET_CHAR(utf8_code);
             }
@@ -1611,7 +1608,7 @@ void l1ctm_in_task(void *data)
                //if(l1ctm->enquiry_count == 3) // Adam : mark for more enquiry 
                if(l1ctm->enquiry_count == more_enquiry_times)
                {
-                  if((interface != DIRECT_MODE && UL_TTY_BUF_CHAR_READY()) ||
+                  if((interface == BAUDOT_MODE && UL_TTY_BUF_CHAR_READY()) ||
                       (interface == DIRECT_MODE && (l1ctmFlags & LCF_NEGOTIATION_REQ)))                
                      l1ctmFlags |= (LCF_SEND_ENQUIRY + LCF_NEGOTIATION);                              
                }            
@@ -2048,8 +2045,8 @@ void L1Ctm_Open(L1Ctm_Interface a, L1Ctm_Callback handler, uint8 *buf, uint32 bu
    }
    
    // set interface 
-   // ASSERT(a != DIRECT_MODE || a == DIRECT_MODE);
-   ASSERT(a == FULL_MODE || a == VCO_MODE || a == HCO_MODE);
+   // ASSERT(a == BAUDOT_MODE || a == DIRECT_MODE);
+   ASSERT(a==BAUDOT_MODE);
    l1ctm->interface = a;       
    
    // init l1ctm pcm_fifo output to 0 by setting ul_mute_flags & dl_mute_flags
@@ -2109,7 +2106,7 @@ void L1Ctm_Open(L1Ctm_Interface a, L1Ctm_Callback handler, uint8 *buf, uint32 bu
    if(cprm_debug_flag & CPRM_MASK_ALWAYS_NEGO_SUC) // Adam : for non-Negotiation test 
    {
       l1ctm->FLAGS = LCF_FAR_END_DETECTED; 
-      if(l1ctm->interface != DIRECT_MODE)
+      if(l1ctm->interface == BAUDOT_MODE)
          l1ctm->enquiry_count = -1; 	
    }  
    	      

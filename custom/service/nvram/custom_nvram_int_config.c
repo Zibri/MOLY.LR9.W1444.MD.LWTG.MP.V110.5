@@ -59,7 +59,215 @@
  * removed!
  * removed!
  * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -75,6 +283,28 @@
  *
  * removed!
  * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -84,7 +314,10 @@
  *
  * removed!
  * removed!
+ *
+ * removed!
  * removed!
+ * removed!
  *
  * removed!
  * removed!
@@ -560,6 +793,11 @@
  * removed!
  * removed!
  *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
  * removed!
  * removed!
  * removed!
@@ -1211,6 +1449,8 @@
 #include "nvram_editor_data_item.h"
 #include "sim_ps_api.h"
 
+#define SBP_TEST_MODE 8286
+
 #ifdef __GEMINI_3G_SWITCH__
 extern kal_uint8 MASTER_SIM_CFG;
 #endif
@@ -1221,23 +1461,89 @@ kal_bool nvram_custom_config_ltecsr_profile(kal_uint32 sbp_id);
 #endif /* __MOD_IMC__ */
 void custom_nvram_set_sms_bearer_preference_sbp(kal_uint8 bearer_service);
 
+void nvram_custom_reset_mscap();
+void custom_nvram_reset_sms_bearer_preference_sbp();
+void custom_nvram_reset_regional_phone_mode();
+void custom_nvram_reset_pf_conformance_testmode();
+void custom_nvram_reset_ltecsr_profile();
+
 #ifdef __VOLTE_SUPPORT__
 kal_bool nvram_custom_config_vdm_ads_profile(kal_uint32 sbp_id);
+void nvram_custom_reset_vdm_ads_profile();
 #endif /* __VOLTE_SUPPORT__ */
 
 #ifdef __LTE_RAT__
 void custom_nvram_set_errc_band_para(kal_uint32 sbp_id);
 void custom_nvram_set_errc_para(kal_uint32 sbp_id);
 void custom_nvram_set_lte_pref(kal_uint32 sbp_id);
+void nvram_custom_reset_errc_para();
+void custom_nvram_reset_lte_pref();
 #endif
 
 kal_bool nvram_custom_config_rrc_dynamic_cap(kal_uint32 sbp_id);
 
+void nvram_custom_reset_rrc_dynamic_cap();
+void custom_reset_nvram_lids(kal_uint32 sbp_id);
+
+kal_uint32 old_sbp_id = 0;
 kal_uint32 default_sbp_id = 0;
 kal_uint32 ims_operator_code = 0;
+
+typedef void(*SBP_RESET_NVRAM_LID)();
+
+typedef struct{
+	SBP_RESET_NVRAM_LID sbp_reset_nvram_lid_funcptr;
+}sbp_nvram_lid_reset_table;
+
+
+sbp_nvram_lid_reset_table nvram_lid_reset_func_tbl[]={
+	nvram_custom_reset_mscap,
+	nvram_custom_reset_rrc_dynamic_cap,
+#ifdef __VOLTE_SUPPORT__
+    nvram_custom_reset_vdm_ads_profile,
+#endif
+#ifdef __LTE_RAT__        
+    nvram_custom_reset_errc_para,
+    custom_nvram_reset_lte_pref,
+    custom_nvram_reset_sms_bearer_preference_sbp,
+    custom_nvram_reset_regional_phone_mode,
+    custom_nvram_reset_pf_conformance_testmode,
+    custom_nvram_reset_ltecsr_profile
+#endif    
+};
 /*
  * Restore factory begin
  */
+ 
+/*****************************************************************************
+ * FUNCTION
+ *	sbp_is_test_mode
+ *
+ * DESCRIPTION
+ * Set SBP to test mode.
+ * In test mode, we read current values of nvram files instead of using default values before applying SBP settings.
+ *
+ * PARAMETERS
+ *	[IN]	N/A
+ * RETURNS
+ *	 KAL_TRUE	 : SBP is in test mode
+ *	 KAL_FALSE	 : SBP is not in test mode
+ *****************************************************************************/
+
+kal_bool sbp_is_test_mode (void)
+{
+	nvram_ef_sbp_modem_data_config_struct sbp_data_buf;
+
+	nvram_external_read_data(NVRAM_EF_SBP_MODEM_DATA_CONFIG_LID, 
+							 1, 
+							 (kal_uint8*)&sbp_data_buf, 
+							 NVRAM_EF_SBP_MODEM_DATA_CONFIG_SIZE);
+
+	if (SBP_TEST_MODE == sbp_data_buf.sbp_mode)
+		return KAL_TRUE;
+	else
+		return KAL_FALSE;
+}
 
 
 /*****************************************************************************
@@ -1339,8 +1645,8 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
     nvram_ef_sbp_modem_data_config_struct sbp_data_buf;
 
     /* CCCI_MISC_INFO_SUPPORT means AP has sent SBP ID to modem */
-    if (NVRAM_DEFAULT_VALUE_POINT == 
-        nvram_get_default_value(NVRAM_EF_SBP_MODEM_CONFIG_LID, 1, (kal_uint8**)&default_sbp_feature))
+    if ((KAL_FALSE == sbp_is_test_mode())&&
+		NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_SBP_MODEM_CONFIG_LID, 1, (kal_uint8**)&default_sbp_feature))
     {
         /* Reset to the default value first */
         kal_mem_cpy(&sbp_feature_buf, default_sbp_feature, sizeof(nvram_ef_sbp_modem_config_struct));
@@ -1354,8 +1660,8 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
                                  NVRAM_EF_SBP_MODEM_CONFIG_SIZE);
     }
         
-    if (NVRAM_DEFAULT_VALUE_POINT == 
-        nvram_get_default_value(NVRAM_EF_SBP_MODEM_DATA_CONFIG_LID, 1, (kal_uint8**)&default_sbp_data))
+    if ((KAL_FALSE == sbp_is_test_mode())&&
+		NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_SBP_MODEM_DATA_CONFIG_LID, 1, (kal_uint8**)&default_sbp_data))
     {
         /* Reset to the default value first */
         kal_mem_cpy(&sbp_data_buf, default_sbp_data, sizeof(nvram_ef_sbp_modem_data_config_struct));
@@ -1369,12 +1675,21 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
                                  NVRAM_EF_SBP_MODEM_DATA_CONFIG_SIZE);
     }
         
+	custom_reset_nvram_lids(sbp_id);
+		
     sbp_feature_buf.sbp_mode = sbp_id;
-    sbp_data_buf.sbp_mode = sbp_id;
+    //sbp_data_buf.sbp_mode = sbp_id;
     
-    /* Update related NVRAM files if received SBP ID is not 0 */
-    if (sbp_id != 0)
+    /* Update related NVRAM files  */
     {
+
+#if defined (__MOD_IMC__)
+            if(sbp_id != 0) {
+                /* nvram_custom_config_ltecsr_profile() needs be called before nvram_custom_config_ims_profile() */
+                nvram_custom_config_ltecsr_profile(sbp_id);
+            }
+#endif
+
         if (sbp_id == 1) //for CMCC
         {
             //sbp_set_md_feature(SBP_OP01_ROAMING_RAT_ORDER, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
@@ -1433,7 +1748,6 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
 #endif
 
 #if defined (__MOD_IMC__)
-            nvram_custom_config_ltecsr_profile(sbp_id);
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */            
         }
@@ -1547,6 +1861,7 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
             sbp_set_md_feature(SBP_4G23_LOCAL_REL_IMS_PDN, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
             sbp_set_md_feature(SBP_SPEED_CS_FEATURE, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
 		    sbp_set_md_feature(SBP_MM_SKIP_LU_AFTER_CSFB_FOR_EAFR, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+		    sbp_set_md_feature(SBP_EMM_IGNORE_MT_CS_WHEN_IMS_CALL, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
 
 #if defined (__MOD_IMC__)
             /* TMO GBA flag checking in ISIM */
@@ -1628,7 +1943,6 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
         else if (sbp_id == 16) //for EE
         {
 #if defined (__MOD_IMC__)
-            nvram_custom_config_ltecsr_profile(sbp_id);
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */
             sbp_set_md_feature(SBP_RAC_CHANGE_VDP_WHEN_IMS_ONOFF, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
@@ -1637,16 +1951,23 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
         }
         else if (sbp_id == 17) //for DoCoMo
         {
+            sbp_set_md_feature(SBP_RTP_FLOW_USE_CID_0, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+
 #if defined (__MOD_IMC__)
-            nvram_custom_config_ltecsr_profile(sbp_id);
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */
             sbp_set_md_feature(SBP_DCM_ETWS_TEST_UE, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_R12_CHECK_SSAC_IN_CONNECTED, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_SDM_RETRY_CS_DOMAIN_WHEN_IMS_TR1M_EXPIRY, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_DISABLE_BEARER_RSC_ALLOC, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_DISABLE_BEARER_RSC_MOD, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_SDM_RETRY_CS_WHEN_IMS_SEND_FAIL, KAL_FALSE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_RAC_CHANGE_VDP_IMS_CONFIG_BY_ROAMING, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
+            sbp_set_md_feature(SBP_RAC_CHANGE_VDP_WHEN_IMS_ONOFF, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
         }
         else if (sbp_id == 18) //for RJIL
         {
 #if defined (__MOD_IMC__)
-            nvram_custom_config_ltecsr_profile(sbp_id);
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */  
             sbp_set_md_feature(SBP_EMM_IGNORE_TAC_ALL_ZEROS_CHECK, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
@@ -1861,6 +2182,7 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
         }
         else if(sbp_id == 120) //for Claro
         {
+		    sbp_set_md_feature(SBP_NO_CHANGERAT_RETRY_FOR_EMERGENCY_CALL_REJECT, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
 #if defined (__MOD_IMC__)
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */  
@@ -1874,6 +2196,7 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
         }
         else if(sbp_id == 122) //for AIS
         {
+            sbp_set_md_feature(SBP_VDM_DISABLE_RETRY_WHEN_VOWIFI_GOT_NW_REJECT, KAL_TRUE, (nvram_ef_sbp_modem_config_struct*)&sbp_feature_buf);
 #if defined (__MOD_IMC__)
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */  
@@ -1931,6 +2254,12 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */  
         }
+        else if (sbp_id == 134) //for Elisa Finland
+        {
+#if defined (__MOD_IMC__)
+            nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
+#endif /* __MOD_IMC__ */  
+        }
         else if(sbp_id == 135) //for MTS
         {
 #if defined (__MOD_IMC__)
@@ -1949,6 +2278,18 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
 #endif /* __MOD_IMC__ */  
         }
+        else if(sbp_id == 141) //for CellC
+        {
+#if defined (__MOD_IMC__)
+            nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
+#endif /* __MOD_IMC__ */  
+        }
+        else if(sbp_id == 144) //for Smile
+        {
+#if defined (__MOD_IMC__)
+            nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
+#endif /* __MOD_IMC__ */  
+        }
         else if(sbp_id == 145) //for Cricket
         {
 #if defined (__MOD_IMC__)
@@ -1956,6 +2297,18 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
 #endif /* __MOD_IMC__ */  
         }
         else if(sbp_id == 1003) //for HQLAB_ERICSSON
+        {
+#if defined (__MOD_IMC__)
+            nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
+#endif /* __MOD_IMC__ */  
+        }
+        else if(sbp_id == 0x6000) //for Sony GTE/Lund
+        {
+#if defined (__MOD_IMC__)
+            nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
+#endif /* __MOD_IMC__ */  
+        }
+        else if(sbp_id == 0x6001) //for Sony GTE/BeiJing
         {
 #if defined (__MOD_IMC__)
             nvram_custom_config_ims_profile(sbp_id, is_in_dynamic_sbp, imsi);
@@ -1973,11 +2326,7 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
                                   (kal_uint8*)&sbp_data_buf, 
                                   NVRAM_EF_SBP_MODEM_DATA_CONFIG_SIZE);                          
     }
-    else
-    {
-        /* incorect sbp id */
-        return KAL_FALSE;
-    }
+
         
     return KAL_TRUE;
 }
@@ -1995,24 +2344,26 @@ kal_bool custom_nvram_set_sbp_id(kal_uint32 sbp_id, kal_bool is_in_dynamic_sbp, 
  * RETURNS
  *  KAL_TRUE
  * NOTE
- *  Here ims_operator_code from nvram_ims_profile is used.
+ *  Here ua_config.operator_code from nvram_ims_profile is used.
  *  So that this function has to be called before nvram_custom_config_ims_profile()
  *****************************************************************************/
 #if defined (__MOD_IMC__)
 kal_bool nvram_custom_config_ltecsr_profile(kal_uint32 sbp_id)
 {
-    kal_uint8* nvram_read_buf_ptr = NULL;
+    kal_uint8* nvram_read_ltecsr_buf_ptr = NULL;
+    kal_uint8* nvram_read_ims_buf_ptr = NULL;
     nvram_ef_ltecsr_profile_record_struct* nvram_ltecsr_profile_ptr = NULL;
     nvram_ef_ltecsr_profile_record_struct* default_ltecsr_profile_ptr = NULL;
+    nvram_ef_ims_profile_record_struct* nvram_ims_profile_ptr = NULL;
 
-    // Allocate buffer to read NVRAM setting
-    nvram_read_buf_ptr = (kal_uint8*)get_ctrl_buffer(sizeof(kal_uint8) * NVRAM_EF_LTECSR_PROFILE_SIZE);
+    /* Allocate buffer to read NVRAM setting */
+    nvram_read_ltecsr_buf_ptr = (kal_uint8*)get_ctrl_buffer(sizeof(kal_uint8) * NVRAM_EF_LTECSR_PROFILE_SIZE);
 
     nvram_external_read_data(NVRAM_EF_LTECSR_PROFILE_LID,
                              1,
-                             nvram_read_buf_ptr,
+                             nvram_read_ltecsr_buf_ptr,
                              NVRAM_EF_LTECSR_PROFILE_SIZE);
-    nvram_ltecsr_profile_ptr = (nvram_ef_ltecsr_profile_record_struct*)nvram_read_buf_ptr;
+    nvram_ltecsr_profile_ptr = (nvram_ef_ltecsr_profile_record_struct*)nvram_read_ltecsr_buf_ptr;
 
     /* Due to DSBP mechanism will not reset NVRAM buffer to default value,
      * Our customization may cause accumulation to NVRAM buffer.
@@ -2020,17 +2371,45 @@ kal_bool nvram_custom_config_ltecsr_profile(kal_uint32 sbp_id)
      * compare sbp_id and operator_code, 
      * to keep the same operator's parameter which no need to customize.
      */
-    if(sbp_id != ims_operator_code) {
+    nvram_read_ims_buf_ptr = (kal_uint8*)get_ctrl_buffer(sizeof(kal_uint8) * NVRAM_EF_IMS_PROFILE_SIZE);
+
+    nvram_external_read_data(NVRAM_EF_IMS_PROFILE_LID,
+                             1,
+                             nvram_read_ims_buf_ptr,
+                             NVRAM_EF_IMS_PROFILE_SIZE);
+    nvram_ims_profile_ptr = (nvram_ef_ims_profile_record_struct*)nvram_read_ims_buf_ptr;
+
+    if(sbp_id != nvram_ims_profile_ptr->ua_config.operator_code) {
         if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_LTECSR_PROFILE_LID, 1, (kal_uint8**)&default_ltecsr_profile_ptr)){
             kal_mem_cpy(nvram_ltecsr_profile_ptr, default_ltecsr_profile_ptr, sizeof(nvram_ef_ltecsr_profile_record_struct));
         }
     }
+    free_ctrl_buffer(nvram_read_ims_buf_ptr);
+    nvram_read_ims_buf_ptr = NULL;
+
 
     switch(sbp_id)
     {  
         case 3: /* Orange */
         {
             nvram_ltecsr_profile_ptr->ltecsr_common_para2 = nvram_ltecsr_profile_ptr->ltecsr_common_para2 | (1<<4); //LTECSR_FEATURE_DYNAMIC_QOS
+            break;
+        }
+        case 7: /* ATT */
+        {
+            nvram_ltecsr_profile_ptr->rtp_expire_timer = 20000;
+            nvram_ltecsr_profile_ptr->rtcp_expire_timer = 20000;
+            break;
+        }
+        case 8:
+        {
+            nvram_ltecsr_profile_ptr->rtp_expire_timer = 30000;
+            nvram_ltecsr_profile_ptr->rtcp_expire_timer = 30000;
+            break;
+        }
+        case 12: /* VzW */
+        {
+            nvram_ltecsr_profile_ptr->silence_dropcall_threshold = 10000; //VzW requirment: 10s
             break;
         }
         case 16: /* EE */
@@ -2049,12 +2428,25 @@ kal_bool nvram_custom_config_ltecsr_profile(kal_uint32 sbp_id)
             nvram_ltecsr_profile_ptr->ltecsr_common_para2 = nvram_ltecsr_profile_ptr->ltecsr_common_para2 | (1<<1); //LTECSR_FEATURE_HOLDCALL_DL_CHECK
             break;
         }
+        case 120: /* Claro */
+        {
+            nvram_ltecsr_profile_ptr->rtp_expire_timer = 30000;
+            nvram_ltecsr_profile_ptr->rtcp_expire_timer = 25000;
+            break;
+        }
+        case 129: /* KDDI */
+        {
+            nvram_ltecsr_profile_ptr->rtp_expire_timer = 20000;
+            nvram_ltecsr_profile_ptr->rtcp_expire_timer = 20000;
+            break;
+        }
+
     }
     nvram_external_write_data(NVRAM_EF_LTECSR_PROFILE_LID, 1, (kal_uint8*)nvram_ltecsr_profile_ptr, NVRAM_EF_LTECSR_PROFILE_SIZE);
 
-    // Free allocated buffer
-    free_ctrl_buffer(nvram_read_buf_ptr);
-    nvram_read_buf_ptr = NULL;
+    /* Free allocated buffer */
+    free_ctrl_buffer(nvram_read_ltecsr_buf_ptr);
+    nvram_read_ltecsr_buf_ptr = NULL;
 
     return KAL_TRUE;
 }
@@ -2104,6 +2496,9 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
         case 135: /* MTS */
         case 136: /* Entel */
         case 137: /* Tele2 */
+        case 141: /* CellC */
+        case 144: /* Smile */
+        case 0x6001: /* Sony GTE/Beijing */
         {
             if(!is_in_dynamic_sbp){
                 //dynacmic generate
@@ -2161,7 +2556,22 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
         }
         case 7: /* AT&T */
         {
+            if(!is_in_dynamic_sbp){
+                //dynamic generate
+            }
+            /* US */
+            else if(strncmp((char *)&mccmnc[0], "310", 3) == 0){
             kal_snprintf((char *)conf_factory_uri, len-1, "sip:n-way_voice@one.att.net");
+            }
+            /* Default (Mexico) */
+            else {
+                if(imsi_mnc_len == 2) {
+                    kal_snprintf((char *)conf_factory_uri, len-1, "sip:mmtel@conf-factory.ims.mnc0%c%c.mcc%c%c%c.3gppnetwork.org", mccmnc[3], mccmnc[4], mccmnc[0], mccmnc[1], mccmnc[2]);
+                }
+                else if(imsi_mnc_len == 3) {
+                    kal_snprintf((char *)conf_factory_uri, len-1, "sip:mmtel@conf-factory.ims.mnc%c%c%c.mcc%c%c%c.3gppnetwork.org", mccmnc[3], mccmnc[4], mccmnc[5], mccmnc[0], mccmnc[1], mccmnc[2]);
+                }
+            }
             break;
         }
         case 8: /* TMOUS */
@@ -2327,7 +2737,11 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
             else if(strncmp((char *)&mccmnc[0], "222", 3) == 0){
                 kal_snprintf((char *)conf_factory_uri, len-1, "sip:mmtel@conf-factory.ics.mnc001.mcc222.3gppnetwork.org");
             }
-            /* Default (Brazil) */
+            /* Brazil */
+            else if(strncmp((char *)&mccmnc[0], "724", 3) == 0){
+                kal_snprintf((char *)conf_factory_uri, len-1, "tel:1234");
+            }
+            /* Default */
             else {
                 if(imsi_mnc_len == 2) {
                     kal_snprintf((char *)conf_factory_uri, len-1, "sip:mmtel@conf-factory.ims.mnc0%c%c.mcc%c%c%c.3gppnetwork.org", mccmnc[3], mccmnc[4], mccmnc[0], mccmnc[1], mccmnc[2]);
@@ -2343,9 +2757,13 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
             if(!is_in_dynamic_sbp){
                 //dynacmic generate
             }
-			/* colombia */
+            /* Colombia */
             else if(strncmp((char *)&mccmnc[0], "732", 3) == 0){
 				kal_snprintf((char *)conf_factory_uri, len-1, "sip:conference@ims.mnc123.mcc732.3gppnetwork.org");
+            }
+            /* Mexico */
+            else if(strncmp((char *)&mccmnc[0], "334", 3) == 0){
+                kal_snprintf((char *)conf_factory_uri, len-1, "conference@factory.ims.movistar.mx");
             }
 			/* other countries*/
             else if(imsi_mnc_len == 2) {
@@ -2361,6 +2779,11 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
             kal_snprintf((char *)conf_factory_uri, len-1, "sip:1234@ims.du.ae");
             break;
         }
+        case 134: /* Elisa Finland */
+        {
+            kal_snprintf((char *)conf_factory_uri, len-1, "sip:7888@ims.mnc005.mcc244.3gppnetwork.org");
+            break;
+        }
         case 1003: /* HQLAB ERICSSON */
         {
             if(!is_in_dynamic_sbp){
@@ -2374,6 +2797,12 @@ static kal_bool set_conf_factory_uri_by_imsi(kal_uint8 *conf_factory_uri, kal_bo
             }
             break;
         }
+        case 0x6000: /* Sony GTE/Lund */
+        {
+            kal_snprintf((char *)conf_factory_uri, len-1, "sip:conference@conference.gtec01.ims.se");
+            break;
+        }
+
         default: break;
     }
 
@@ -2493,7 +2922,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.audio_priority                 = 0x0005;
             nvram_ims_profile_ptr->ua_config.video_dscp                     = 0x0020;
             nvram_ims_profile_ptr->ua_config.video_priority                 = 0x0004;
-            nvram_ims_profile_ptr->ua_config.UA_call_amr_fmt_variant        = 0x1111;
+            nvram_ims_profile_ptr->ua_config.call_id_with_host_inCall       = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.contact_with_username          = 0;
@@ -2510,6 +2939,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.tcp_connect_max_time_invite    = 4;
             nvram_ims_profile_ptr->ua_config.pend_dereg_in_initial_reg      = 1;
             nvram_ims_profile_ptr->ua_config.contact_with_transport         = 0;
+            nvram_ims_profile_ptr->ua_config.call_id_with_host_inReg        = 1;
 
             /* IMCB */
             memset(&nvram_ims_profile_ptr->imc_config.pdn_rej_handle[0],0,64);              //CMCC: "N,33,16,0;N,*,0,1;E,*,0,1;"
@@ -2537,6 +2967,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe = 1;
             nvram_ims_profile_ptr->ua_config.use_eps_prefix_in_phone_context= 0;
             nvram_ims_profile_ptr->ua_config.not_add_SDP_in_OPTIONS         = 1;
+            nvram_ims_profile_ptr->ua_config.call_id_with_host_inCall       = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.contact_with_username          = 0;
@@ -2551,6 +2982,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.contact_with_accesstype        = 1;
             nvram_ims_profile_ptr->ua_config.attempt_reg_when_receive403    = 0;
             nvram_ims_profile_ptr->ua_config.pend_dereg_in_initial_reg      = 1;
+            nvram_ims_profile_ptr->ua_config.call_id_with_host_inReg        = 1;
+
+            /*IMCB*/
+            nvram_ims_profile_ptr->imc_config.not_acquire_audio_rtcp        = 1;
+            nvram_ims_profile_ptr->imc_config.not_acquire_video_rtcp        = 1;
             break;
         }
         case 3: /* Orange */
@@ -2567,6 +3003,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.early_media_when_rtp_coming    = 1;
             nvram_ims_profile_ptr->ua_config.wfc_emerg_pidf_country         = 1;
             nvram_ims_profile_ptr->ua_config.merge_send_bye                 = 0;
+            nvram_ims_profile_ptr->ua_config.add_3gpp_ims_in_Accept         = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.contact_with_transport         = 0;
@@ -2598,14 +3035,27 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout         = 130;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 130;
             nvram_ims_profile_ptr->ua_config.oos_end_reset_tcp_client           = 1;
+            nvram_ims_profile_ptr->ua_config.merge_send_bye                     = 0;
+            nvram_ims_profile_ptr->ua_config.histinfo_in_supported              = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.rereg_in_oos_end                   = 1;
+            nvram_ims_profile_ptr->ua_config.de_subscribe                       = 0;
+            nvram_ims_profile_ptr->ua_config.use_udp_on_tcp_fail                = 0;
+            
+            /* IMCB */
+            memset(&nvram_ims_profile_ptr->imc_config.pdn_rej_handle[0],0,64);              //DTAG: "N,30,16,0;N,*,0,1;E,*,0,1;"
+            strncpy ( (char *)nvram_ims_profile_ptr->imc_config.pdn_rej_handle,
+                    "N,30,16,0;N,*,0,1;E,*,0,1;",
+                    sizeof (nvram_ims_profile_ptr->imc_config.pdn_rej_handle)-1
+                    );
             break;
         }
         case 6: /* Vodafone */
         {
             nvram_ims_profile_ptr->ua_config.operator_code                     = 0x0006;      //operator_code = 6(VDF)
+            nvram_ims_profile_ptr->ua_config.UA_call_rej_code                  = 480;
+            
             set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
 
             /* There are parameters need mcc to customize,
@@ -2665,6 +3115,8 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.UA_reg_t2_timer                    = 4000;
                     nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                    = 5000;
                     nvram_ims_profile_ptr->imc_config.ims_v4v6_preference               = 2;        //v4_prefer
+                    nvram_ims_profile_ptr->ua_config.UA_call_precondition               = 0;        //disable precondition
+                    nvram_ims_profile_ptr->imc_config.resouce_retain_timer              = 0x00001F40;// 8000ms (8 seconds)
                     set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
                     /* IMCB, Reg/Stack, UA internal configurations */
                     /* Call */
@@ -2677,7 +3129,6 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     /* Reg/Stack */
 
                     /* IMCB */
-                    nvram_ims_profile_ptr->imc_config.video_resource_retain_timer       = 8000;
                     memset(&nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list[0],0,32);
                     strncpy ( (char *)nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list,
                               "0,2,6,3,1,4,5,0",
@@ -2732,6 +3183,40 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     "N,33,16,0;N,28,16,0;N,*,0,1;E,*,0,1;",
                     sizeof (nvram_ims_profile_ptr->imc_config.pdn_rej_handle)-1
                     );
+
+            /* Country specific configurations */
+            if(is_in_dynamic_sbp){
+                /* Mexico */
+                if(strncmp((char *)&mccmnc[0], "334", 3) == 0){
+                    /* reset to default */
+                    if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_IMS_PROFILE_LID, 1, (kal_uint8**)&default_ims_profile_ptr)){
+                        orig_video_support = nvram_ims_profile_ptr->imc_config.video_over_ps_support;
+                        orig_voice_support = nvram_ims_profile_ptr->imc_config.voice_support;
+                        orig_sms_support = nvram_ims_profile_ptr->imc_config.sms_support;
+
+                        kal_mem_cpy(nvram_ims_profile_ptr, default_ims_profile_ptr, sizeof(nvram_ef_ims_profile_record_struct));
+
+                        /* For D-SBP, AP may set volte capabilities before sending at+esbp to modem, modem should save
+                             these volte capablility settings to avoid being reset.*/
+                        nvram_ims_profile_ptr->imc_config.video_over_ps_support = orig_video_support;
+                        nvram_ims_profile_ptr->imc_config.voice_support = orig_voice_support;
+                        nvram_ims_profile_ptr->imc_config.sms_support = orig_sms_support;
+                    }
+                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0007;   //operator_code = 7 (AT&T Mexico)
+                    nvram_ims_profile_ptr->imc_config.ims_reg_allowed_at_23g        = 1;
+
+                    set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+                    
+                    /* IMCB, Reg/Stack, UA internal configurations */
+                    /* Call */
+                    nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout     = 20;
+                    nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 20;
+                    nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
+                    nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server     = 1;
+                    nvram_ims_profile_ptr->ua_config.merge_send_bye                 = 0;
+                    /* Reg/Stack */
+                }
+            }
             break;
         }
         case 8: /* TMOUS */
@@ -2792,6 +3277,12 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->imc_config.ignore_media_qos_check        = 1;
             break;
         }
+        case 9: /*CT*/
+        {
+            /*IMCB*/
+            nvram_ims_profile_ptr->imc_config.not_acquire_audio_rtcp        = 1;
+            break;
+        }
         case 11: /* H3G */
         {
             nvram_ims_profile_ptr->ua_config.operator_code                      = 0x000B; //operator_code = 11(H3G)
@@ -2819,7 +3310,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
 
             /* IMCB */
             nvram_ims_profile_ptr->imc_config.not_acquire_audio_rtcp            = 1;
-            nvram_ims_profile_ptr->imc_config.dereg_defer_pdn_release_timer     = 300000; //5min
+            nvram_ims_profile_ptr->imc_config.dereg_defer_pdn_release_timer     = 270000; //4min 30seconds
             break;
         }
         case 12: /* VzW */
@@ -2916,6 +3407,10 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout     = 60;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 130;
             nvram_ims_profile_ptr->ua_config.call_tcall_timer_timeout       = 20;
+            nvram_ims_profile_ptr->ua_config.add_country_to_pani            = 1;
+            
+            /* Reg/Stack */
+            nvram_ims_profile_ptr->ua_config.not_auto_reg_403               = 1;
             break;
         }
         case 17: /* DoCoMo */
@@ -2935,6 +3430,9 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.pcscf_error_when663            = 1;
             nvram_ims_profile_ptr->ua_config.call_tcall_timer_timeout       = 0;
 
+            /* SMS */
+            nvram_ims_profile_ptr->ua_config.mo_retry_after_504             = 1;
+            nvram_ims_profile_ptr->ua_config.send_timerF_expiry             = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.de_subscribe                   = 0;
@@ -2945,8 +3443,6 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.notify_sms_notify_done         = 1;
             nvram_ims_profile_ptr->ua_config.emergency_use_imsi             = 1;
             nvram_ims_profile_ptr->ua_config.retry_interval_after_403       = 240;
-            nvram_ims_profile_ptr->ua_config.UA_call_precondition               = 0;      //disable precondition
-            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
 
             /* IMCB */
             nvram_ims_profile_ptr->imc_config.timerF_expiry                 = 1;
@@ -2971,9 +3467,17 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
             nvram_ims_profile_ptr->ua_config.merge_send_bye                     = 0;
             nvram_ims_profile_ptr->ua_config.call_tcall_timer_timeout           = 20;
+            nvram_ims_profile_ptr->ua_config.wait_second_invite_for_hold        = 1;
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout         = 45;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 90;
+            nvram_ims_profile_ptr->ua_config.video_conf_if_one_is_video         = 1;
 
+            /* Reg/Stack */
+            nvram_ims_profile_ptr->ua_config.try_n_next_pcscf_5626              = 2;
+            nvram_ims_profile_ptr->ua_config.try_same_pcscf_if_retry_after      = 1;
+            nvram_ims_profile_ptr->ua_config.contact_wildcard_dereg             = 1;
+
+            /* IMCB */
             memset(&nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list[0],0,32);
             strncpy ( (char *)nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list,  
                       "0,2,6,3,1,4,5,0", 
@@ -3004,6 +3508,8 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_Force_Use_UDP = 1;
             nvram_ims_profile_ptr->ua_config.UA_net_ipsec                    = 0;
             nvram_ims_profile_ptr->ua_config.UA_call_session_timer   = 0x00000708;  // UA_call_session_timer = 1800
+            nvram_ims_profile_ptr->ua_config.UA_call_precondition    = 0;
+            nvram_ims_profile_ptr->imc_config.ims_v4v6_preference    = 2;      //v4_prefer
 
             memset(&nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set[0],0,20);
             strncpy ( (char *)nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set,  
@@ -3022,6 +3528,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout             = 180;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout            = 180;
             nvram_ims_profile_ptr->ua_config.call_tcall_timer_timeout               = 20;
+            nvram_ims_profile_ptr->ua_config.use_eps_prefix_in_phone_context        = 0;
+            nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe         = 1;
+
+            /* Reg/Stack */
+            nvram_ims_profile_ptr->ua_config.de_subscribe                           = 0;
             break;
         }
         case 101: /* PCCW */
@@ -3031,6 +3542,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.UA_net_ipsec                    = 0;
             nvram_ims_profile_ptr->ua_config.UA_call_session_timer   = 0x00000708;  // UA_call_session_timer = 1800
             nvram_ims_profile_ptr->ua_config.UA_call_precondition    = 0;
+            nvram_ims_profile_ptr->imc_config.ims_v4v6_preference    = 2;      //v4_prefer
 
             memset(&nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set[0],0,20);
             strncpy ( (char *)nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set,  
@@ -3049,6 +3561,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout            = 180;
             nvram_ims_profile_ptr->ua_config.call_tcall_timer_timeout               = 20;
             nvram_ims_profile_ptr->ua_config.UA_call_session_min_se                 = 180;
+            nvram_ims_profile_ptr->ua_config.use_eps_prefix_in_phone_context        = 0;
+            nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe         = 1;
+
+            /* Reg/Stack */
+            nvram_ims_profile_ptr->ua_config.de_subscribe                           = 0;
             break;
         }
         case 102: /* SMT */
@@ -3212,6 +3729,46 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                       "0,2,1,6,3,4,5,0", 
                       sizeof (nvram_ims_profile_ptr->imc_config.pcscf_visit_policy_list)-1   //set pcscf policy for visit NW 
                     );
+
+            /* Country specific configurations */
+            if(is_in_dynamic_sbp){
+                /* Mexico */
+                if(strncmp((char *)&mccmnc[0], "334", 3) == 0){
+                    /* reset to default */
+                    if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_IMS_PROFILE_LID, 1, (kal_uint8**)&default_ims_profile_ptr)){
+                        orig_video_support = nvram_ims_profile_ptr->imc_config.video_over_ps_support;
+                        orig_voice_support = nvram_ims_profile_ptr->imc_config.voice_support;
+                        orig_sms_support = nvram_ims_profile_ptr->imc_config.sms_support;
+
+                        kal_mem_cpy(nvram_ims_profile_ptr, default_ims_profile_ptr, sizeof(nvram_ef_ims_profile_record_struct));
+
+                        /* For D-SBP, AP may set volte capabilities before sending at+esbp to modem, modem should save
+                             these volte capablility settings to avoid being reset.*/
+                        nvram_ims_profile_ptr->imc_config.video_over_ps_support = orig_video_support;
+                        nvram_ims_profile_ptr->imc_config.voice_support = orig_voice_support;
+                        nvram_ims_profile_ptr->imc_config.sms_support = orig_sms_support;
+                    }
+                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0070;   //operator_code = 112 (American Movil (Telcel) Mexico)
+                    nvram_ims_profile_ptr->imc_config.ims_reg_allowed_at_23g        = 1;
+
+                    set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+                    
+                    /* IMCB, Reg/Stack, UA internal configurations */
+                    /* Call */
+                    nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout     = 90;
+                    nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 90;
+                    nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
+                    nvram_ims_profile_ptr->ua_config.merge_send_bye                 = 0;
+                    nvram_ims_profile_ptr->ua_config.early_media_when_rtp_coming    = 1;
+                    /* Reg/Stack */
+                    /* IMCB */
+                    memset(&nvram_ims_profile_ptr->imc_config.pdn_rej_handle[0],0,64);              //Telcel Mexico: "N,33,18,0;N,*,0,1;E,*,0,1;"
+                    strncpy ( (char *)nvram_ims_profile_ptr->imc_config.pdn_rej_handle,
+                            "N,33,18,0;N,*,0,1;E,*,0,1;",
+                            sizeof (nvram_ims_profile_ptr->imc_config.pdn_rej_handle)-1
+                            ); 
+                }
+            }
             break;
         }
         case 113: /* Beeline */
@@ -3241,6 +3798,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.UA_call_precondition           = 0;      //disable precondition
             nvram_ims_profile_ptr->imc_config.ims_v4v6_preference           = 2;      //v4_prefer
             nvram_ims_profile_ptr->imc_config.resouce_retain_timer          = 10*1000;  // resource_retain_timer
+            nvram_ims_profile_ptr->imc_config.ussd_support                  = 1;
             set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
 
             /* IMCB, Reg/Stack, UA internal configurations */
@@ -3307,11 +3865,16 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
         case 120: /* Claro */
         {
             nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0078;   //operator_code = 120(Claro)
+            nvram_ims_profile_ptr->imc_config.ussd_support                  = 1;
             nvram_ims_profile_ptr->ua_config.register_expiry                = 3600;
-            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size = 1500;
+            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size = 1080;
             nvram_ims_profile_ptr->imc_config.ims_v4v6_preference           = 2;        //v4_prefer
             nvram_ims_profile_ptr->imc_config.resouce_retain_timer          = 20*1000;  //resource_retain_timer = 20 000ms (20 seconds)
             nvram_ims_profile_ptr->imc_config.emergency_pdn_retain_timer    = 300*1000; //emergency_pdn_retain_timer = 300 000ms (300 seconds)
+            nvram_ims_profile_ptr->ua_config.UA_reg_t1_timer                = 500;
+            nvram_ims_profile_ptr->ua_config.UA_reg_t2_timer                = 4000;
+            nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                = 5000;
+            nvram_ims_profile_ptr->ua_config.UA_reg_ipsec_algo              = 0x20;
 
             set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
 
@@ -3320,9 +3883,13 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.use_eps_prefix_in_phone_context        = 0;
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout             = 90;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout            = 90;
+            nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server             = 1;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server                 = 1;
+            nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe         = 1;
+            nvram_ims_profile_ptr->ua_config.merge_send_bye                         = 0;
 
             /* Reg/Stack */
-            nvram_ims_profile_ptr->ua_config.contact_with_transport                 = 0;
+            nvram_ims_profile_ptr->ua_config.reg_gruu_support                       = 0;
 
             /* IMCB */
             memset(&nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list[0],0,32);
@@ -3395,6 +3962,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.UA_reg_t1_timer                = 500;
                     nvram_ims_profile_ptr->ua_config.UA_reg_t2_timer                = 4000;
                     nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                = 5000;
+                    nvram_ims_profile_ptr->ua_config.UA_call_session_min_se         = 90;
+                    nvram_ims_profile_ptr->ua_config.UA_call_session_timer          = 0x00000708;  // UA_call_session_timer = 1800
+                    nvram_ims_profile_ptr->ua_config.UA_call_precondition           = 0;           // disable precondition
+                    
+                    set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
                     
                     /* IMCB, Reg/Stack, UA internal configurations */
                     /* Call */
@@ -3404,9 +3976,18 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.merge_send_bye                 = 0;
                     nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
                     nvram_ims_profile_ptr->ua_config.early_media_when_rtp_coming    = 1;
+                    nvram_ims_profile_ptr->ua_config.session_refresher_in_req       = 1;
+                    nvram_ims_profile_ptr->ua_config.always_use_sip_uri_for_mo_call = 1;
+                    nvram_ims_profile_ptr->ua_config.call_id_with_host_inCall       = 1;
             
                     /* Reg/Stack */
                     nvram_ims_profile_ptr->ua_config.pidf_country                   = 1;
+                    nvram_ims_profile_ptr->ua_config.de_subscribe                   = 0;
+                    nvram_ims_profile_ptr->ua_config.contact_with_accesstype        = 1;
+                    nvram_ims_profile_ptr->ua_config.contact_with_expires           = 1;
+
+                    /* IMCB */
+                    nvram_ims_profile_ptr->imc_config.ignore_sgn_qci_check          = 1;
                 }
                 /* Argentina */
                 if(strncmp((char *)&mccmnc[0], "722", 3) == 0){
@@ -3430,6 +4011,8 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.UA_reg_t1_timer                = 500;
                     nvram_ims_profile_ptr->ua_config.UA_reg_t2_timer                = 4000;
                     nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                = 5000;
+                    
+                    set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
                     
                     /* IMCB, Reg/Stack, UA internal configurations */
                     /* Call */
@@ -3460,6 +4043,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server  = 1;
             nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout  = 120;
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout = 120;
+            nvram_ims_profile_ptr->ua_config.send_183_when_prcd_none     = 0;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.rereg_in_rat_change         = 1;
@@ -3591,6 +4175,9 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 120;
             nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe     = 1;
             nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server         = 1;
+            nvram_ims_profile_ptr->ua_config.merge_send_bye                     = 0;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
+            
             /* IMCB */
             nvram_ims_profile_ptr->imc_config.default_fallback_support          = 1;
             memset(&nvram_ims_profile_ptr->imc_config.pcscf_home_policy_list[0],0,32);
@@ -3625,10 +4212,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.UA_reg_f_timer                 = 30000; // 30 sec
             nvram_ims_profile_ptr->ua_config.UA_reg_h_timer                 = 30000; // 30 sec
             nvram_ims_profile_ptr->ua_config.UA_reg_j_timer                 = 30000; // 30 sec
-            nvram_ims_profile_ptr->ua_config.add_user_phone                 = 0; 
+            nvram_ims_profile_ptr->ua_config.add_user_phone                 = 0;
             /* IMCB, Reg/Stack, UA internal configurations */
             /* Call */
-            nvram_ims_profile_ptr->ua_config.always_use_sip_uri_for_mo_call     = 1;
+            nvram_ims_profile_ptr->ua_config.always_use_sip_uri_for_mo_call = 1;
+            nvram_ims_profile_ptr->ua_config.use_183_for_early_media        = 1;
 
             memset(&nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set[0],0,20);
             strncpy((char *)nvram_ims_profile_ptr->ua_config.UA_call_amr_wb_mode_set,  
@@ -3689,7 +4277,10 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 60;
                     nvram_ims_profile_ptr->ua_config.merge_send_bye                 = 0;
                     nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server     = 1;
+                    nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
+                    nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe = 1;
                     /* Reg/Stack */
+                    nvram_ims_profile_ptr->ua_config.de_subscribe                   = 0;
                 }
             }
             break;
@@ -3828,7 +4419,6 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     }
                     nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0084;   //operator_code = 132(Movistar)
                     nvram_ims_profile_ptr->imc_config.ims_v4v6_preference           = 2;      //v4_prefer
-                    nvram_ims_profile_ptr->ua_config.early_media                    = 1;
                     set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
                     /* IMCB, Reg/Stack, UA internal configurations */
                     /* Call */
@@ -3864,7 +4454,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                         nvram_ims_profile_ptr->imc_config.voice_support = orig_voice_support;
                         nvram_ims_profile_ptr->imc_config.sms_support = orig_sms_support;
                     }
-                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0078;   //operator_code = 132(Movistar)
+                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0084;   //operator_code = 132(Movistar)
                     
                     set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
                     
@@ -3891,7 +4481,7 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                         nvram_ims_profile_ptr->imc_config.voice_support = orig_voice_support;
                         nvram_ims_profile_ptr->imc_config.sms_support = orig_sms_support;
                     }
-                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0078;   //operator_code = 132(ViVo Brazil)
+                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0084;   //operator_code = 132(ViVo Brazil)
                     nvram_ims_profile_ptr->ua_config.UA_call_session_timer          = 1800;
                     nvram_ims_profile_ptr->ua_config.UA_call_session_min_se         = 600;
                     
@@ -3903,16 +4493,72 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
                     nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout     = 90;
                     nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 90;
                     nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server     = 1;
+                    nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
                     
                     /* Reg/Stack */
                 }
+                /* Mexico */
+                if(strncmp((char *)&mccmnc[0], "334", 3) == 0){
+                    /* reset to default */
+                    if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_IMS_PROFILE_LID, 1, (kal_uint8**)&default_ims_profile_ptr)){
+                        orig_video_support = nvram_ims_profile_ptr->imc_config.video_over_ps_support;
+                        orig_voice_support = nvram_ims_profile_ptr->imc_config.voice_support;
+                        orig_sms_support = nvram_ims_profile_ptr->imc_config.sms_support;
+
+                        kal_mem_cpy(nvram_ims_profile_ptr, default_ims_profile_ptr, sizeof(nvram_ef_ims_profile_record_struct));
+
+                        /* For D-SBP, AP may set volte capabilities before sending at+esbp to modem, modem should save
+                             these volte capablility settings to avoid being reset.*/
+                        nvram_ims_profile_ptr->imc_config.video_over_ps_support = orig_video_support;
+                        nvram_ims_profile_ptr->imc_config.voice_support = orig_voice_support;
+                        nvram_ims_profile_ptr->imc_config.sms_support = orig_sms_support;
+                    }
+                    nvram_ims_profile_ptr->ua_config.operator_code                  = 0x0084;   //operator_code = 132(Movistar)
+                    nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size = 1500;
+                    
+                    set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+                    
+                    /* IMCB, Reg/Stack, UA internal configurations */
+                    /* Call */                    
+                    /* Reg/Stack */
+                }
             }
+            break;
+        }
+        case 134: /* Elisa Finland */
+        {
+            nvram_ims_profile_ptr->ua_config.operator_code                      = 0x0086; //operator_code = 134(Elisa Finland)
+            nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                    = 5000;
+            nvram_ims_profile_ptr->ua_config.register_expiry                    = 20000;
+            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size     = 1400;
+            
+            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+
+            /* IMCB, Reg/Stack, UA internal configurations */
+            /* Call */
+            nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout         = 90;
+            nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 90;            
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
+            nvram_ims_profile_ptr->ua_config.early_media_when_rtp_coming        = 1;
+            nvram_ims_profile_ptr->ua_config.merge_send_bye                     = 0;
+            nvram_ims_profile_ptr->ua_config.conf_participant_not_subscribe     = 1;
+
+            /* Reg/Stack */
+
+            /* IMCB */
+            memset(&nvram_ims_profile_ptr->imc_config.pdn_rej_handle[0],0,64);              //Elisa FI: "N,33,16,0;N,*,0,1;E,*,0,1;"
+            strncpy ( (char *)nvram_ims_profile_ptr->imc_config.pdn_rej_handle,
+                    "N,33,16,0;N,*,0,1;E,*,0,1;",
+                    sizeof (nvram_ims_profile_ptr->imc_config.pdn_rej_handle)-1
+                    );   
+
             break;
         }
         case 135: /* MTS */
         {
             nvram_ims_profile_ptr->ua_config.operator_code                      = 0x0087;   //operator_code = 135(MTS Russia)
             nvram_ims_profile_ptr->ua_config.UA_call_session_timer              = 0x00000384;  // UA_call_session_timer = 900s
+            nvram_ims_profile_ptr->imc_config.resouce_retain_timer              = 6000;  // 6 seconds
 
             set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
 
@@ -3924,9 +4570,11 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             nvram_ims_profile_ptr->ua_config.early_media_when_rtp_coming        = 1;
             nvram_ims_profile_ptr->ua_config.add_country_to_pani                = 1;
             nvram_ims_profile_ptr->ua_config.UA_call_session_min_se             = 90;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.wfc_with_plani                     = 1;
+            nvram_ims_profile_ptr->ua_config.use_udp_on_tcp_fail                = 0;
 
             /* IMCB */
             
@@ -3974,12 +4622,59 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
 
             /*IMCB, Reg/Stack, UA internal configurations */
             /* Call */
-            nvram_ims_profile_ptr->ua_config.set_rtcp_0                         = 1;
             nvram_ims_profile_ptr->ua_config.rtcp_interval                      = 0;
+            nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server         = 1;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
+            nvram_ims_profile_ptr->ua_config.always_use_sip_uri_for_mo_call     = 1;
+            nvram_ims_profile_ptr->ua_config.send_183_when_prcd_none            = 0;
+            nvram_ims_profile_ptr->ua_config.use_org_sdp_for_invite_without_sdp = 1;
 
             /* Reg/Stack */
             nvram_ims_profile_ptr->ua_config.authorization_with_algo            = 1;
+            nvram_ims_profile_ptr->ua_config.de_subscribe                       = 0;
 
+            /* IMCB */
+            
+            break;
+        }
+        case 141: /* CellC */
+        {
+            nvram_ims_profile_ptr->ua_config.operator_code                      = 0x008D;   //operator_code = 141(CellC South-Africa)
+            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size     = 1440;
+            nvram_ims_profile_ptr->ua_config.register_expiry                    = 7200;
+            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_On_Demand    = 0;
+
+            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+
+            /*IMCB, Reg/Stack, UA internal configurations */
+            /* Call */
+            nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout         = 90;
+            nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 90;
+            /* Reg/Stack */
+            /* IMCB */
+            
+            break;
+        }
+        case 144: /* Smile */
+        {
+            nvram_ims_profile_ptr->ua_config.operator_code                      = 0x0090;   //operator_code = 144(Smile South-Africa)
+            nvram_ims_profile_ptr->ua_config.VoLTE_Setting_SIP_TCP_MTU_Size     = 4;
+            nvram_ims_profile_ptr->imc_config.ussd_support                      = 1;
+            nvram_ims_profile_ptr->ua_config.UA_net_ipsec                       = 0;        //NONE
+
+            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+
+            /*IMCB, Reg/Stack, UA internal configurations */
+            /* Call */
+            nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout         = 90;
+            nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout        = 90;
+            nvram_ims_profile_ptr->ua_config.subscribe_dialog_to_server         = 1;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server             = 1;
+            nvram_ims_profile_ptr->ua_config.merge_send_bye                     = 0;
+            nvram_ims_profile_ptr->ua_config.use_eps_prefix_in_phone_context    = 0;
+            nvram_ims_profile_ptr->ua_config.UA_call_session_min_se             = 90;
+
+            /* Reg/Stack */
             /* IMCB */
             
             break;
@@ -4005,6 +4700,38 @@ kal_bool nvram_custom_config_ims_profile(kal_uint32 sbp_id, kal_bool is_in_dynam
             /* Reg/Stack */
             /* IMCB */
 
+            break;
+        }
+        case 0x6000: /* Sony GTE/Lund */
+        {
+            nvram_ims_profile_ptr->ua_config.operator_code             = 0x6000; //operator_code = 0x6000
+            nvram_ims_profile_ptr->ua_config.initial_reg_without_pani  = 1;
+            nvram_ims_profile_ptr->ua_config.session_id_header_enable  = 1;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server    = 1;
+            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
+            break;
+        }
+        case 0x6001: /* Sony GTE/BeiJing */
+        {
+            /* Copy 0x6000 */
+            nvram_ims_profile_ptr->ua_config.operator_code                  = 0x6001; //operator_code = 0x6001
+            nvram_ims_profile_ptr->ua_config.initial_reg_without_pani       = 1;
+            nvram_ims_profile_ptr->ua_config.session_id_header_enable       = 1;
+            nvram_ims_profile_ptr->ua_config.refer_dialog_to_server         = 1;
+            
+            /* New Add for 0x6001 */
+            nvram_ims_profile_ptr->ua_config.UA_reg_t1_timer                = 500;
+            nvram_ims_profile_ptr->ua_config.UA_reg_t2_timer                = 4000;
+            nvram_ims_profile_ptr->ua_config.UA_reg_t4_timer                = 5000;
+            nvram_ims_profile_ptr->ua_config.call_ringing_timer_timeout     = 180;
+            nvram_ims_profile_ptr->ua_config.call_ringback_timer_timeout    = 180;
+            nvram_ims_profile_ptr->ua_config.session_refresher_in_req       = 1;
+            nvram_ims_profile_ptr->ua_config.session_refresher_in_resp      = 1;
+            nvram_ims_profile_ptr->ua_config.UA_net_ipsec                   = 0;
+            
+            nvram_ims_profile_ptr->imc_config.ussd_support                   = 1;
+
+            set_conf_factory_uri_by_imsi(&nvram_ims_profile_ptr->ua_config.UA_conf_factory_uri[0], is_in_dynamic_sbp, imsi_mnc_len, mccmnc, sbp_id);
             break;
         }
         default:
@@ -4140,6 +4867,38 @@ kal_bool nvram_custom_config_vdm_ads_profile(kal_uint32 sbp_id)
     }
 
     return is_nvram_need_update;
+}
+
+
+/*****************************************************************************
+ * FUNCTION
+ *  nvram_custom_reset_vdm_ads_profile
+ *
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for NVRAM_EF_VDM_ADS_PROFILE_LID.
+ *
+ * PARAMETERS
+ *  none
+ *
+ * RETURNS
+ *  none
+ *
+ *****************************************************************************/
+void nvram_custom_reset_vdm_ads_profile()
+{
+    kal_uint8* nvram_write_buf_ptr = NULL;
+
+    if (NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_VDM_ADS_PROFILE_LID,
+                                                             1,
+                                                             &nvram_write_buf_ptr))
+    {
+        nvram_external_write_data(NVRAM_EF_VDM_ADS_PROFILE_LID,
+                                  1,
+                                  nvram_write_buf_ptr,
+                                  NVRAM_EF_VDM_ADS_PROFILE_SIZE);
+    }
+    
+    return;
 }
 #endif /* __VOLTE_SUPPORT__ */
 
@@ -4500,6 +5259,112 @@ void custom_nvram_set_lte_pref(kal_uint32 sbp_id)
 
 }
 
+/*****************************************************************************
+ * FUNCTION
+ *  nvram_custom_reset_errc_para
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for 
+ *  1. NVRAM_EF_UE_EUTRA_CAP_CSFB_LID
+ *  2. NVRAM_EF_UE_EUTRA_CAP_MMDC_LID
+ *  3. NVRAM_EF_ERRC_PERFORMANCE_PARA_LID
+ *  4. NVRAM_EF_AS_BAND_SETTING_LID
+ *  5. NVRAM_EF_LTE_CAP_LID
+ * PARAMETERS
+ *   null
+ * RETURNS
+ *****************************************************************************/
+void nvram_custom_reset_errc_para()
+{
+    kal_uint8* nvram_write_buf_ptr = NULL;
+
+    //NVRAM_EF_UE_EUTRA_CAP_CSFB_LID
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_UE_EUTRA_CAP_CSFB_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_UE_EUTRA_CAP_CSFB_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_UE_EUTRA_CAP_CSFB_SIZE);
+	}		
+
+    //NVRAM_EF_UE_EUTRA_CAP_MMDC_LID
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_UE_EUTRA_CAP_MMDC_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_UE_EUTRA_CAP_MMDC_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_UE_EUTRA_CAP_MMDC_SIZE);
+	}		
+
+    //NVRAM_EF_ERRC_PERFORMANCE_PARA_LID
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_ERRC_PERFORMANCE_PARA_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_ERRC_PERFORMANCE_PARA_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_ERRC_PERFORMANCE_PARA_SIZE);
+	}		
+
+    //NVRAM_EF_AS_BAND_SETTING_LID
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_AS_BAND_SETTING_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_AS_BAND_SETTING_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_AS_BAND_SETTING_SIZE);
+	}		
+
+    //NVRAM_EF_LTE_CAP_LID
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_LTE_CAP_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_LTE_CAP_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_LTE_CAP_SIZE);
+	}		
+
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *  custom_nvram_reset_lte_pref
+ *
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for NVRAM_EF_LTE_PREFERENCE_LID.
+ *
+ * PARAMETERS
+ *  none
+ *
+ * RETURNS
+ *  none
+ *
+ *****************************************************************************/
+void custom_nvram_reset_lte_pref()
+{
+    kal_uint8* nvram_write_buf_ptr = NULL;
+    
+	if(NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_LTE_PREFERENCE_LID,
+															1, 
+															&nvram_write_buf_ptr))
+	{
+	    nvram_external_write_data(NVRAM_EF_LTE_PREFERENCE_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_LTE_PREFERENCE_SIZE);
+	}		
+
+    return;
+    
+} /* end of custom_nvram_reset_lte_pref() */
 #endif /* __LTE_RAT__ */
 
 kal_bool nvram_custom_config_rrc_dynamic_cap(kal_uint32 sbp_id)
@@ -4519,7 +5384,6 @@ kal_bool nvram_custom_config_rrc_dynamic_cap(kal_uint32 sbp_id)
                              nvram_read_buf_ptr,
                              NVRAM_EF_UMTS_USIME_RRC_DYNAMIC_CAP_SIZE);
     pUMTS_USIME_RRC_dynamic_cap = (nvram_ef_umts_usime_rrc_dynamic_struct*)nvram_read_buf_ptr;
-
 
     switch (sbp_id)
     {
@@ -4595,6 +5459,260 @@ kal_bool nvram_custom_config_rrc_dynamic_cap(kal_uint32 sbp_id)
     }
 
     return is_nvram_need_update;
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *  nvram_custom_reset_rrc_dynamic_cap
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for NVRAM_EF_UMTS_USIME_RRC_DYNAMIC_CAP_LID.
+ * PARAMETERS
+ *   null
+ * RETURNS
+ *****************************************************************************/
+void nvram_custom_reset_rrc_dynamic_cap()
+{
+	kal_uint8* nvram_write_buf_ptr = NULL;
+
+	if (NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_UMTS_USIME_RRC_DYNAMIC_CAP_LID,
+															 1,
+															 &nvram_write_buf_ptr))
+	{
+		nvram_external_write_data(NVRAM_EF_UMTS_USIME_RRC_DYNAMIC_CAP_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_UMTS_USIME_RRC_DYNAMIC_CAP_SIZE);
+	}
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *  nvram_custom_reset_mscap
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for NVRAM_EF_MSCAP_LID.
+ * PARAMETERS
+ *   null
+ * RETURNS
+ *****************************************************************************/
+void nvram_custom_reset_mscap()
+{
+	kal_uint8* nvram_write_buf_ptr = NULL;
+
+	if (NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_MSCAP_LID,
+															 1,
+															 &nvram_write_buf_ptr))
+	{
+		nvram_external_write_data(NVRAM_EF_MSCAP_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_MSCAP_SIZE);
+	}
+
+}
+
+
+/*****************************************************************************
+ * FUNCTION
+ *  custom_nvram_reset_sms_bearer_preference_sbp
+ *
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for NVRAM_EF_SMSAL_COMMON_PARAM_LID.
+ *
+ * PARAMETERS
+ *  none
+ *
+ * RETURNS
+ *  none
+ *
+ *****************************************************************************/
+void custom_nvram_reset_sms_bearer_preference_sbp()
+{
+    kal_uint8* nvram_write_buf_ptr = NULL;
+
+    if (NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_SMSAL_COMMON_PARAM_LID,
+                                                             1,
+                                                             &nvram_write_buf_ptr))
+    {
+        nvram_external_write_data(NVRAM_EF_SMSAL_COMMON_PARAM_LID,
+                                  1,
+                                  nvram_write_buf_ptr,
+                                  NVRAM_EF_SMSAL_COMMON_PARAM_SIZE);
+    }
+    
+    return;
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *	custom_nvram_reset_regional_phone_mode
+ *
+ * DESCRIPTION
+ *	This function will reset nvram parameters to the default value for NVRAM_EF_REGIONAL_PHONE_MODE_LID.
+ *
+ * PARAMETERS
+ *	none
+ *
+ * RETURNS
+ *	none
+ *
+ *****************************************************************************/
+void custom_nvram_reset_regional_phone_mode()
+{
+	kal_uint8* nvram_write_buf_ptr = NULL;
+	nvram_ef_regional_phone_mode_struct regional_phone_mode;
+	nvram_default_value_enum result;
+
+	result = nvram_get_default_value(NVRAM_EF_REGIONAL_PHONE_MODE_LID,
+									1,
+									&nvram_write_buf_ptr);
+
+	if (NVRAM_DEFAULT_VALUE_ZERO == result)
+	{
+		
+		regional_phone_mode.mode = 0;
+		nvram_external_write_data(NVRAM_EF_REGIONAL_PHONE_MODE_LID, 
+								  1, 
+								  (kal_uint8*)&regional_phone_mode, 
+								  NVRAM_EF_REGIONAL_PHONE_MODE_SIZE);
+
+	}
+	else if (NVRAM_DEFAULT_VALUE_FF == result)
+	{
+		
+		regional_phone_mode.mode = 0xff;
+		nvram_external_write_data(NVRAM_EF_REGIONAL_PHONE_MODE_LID, 
+								  1, 
+								  (kal_uint8*)&regional_phone_mode, 
+								  NVRAM_EF_REGIONAL_PHONE_MODE_SIZE);
+
+	
+	}
+	
+	return;
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *	custom_nvram_reset_pf_conformance_testmode
+ *
+ * DESCRIPTION
+ *	This function will reset nvram parameters to the default value for NVRAM_EF_PS_CONFORMANCE_TESTMODE_LID.
+ *
+ * PARAMETERS
+ *	none
+ *
+ * RETURNS
+ *	none
+ *
+ *****************************************************************************/
+void custom_nvram_reset_pf_conformance_testmode()
+{
+	kal_uint8* nvram_write_buf_ptr = NULL;
+	nvram_default_value_enum result;
+
+	result = nvram_get_default_value(NVRAM_EF_PS_CONFORMANCE_TESTMODE_LID,
+									1,
+									&nvram_write_buf_ptr);
+
+	if (NVRAM_DEFAULT_VALUE_ZERO == result)
+	{
+		
+	  kal_uint32 pSetting;
+
+	  pSetting = 0x00000000;
+	  nvram_external_write_data(NVRAM_EF_PS_CONFORMANCE_TESTMODE_LID,
+								1,
+								&pSetting,
+								NVRAM_EF_PS_CONFORMANCE_TESTMODE_SIZE);
+	
+
+	}
+	else if (NVRAM_DEFAULT_VALUE_POINT == result)
+	{
+		nvram_external_write_data(NVRAM_EF_PS_CONFORMANCE_TESTMODE_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_PS_CONFORMANCE_TESTMODE_SIZE);
+	} 
+	
+}
+
+/*****************************************************************************
+ * FUNCTION
+ *	custom_nvram_reset_ltecsr_profile
+ *
+ * DESCRIPTION
+ *	This function will reset nvram parameters to the default value for NVRAM_EF_LTECSR_PROFILE_LID.
+ *
+ * PARAMETERS
+ *	none
+ *
+ * RETURNS
+ *	none
+ *
+ *****************************************************************************/
+void custom_nvram_reset_ltecsr_profile()
+{
+#if defined (__MOD_IMC__)
+
+	kal_uint8* nvram_write_buf_ptr = NULL;
+
+	if (NVRAM_DEFAULT_VALUE_POINT == nvram_get_default_value(NVRAM_EF_LTECSR_PROFILE_LID,
+															 1,
+															 &nvram_write_buf_ptr))
+	{
+		nvram_external_write_data(NVRAM_EF_LTECSR_PROFILE_LID,
+								  1,
+								  nvram_write_buf_ptr,
+								  NVRAM_EF_LTECSR_PROFILE_SIZE);
+	}
+	
+	return;
+#endif
+}
+
+
+/*****************************************************************************
+ * FUNCTION
+ *  custom_reset_nvram_lids
+ * DESCRIPTION
+ *  This function will reset nvram parameters to the default value for the lids present in the table nvram_lid_reset_func_tbl
+ * PARAMETERS
+ *   SBP ID: this is the new sbp_id received from the CCCI
+ * RETURNS
+ *****************************************************************************/
+void custom_reset_nvram_lids(kal_uint32 sbp_id)
+{
+    kal_uint8 table_size = 0, i = 0;
+	nvram_ef_sbp_modem_config_struct *sbp_feature_buf;
+	
+	sbp_feature_buf = (nvram_ef_sbp_modem_config_struct*)get_ctrl_buffer
+						(sizeof(nvram_ef_sbp_modem_config_struct));
+
+	nvram_external_read_data(NVRAM_EF_SBP_MODEM_CONFIG_LID, 
+							 1,
+							 (kal_uint8*)sbp_feature_buf, 
+						     NVRAM_EF_SBP_MODEM_CONFIG_SIZE);
+
+	old_sbp_id = sbp_feature_buf->sbp_mode;
+
+
+	if(old_sbp_id != sbp_id)
+	{
+	    table_size = sizeof(nvram_lid_reset_func_tbl)/sizeof(sbp_nvram_lid_reset_table);
+
+		for(i = 0; i < table_size; i++)
+		{
+		  nvram_lid_reset_func_tbl[i].sbp_reset_nvram_lid_funcptr();
+		}
+	}
+
+	// Free allocated buffer
+    if (sbp_feature_buf != NULL)
+    {
+        free_ctrl_buffer(sbp_feature_buf);
+        sbp_feature_buf = NULL;
+    }
 }
 
 #endif /* NVRAM_NOT_PRESENT */

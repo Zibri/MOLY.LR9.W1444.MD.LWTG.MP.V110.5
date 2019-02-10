@@ -158,5 +158,7 @@ extern void l4c_agps_cp_abort_req(kal_uint8 src_id,
 
 extern void l4c_lbs_message_dispatch(ilm_struct *ilm_ptr); //lbs message
 
+extern void l4c_lcs_ecc_info_req(kal_bool ecc_ongoing);
+
 #endif /* _L4C_LCS_CMD_H */ 
 

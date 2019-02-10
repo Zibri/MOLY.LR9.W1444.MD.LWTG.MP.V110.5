@@ -17,7 +17,7 @@
 #define L1SP_Speech_TX_Type(v1)  (unsigned char)(v1+62)
 #define L1SP_Speech_RX_Type(v1)  (unsigned char)(v1+66)
 #define SAL_DSP_VALUE_NAME(v1)  (unsigned char)(v1+80)
-#define SAL_PROC_NAME(v1)  (unsigned char)(v1+96)
+#define SAL_PROC_NAME(v1)  (unsigned char)(v1+93)
 
 
 /****************************/

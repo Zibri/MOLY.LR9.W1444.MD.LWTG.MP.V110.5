@@ -88,7 +88,6 @@ typedef enum
     TFT_ERROR_EPSB_IS_NOT_ACTV,
     TFT_ERROR_NO_PKT_FILTER_RESOURCE,
     TFT_ERROR_NOT_FOUND_PKT_FILTER,
-    TFT_ERROR_EPSB_HISTORY_FULL,
 }tft_pf_error_code_e;
 
 typedef enum

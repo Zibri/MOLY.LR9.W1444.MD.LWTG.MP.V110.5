@@ -272,9 +272,7 @@ typedef enum
     PF_ACT_MOD          = 2,
     PF_ACT_DEL          = 3,
     PF_ACT_DEL_ALL      = 4,
-    PF_ACT_DEL_BEARER   = 5,
-    PF_ACT_ADD_MATCH_ALL	= 6,
-    PF_ACT_DEL_MATCH_ALL	= 7
+    PF_ACT_DEL_BEARER   = 5
 }pkt_filter_act_enum;
 
 

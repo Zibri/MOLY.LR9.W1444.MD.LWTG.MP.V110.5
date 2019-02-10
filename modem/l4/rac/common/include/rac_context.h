@@ -563,7 +563,10 @@ typedef struct
 #ifdef __IMS_SUPPORT__	
     kal_bool                        is_ims_support_changed;
     kal_bool                        is_ims_support;
+    kal_bool                        prev_is_ims_support_for_ap;
 #endif /* __IMS_SUPPORT__ */
+    kal_bool                        is_on_dcm_hplmn_flag;
+    kal_bool                        is_on_dcm_hplmn_flag_changed;
 #ifdef __VOLTE_SUPPORT__
     kal_bool                        is_emergency_attached;
 #endif /* __VOLTE_SUPPORT__ */
@@ -759,6 +762,7 @@ typedef struct {
 
     kal_bool                            is_disable_integrity_check;
 
+    kal_bool                            hplmn_record_flag;
 
     /* below contexts are for FDD<>TDD mode setting, refer to l4c_radio_access_setting_struct */
     kal_bool geran_tdma;

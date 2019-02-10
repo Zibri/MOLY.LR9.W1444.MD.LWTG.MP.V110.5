@@ -279,6 +279,8 @@ MSG_ID_L4C_EVAL_VDM_VOICE_STATUS_REQ,
 
 MSG_ID_L4C_EVAL_ERLM_CONTROL_REQ,
 
+MSG_ID_L4C_EVAL_CAMERA_STATUS_REQ,
+
 /****************************************************************************
  *                          Destination: EVAL (ERAC to EVAL) 
  ****************************************************************************/
@@ -410,6 +412,7 @@ MSG_ID_EVAL_EMM_NW_REJECT_IND,
 MSG_ID_EVAL_EMM_L2C_TRANSFER_CNF,  // for C2K
 MSG_ID_EVAL_EMM_C2K_IRAT_ATTACH_RESULT_IND, // for C2K
 MSG_ID_EVAL_EMM_DUPLEX_MODE_CHANGE_CNF, //for C2K
+MSG_ID_EVAL_EMM_SR_FAILURE_IND,
 MSG_ID_EVAL_EMM_REL_IND,
 MSG_ID_EVAL_EMM_SMS_UNITDATA_CNF,
 #ifdef __SGLTE__

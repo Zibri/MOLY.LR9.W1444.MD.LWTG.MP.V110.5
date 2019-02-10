@@ -892,7 +892,7 @@ BEGIN_TRACE_MAP(MOD_ATCI)
    TRC_MSG(INFO_RMMI_USB_ACTIVE, "Is UART active, port:%d, active: %d")
    TRC_MSG(INFO_WAKEUP,"[DUAL TALK] Wake Up: %Mrmmi_wakeup_type_enum")
    TRC_MSG(INFO_PULL_GPIO, "[DUAL TALK] Pull GPIO %d")
-   TRC_MSG(INFO_DUMP_AGPS_MD_HEADER, "agps md header : version = %d , type = %d , length = %d")
+   TRC_MSG(INFO_DUMP_AGPS_MD_HEADER, "agps md header : version = %d , type = %Magps_md_type , length = %d")
    TRC_MSG(INFO_WRITE_TO_AGPSD, "write data to AGPSD via uart_port_gps_ccci, size : %d")
    
    /* CC */

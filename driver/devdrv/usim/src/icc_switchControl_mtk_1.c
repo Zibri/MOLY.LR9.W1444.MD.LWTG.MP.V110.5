@@ -73,20 +73,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  *
  * removed!
@@ -694,7 +680,7 @@ static kal_bool usim_check_input_volt(usim_power_enum  volt, sim_HW_cb *hw_cb);
 static usim_status_enum usim_process_ATR(sim_HW_cb *hw_cb);
 static void usim_process_TA1(kal_uint8 TA1, sim_HW_cb *hw_cb);
 static void usim_process_PTS(sim_HW_cb *hw_cb);
-static kal_uint32 usim_process_HISTORICAL(sim_HW_cb *hw_cb); 
+static kal_bool usim_process_HISTORICAL(sim_HW_cb *hw_cb); 
 static void usim_set_speed(usim_speed_enum speed, sim_HW_cb *hw_cb);
 static void usim_set_protocol(usim_protocol_enum T, sim_HW_cb *hw_cb);
 static void usim_set_timeout(kal_uint32 timeout, sim_HW_cb *hw_cb);
@@ -741,19 +727,6 @@ kal_bool speed_test_enable = KAL_FALSE;
 void Set_Speed(kal_uint8 select_speed);
 #endif
 
-sim_HW_cb *usim_get_hw_cb_from_usim_cb(usim_dcb_struct *usim_dcb)
-{
-	kal_uint32 idx;
-	for (idx = 0; idx < DRV_SIM_MAX_LOGICAL_INTERFACE; idx ++)
-	{
-		if (GET_USIM_CB(idx) == usim_dcb)
-		{
-			return (sim_HW_cb *)(hwCbArray[idx]);
-		}
-	}
-
-	return NULL;
-}
 
 void USIM_WAIT_EVENT_MTK(usim_dcb_struct *usim_dcb)
 {
@@ -770,26 +743,7 @@ void USIM_WAIT_EVENT_MTK(usim_dcb_struct *usim_dcb)
 		kal_retrieve_eg_events(usim_dcb->event,USIM_EVENT,KAL_AND_CONSUME,&usim_dcb->ev_flag,0);
 	}
 	if(usim_dcb->status != USIM_GPT_TIMEOUT)
-	{
 		DRV_ICC_GPTI_StopItem(usim_dcb->gpt_handle);
-	}
-	else
-	{
-		// Abnormal case, should dump registers for further anaysis
-		sim_HW_cb *hw_cb = usim_get_hw_cb_from_usim_cb(usim_dcb);
-
-		if (hw_cb != NULL)
-		{
-			kal_sprintf(sim_dbg_str, "[SIM_DRV:%d][ERR] GPT TIMEOUT !!!\n\r", hw_cb->simInterface);
-			DRV_ICC_print_str(sim_dbg_str);
-
-			kal_sprintf(sim_dbg_str, "[SIM_DRV:%d] %x, %x, %x, %x, %x, %x\n\r", hw_cb->simInterface, 
-				SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_CTRL_MTK),  SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_CONF_MTK), 
-				SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_IRQEN_MTK),  SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_STS_MTK),
-				SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_TOUT_MTK),  SIM_Reg32(SIM0_BASE_ADDR_MTK+SIM_COUNT_MTK));
-			DRV_ICC_print_str(sim_dbg_str);
-		}
-	}
 }
 
 void USIM_SET_EVENT_Multiple(usim_dcb_struct *usim_dcb)
@@ -1727,7 +1681,6 @@ static kal_bool usim_select_power(usim_power_enum ExpectVolt, sim_HW_cb *hw_cb)
 			//dbg_print("change another convention %d !!\r\n", usim_dcb->dir);
 		}
 		else if(usim_dcb->ev_status == USIM_NO_ATR || usim_dcb->ev_status == USIM_BWT_TIMEOUT ||
-			usim_dcb->ev_status == USIM_GPT_TIMEOUT ||
 			(usim_dcb->ev_status == USIM_TS_INVALID || usim_dcb->ev_status == USIM_RX_INVALID ))
 		{
 #if defined(__DBG_MSG__)
@@ -1802,6 +1755,8 @@ static void usim_activation(sim_HW_cb *hw_cb)
 	usim_dcb = GET_USIM_CB(hw_cb->simInterface);
 
 	// dbg_print("usim_activation, pow = %d, dir: %d \r\n",usim_dcb->power, usim_dcb->dir);
+
+
 
 #if !defined(DRV_SIM_6290_SERIES)
 #if defined(__DRV_SIM_NEED_CUSTOM_CONTROL__)
@@ -1908,17 +1863,11 @@ static void usim_activation(sim_HW_cb *hw_cb)
 #if defined(__SIM_HOT_SWAP_SUPPORT__)
 	SIM_EINT_Mask(hw_cb, KAL_TRUE, __LINE__);
 #endif // #if defined(__SIM_HOT_SWAP_SUPPORT__)
-
-	//clear IRQ STS
-	reg = SIM_Reg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK);
-	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK, reg);
-
-	kal_set_eg_events(usim_dcb->event, 0, KAL_AND);
-	usim_set_timeout(INIT_WWT_T0, hw_cb);		/* In case of card only response 1 byte, we need TOUT here */
-			
-	// Enable IRQ
-	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_IRQEN_MTK, USIM_IRQEN_ATR | SIM_IRQEN_RXERR | SIM_IRQEN_TOUT);
-
+	kal_set_eg_events(usim_dcb->event,0,KAL_AND);
+	SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_IRQEN_MTK,USIM_IRQEN_ATR|SIM_STS_RXERR);
+    //clear STS
+    reg = SIM_Reg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK);
+    SIM_WriteReg(SIM0_BASE_ADDR_MTK + SIM_STS_MTK, reg);
 	usim_dcb->main_state = ACTIVATION_STATE;
 	usim_dcb->ev_status = USIM_NO_ERROR;
 	if(usim_dcb->warm_rst == KAL_FALSE)
@@ -2425,8 +2374,6 @@ static void usim_hisr(void)
 	}
 	if(int_status & SIM_STS_NATR)
 	{
-		usim_set_timeout(0, hw_cb);
-		SIM_DisAllIntr();
 		usim_dcb->ev_status = USIM_NO_ATR;
 		USIM_SET_EVENT_Multiple(usim_dcb);
 	}
@@ -2542,8 +2489,6 @@ static void usim_hisr2(void)
 	}
 	if(int_status & SIM_STS_NATR)
 	{
-		usim_set_timeout(0, hw_cb);
-		SIM_DisAllIntr();
 		usim_dcb->ev_status = USIM_NO_ATR;
 		USIM_SET_EVENT_Multiple(usim_dcb);
 	}
@@ -3909,14 +3854,6 @@ static usim_status_enum L1usim_Reset(usim_power_enum ExpectVolt, usim_power_enum
 	usim_dcb_struct *usim_dcb;
 
 	usim_dcb = GET_USIM_CB(hw_cb->simInterface);
-    
-#if defined(SIM_DRV_RETRY_3V_WHEN_CMD_FAIL)
-        if (usim_dcb->retry_3v_prefer) {
-            kal_sprintf(sim_dbg_str, "[SIM_DRV:%d]reset with 3V due to CMD fail",hw_cb->simInterface);
-	        DRV_ICC_print_str(sim_dbg_str);
-            ExpectVolt = CLASS_B_30V;
-        }
-#endif
 #if defined(SIM_DRV_IC_USB)
 	usim_dcb->isPrefer3V = KAL_FALSE;
 PREFER_3V:
@@ -4059,11 +3996,8 @@ restart_new_clock:
 	if(retry == ATR_RETRY)
 		return USIM_ATR_ERR;
 	
-	hw_cb->issueCardStatus = usim_process_HISTORICAL(hw_cb);
-	if(hw_cb->SlowClock == KAL_FALSE && hw_cb->issueCardStatus == SIM_SLOW_CLOCK)
-	{
+	if(hw_cb->SlowClock==KAL_FALSE&&usim_process_HISTORICAL(hw_cb)==KAL_TRUE)
 		goto restart_new_clock;
-	}
 	
 	*ResultVolt = usim_dcb->power;
 	// 3. Process PTS
@@ -4397,7 +4331,6 @@ static void usim_gpt_timeout_handler(void *parameter)
 	kal_prompt_trace(MOD_SIM,"[SIM_DRV]: usim gpt timeout !");
 */
 	usim_dcb->status  = USIM_GPT_TIMEOUT;
-	usim_dcb->ev_status = USIM_GPT_TIMEOUT;
 	USIM_SET_EVENT_Multiple(usim_dcb);
 }
 
@@ -4924,6 +4857,7 @@ sim_status L1sim_Cmd_MTK(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 		DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC19, *rxData,*(rxData+1),*(rxData+2),*(rxData+3),*(rxData+4));
 		DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC19, *txSize,*rxSize,result,usimCard->isSW6263,SimCard->cmd_case);
 #endif
+		return result;
 	}
 	else
 	{
@@ -4932,21 +4866,16 @@ sim_status L1sim_Cmd_MTK(kal_uint8  *txData,kal_uint32  *txSize,kal_uint8  *rxDa
 		DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC41, drv_get_current_time(),*(txData+1),*(txData+2),*(txData+3),*(txData+4));
 		DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC41, *rxData,*(rxData+1),*(rxData+2),*(rxData+3),*(rxData+4));
 		DRV_ICC_print(SIM_PRINT_L1SIM_CMD_TRC14, *txSize,*rxSize,result,usimCard->isSW6263,SimCard->cmd_case);
-#endif		
-	}
-#if defined(SIM_DRV_RETRY_3V_WHEN_CMD_FAIL)
-	if (result == SIM_SW_STATUS_FAIL && usimCard->present) {
-		usimCard->retry_3v_prefer = KAL_TRUE;
-	}
 #endif
-    return result;
+		return result;
+	}
 }
 
 void L1sim_EOC_MTK(sim_HW_cb *hw_cb)
 {
 	/*there should be nothing to do in EOC in dual controller solution*/
 }
-static kal_uint32 usim_process_HISTORICAL(sim_HW_cb *hw_cb)
+static kal_bool usim_process_HISTORICAL(sim_HW_cb *hw_cb)
 {	
 	usim_dcb_struct *usim_dcb;
 	kal_uint8 *ptr;
@@ -4956,15 +4885,12 @@ static kal_uint32 usim_process_HISTORICAL(sim_HW_cb *hw_cb)
 	usim_dcb = GET_USIM_CB(hw_cb->simInterface);
 	ptr = usim_dcb->ATR_data+usim_dcb->hist_index;
 	
-	hist_length=usim_dcb->ATR_index-usim_dcb->hist_index-1;
+	hist_length=usim_dcb->ATR_index-usim_dcb->hist_index;
 	kal_uint8 pre_issuing_data[6]={0x86,0x88,0xC6,0x18,0x1E,0x10};
-    kal_uint8 pre_issuing_data_3[7]={0x37, 0x86, 0x60, 0xa6, 0x00, 0x80, 0x12};
 	
 	//dbg_print("\r\nATR_LENGTH:%d hist_index:%d ptr:%x\r\n", usim_dcb->ATR_index,usim_dcb->hist_index,*ptr);	
 	if(usim_dcb->hist_index==0 ||hist_length<=0 ||hist_length>15|| *ptr!=0x80) /*Category indicator byte*/
-	{
-		return SIM_NORMAL;
-	}
+		return KAL_FALSE;
 
 	while(i<hist_length)
 	{
@@ -4975,27 +4901,14 @@ static kal_uint32 usim_process_HISTORICAL(sim_HW_cb *hw_cb)
 			if(0==kal_mem_cmp(ptr+i,pre_issuing_data,6))
 			{
 				hw_cb->SlowClock=KAL_TRUE;				
-				kal_sprintf(sim_dbg_str, "\r\n[SIM_DRV:%d]: GOT SPECIAL HISTORICAL(%d)!!!", hw_cb->simInterface, SIM_SLOW_CLOCK);
+				kal_sprintf(sim_dbg_str, "\r\n[SIM_DRV]: GOT SPECIAL HISTORICAL!!!");
 				DRV_ICC_print_str(sim_dbg_str);
-				return SIM_SLOW_CLOCK;
-			}
-
-		}
-		
-		if(tag == 0x57)
-		{
-			if(0 == kal_mem_cmp(ptr + i, pre_issuing_data_3, 7))
-			{
-			       hw_cb->doNotStopSimClock = 0;
-				kal_sprintf(sim_dbg_str, "\r\n[SIM_DRV:%d]: GOT SPECIAL HISTORICAL(%d)!!!", hw_cb->simInterface, SIM_CLOCK_STOP_TIME_ENHANCE);
-				DRV_ICC_print_str(sim_dbg_str);
-				return SIM_CLOCK_STOP_TIME_ENHANCE;
+				return KAL_TRUE;
 			}
 		}
-
 		i+=len;
 	}
-	return SIM_NORMAL;
+	return KAL_FALSE;
 }
 void sim_toutTest(kal_uint32 toutValue, sim_HW_cb *hw_cb)
 {

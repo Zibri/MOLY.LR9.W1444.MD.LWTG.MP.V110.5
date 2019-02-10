@@ -64,16 +64,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -93,70 +83,6 @@
  * removed!
  *
  * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
  * removed!
  * removed!
  * removed!
@@ -198,31 +124,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -256,6 +157,70 @@
  *
  * removed!
  * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
  * removed!
  *
  * removed!
@@ -275,6 +240,97 @@
  * removed!
  * removed!
  *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
+ * removed!
  * removed!
  * removed!
  * removed!
@@ -5306,7 +5362,7 @@ static nvram_ef_vdm_ads_profile_struct const NVRAM_EF_VDM_ADS_PROFILE_DEFAULT[] 
 
 
 #if defined (__MOD_IMC__)
-static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] = 
+static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
 {
     {
         /* nvram_ua_struct */
@@ -5350,7 +5406,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             0x14,                   // UA_g726_ptime = 20
             0x02,                   // UA_call_codec_order1 = 2 (AMR WB)
             0x01,                   // UA_call_codec_order2 = 1 (AMR NB)
-            0x00,                   // UA_call_codec_order3 = 0 
+            0x00,                   // UA_call_codec_order3 = 0
             0xF0,                   // UA_call_def_max_ptime = 240
             0x14,                   // UA_call_def_ptime = 20
             0x61,                   // UA_call_amr_pt = 97
@@ -5373,7 +5429,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             0x01,                   // UA_call_precondition 0:disable, 1:enable
             0x00,                   // early media = 0
             0x00,                   // mwi_license = 0
-            0x00,                   // UA_reg_keep_alive = 0, 0: no keep alive, >0: seconds for keep alive timer 
+            0x00,                   // UA_reg_keep_alive = 0, 0: no keep alive, >0: seconds for keep alive timer
             0x03,                   // bitmap: 0x03 (sip+tel, no urn)
             0x01,                   // UA_net_ipsec = 1
             0x00,                   // UA_reg_uri_with_port = 0
@@ -5418,7 +5474,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00
-            },                              
+            },
             {
                 //UA_call_amr_mode_set = 0,1,2,3,4,5,6,7
                 0x30, 0x2C, 0x31, 0x2C, // 0,1,
@@ -5591,14 +5647,14 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
                 0x00, 0x00, 0x00, 0x00
             },
             {
-                0x00, 0x00, 0x00, 0x00, // UA_conf_factory_uri 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
+                0x00, 0x00, 0x00, 0x00, // UA_conf_factory_uri
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
@@ -5690,8 +5746,8 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00,                   // ecn_init_method = 0
            0x00,                   // histinfo_in_supported = 0
            0x00,                   // add_country_to_pani = 0
-           0x00,                   // pad3[3]
-           0x00,
+           0x00,                   // session_id_header_enable = 0
+           0x00,                   // pad3[2]
            0x00,
            0x00,                   // wait_second_invite_for_hold = 0
            0x00,                   // video_conf_if_one_is_video = 0
@@ -5708,7 +5764,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
            0x00,                   // send_timerF_expiry = 0
            0x00,                   // pad4[3]
            0x00,
-           0x00,                   
+           0x00,
 
            /* Registration */
            0x00000000,             // keep_alive_mode = 0
@@ -5895,7 +5951,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
                 0x73, 0x6E, 0x2D, 0x72, // sn-r
                 0x64, 0x6E, 0x65, 0x74, // dnet
                 0x2E, 0x6E, 0x65, 0x74, // .net
-                0x00, 0x00, 0x00, 0x00, 
+                0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
@@ -5908,15 +5964,7 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
             {
                 // mnc,mcc whitelist
                 //<dig><num><mnc_len><MNC><mcc_len><MCC>
-                0x00, 
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 
+                0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
@@ -5925,14 +5973,22 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
-                0x00, 0x00, 0x00, 0x00, 
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00,
@@ -5998,11 +6054,11 @@ static nvram_ef_ims_profile_record_struct const NVRAM_EF_IMS_PROFILE_DEFAULT[] =
                 0x00, 0x00, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00
             },
-            0x00000000,              // video_resource_retain_timer
-            0x00,                    // video_default_fallback_support
-            0x00,                    // enable_audio_precondition
-            0x00,                    // enable_video_precondition
-            0x00                     // video_dedicated_fallback_support
+            0x00000000,             // video_resource_retain_timer
+            0x00,                   // video_default_fallback_support
+            0x00,                   // enable_audio_precondition
+            0x00,                   // enable_video_precondition
+            0x00                    // video_dedicated_fallback_support
         } /* nvram_imc_struct */
     }
 };
@@ -9696,8 +9752,32 @@ static nvram_ef_sbp_modem_config_struct NVRAM_EF_SBP_MODEM_CONFIG_DEFAULT[] = {
 #if defined(__DISABLE_BIP_SUPPORT__)
 	0x04 |
 #endif
+#if defined(__VDM_DISABLE_RETRY_WHEN_VOWIFI_GOT_NW_REJECT__)
+	0x08 |
+#endif
+#if defined(__NO_CHANGERAT_RETRY_FOR_EMERGENCY_CALL_REJECT__)
+	0x10 |	//SBP_NO_RETRY_FOR_NON_EMERGENCY_CALL_RELEASE
+#endif
+#if defined (__SBP_R12_CHECK_SSAC_IN_CONNECTED__)
+    0x20 |
+#endif
+#if defined(__SDM_RETRY_CS_DOMAIN_WHEN_IMS_TR1M_EXPIRY__)
+    0x40 |
+#endif
+#if defined(__RAC_CHANGE_VDP_IMS_CONFIG_BY_ROAMING__)
+    0x80 |
+#endif
+    0x00,
 
-        0x00
+    
+    /* 30th byte */
+#if defined(__RTP_FLOW_USE_CID_0__)
+    0x01 |
+#endif
+    0x00 | //SBP_SAT_USSD_NOT_INFORM_USER
+
+    0x00     
+
     }
 }
 };

@@ -1,5 +1,13 @@
 #!/bin/bash
 util_name=$(basename $0)
+green=`tput setaf 10`
+yellow=`tput setaf 3`
+blue=`tput setaf 4`
+pink=`tput setaf 5`
+cyan=`tput setaf 6`
+red=`tput setaf 9`
+reset=`tput sgr 0`
+#########################
   
 help_page(){
     echo "Usage: $util_name <project_name>"
@@ -8,19 +16,19 @@ help_page(){
 make(){
     PROJECT=$(echo $subcommand | grep -o "[A-Z_0-9]*(" | grep -o "[A-Z_0-9]*")
     TYPE=$(echo $subcommand | grep -o "([A-Z_0-9]*)" | grep -o "[A-Z_0-9]*")
-    echo "$util_name: Start making modem using $PROJECT($TYPE)"
+    echo "${cyan}$util_name${reset}: Start making modem using ${pink}$PROJECT($TYPE)${reset}"
     sleep 0.5s
     #perlwbrew switch perl-5.10.1
-    echo "$util_name: exporting old version of perl (5.10.1)"
+    echo "${cyan}$util_name${reset}: exporting old version of perl (${pink}5.10.1${reset})"
     sleep 0.2s
     OUT="build/$PROJECT/$TYPE"
-    echo "$util_name: start build! it may take some time, please wait!"
+    echo "${cyan}$util_name${reset}: ${yellow}start build! it may take some time, please wait!${reset}"
     ./make.sh "$subcommand" new > /dev/null 2>&1
     if [ $? -eq 0 ]; then
-        echo "$util_name: build make: success!"
+        echo "${cyan}$util_name${reset}: ${green}build -> bin modem files: success!${reset}"
     	sleep 0.3s
     	rm -rf temp_modem && mkdir -p temp_modem
-    	echo "$util_name: copying modem files to $OUT"
+    	echo "${cyan}$util_name${reset}: transfering bin files from ${pink}$OUT${reset}"
     	cp $OUT/bin/'~GNSZ6737M_65_N(LWG_DSDS).mak' temp_modem/modem_1_lwg_n.mak
     	cp $OUT/dhl/database/mdm_layout_desc.dat temp_modem/mdm_layout_desc_1_lwg_n.dat
     	cp $OUT/bin/GNSZ6737M_65_N_MDBIN_PCB01_MT6735_S00.MOLY_LR9_W1444_MD_LWTG_MP_V110_5.bin temp_modem/modem_1_lwg_n.img
@@ -32,9 +40,9 @@ make(){
     	cp $OUT/dhl/database/em_filter.bin temp_modem/em_filter_1_lwg_n.bin
     	cp $OUT/dhl/database/BPMdMetaDatabase_MOLY_LR9_W1444_MD_LWTG_MP_V110_5 temp_modem/BPMdMetaDatabase_MOLY_LR9_W1444_MD_LWTG_MP_V110_5_1_lwg_n
 	sleep 0.4s
-    	echo "$util_name: SUCCESS!"
+    	echo "${cyan}$util_name${reset}: ${green}SUCCESS! MAKE MODEM WAS END!${reset}"
     else
-        echo "$util_name: ERROR!"
+        echo "${cyan}$util_name${reset}: ${red}ERROR! YOU MAY NEED CHECK LOGS!${reset}"
     fi
 }
 

@@ -3242,7 +3242,8 @@ typedef enum {
 
 //other SS proprietary cause
    CM_SS_OTHER_CAUSE_START                  =   1181,
-   CM_SS_CTRL_BY_SIM_FAIL_NOT_INFORM_USER   =   CM_SS_OTHER_CAUSE_START,
+   CM_SS_CTRL_BY_SIM_FAIL_NOT_INFORM_USER   =       CM_SS_OTHER_CAUSE_START,
+   CM_SS_SAT_USSD_END_NOT_INFORM_USER       = 1 +   CM_SS_OTHER_CAUSE_START,
 
 
 /* ============================== ~SS cause ============================== */
@@ -4212,7 +4213,16 @@ typedef enum
     SBP_EMM_REJ_CAUSE_2_ADD_TO_FTAI,
     SBP_CS_PS_MODE2_NO_SEARCH_AFTER_ABN,
     SBP_DISABLE_BIP_SUPPORT,
+    SBP_VDM_DISABLE_RETRY_WHEN_VOWIFI_GOT_NW_REJECT,
+    SBP_NO_CHANGERAT_RETRY_FOR_EMERGENCY_CALL_REJECT,
+    SBP_R12_CHECK_SSAC_IN_CONNECTED,
+    SBP_SDM_RETRY_CS_DOMAIN_WHEN_IMS_TR1M_EXPIRY,
+    SBP_RAC_CHANGE_VDP_IMS_CONFIG_BY_ROAMING,
     
+    /* 30th byte */    
+    SBP_RTP_FLOW_USE_CID_0,
+    SBP_SAT_USSD_NOT_INFORM_USER,
+
     /* please add new SBP feature before this tag */
     SBP_MAX_MD_FEATURE
     

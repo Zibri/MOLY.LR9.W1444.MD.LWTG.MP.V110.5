@@ -1826,6 +1826,13 @@ typedef struct
 
 typedef struct
 {
+    LOCAL_PARA_HDR
+    
+    kal_int32 rssi_dBm;
+}l4cl1_em_rf_test_gsm_rx_test_ind_struct;
+
+typedef struct
+{
     kal_uint8	ref_count; 
     kal_uint16	msg_len;
 

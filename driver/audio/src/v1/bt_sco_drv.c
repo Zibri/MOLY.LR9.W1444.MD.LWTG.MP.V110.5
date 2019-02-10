@@ -62,11 +62,6 @@
  * removed!
  * removed!
  * removed!
- * removed!
- *
- * removed!
- * removed!
- * removed!
  *
  * removed!
  * removed!
@@ -1201,7 +1196,6 @@ static void BT_SCO_Speech_RX_HISR()
    else
    { 
       kal_dev_trace( TRACE_GROUP_SCO, L1AUDIO_BTSCO_AP_SPEECH_RX_UF, uDataCount);
-      DACA_FillSE(0);
       return;
    }
    DACA_PutToSE((const kal_uint16*)pSrc);

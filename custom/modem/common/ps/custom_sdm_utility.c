@@ -157,6 +157,35 @@ kal_bool sms_over_sgs_preferred_in_lte(char *mcc, char *mnc)
         return (KAL_TRUE);
     }
 
+    /* MegaFon Russia */
+    if ( (strncmp(mcc, "250", 3) == 0) && 
+            ( (strncmp(mnc, "02", 2) == 0) ||
+              (strncmp(mnc, "11", 2) == 0) ) )
+    {
+        return (KAL_TRUE);
+    }
+
+    /* TIM Italy */
+    if ( (strncmp(mcc, "222", 3) == 0) && (strncmp(mnc, "01", 2) == 0) )
+    {
+        return (KAL_TRUE);
+    }
+
+    /* TIM Brazil */
+    if ( (strncmp(mcc, "724", 3) == 0) && 
+            ( (strncmp(mnc, "02", 2) == 0) ||
+              (strncmp(mnc, "03", 2) == 0) ||
+              (strncmp(mnc, "04", 2) == 0) ) )
+    {
+        return (KAL_TRUE);
+    }
+
+    /* Movistar Mexico */
+    if ( (strncmp(mcc, "334", 3) == 0) && (strncmp(mnc, "030", 3) == 0) )
+    {
+        return (KAL_TRUE);
+    }
+
     /* Default */
     return (KAL_FALSE);
 }
@@ -198,9 +227,41 @@ kal_bool sms_over_wifi_allowed(char *mcc, char *mnc)
     {
         return (KAL_FALSE);
     }
+    
+    /* Telefonica Germany */
+    if ( (strncmp(mcc, "262", 3) == 0) && 
+            ( (strncmp(mnc, "03", 2) == 0) ||
+              (strncmp(mnc, "07", 2) == 0) ||
+              (strncmp(mnc, "77", 2) == 0) ) )
+    {
+        return (KAL_FALSE);
+    }
 
     /* MTS Russia */
     if ( (strncmp(mcc, "250", 3) == 0) && (strncmp(mnc, "01", 2) == 0) )
+    {
+        return (KAL_FALSE);
+    }
+
+    /* MegaFon Russia */
+    if ( (strncmp(mcc, "250", 3) == 0) && 
+            ( (strncmp(mnc, "02", 2) == 0) ||
+              (strncmp(mnc, "11", 2) == 0) ) )
+    {
+        return (KAL_FALSE);
+    }
+
+    /* TIM Italy */
+    if ( (strncmp(mcc, "222", 3) == 0) && (strncmp(mnc, "01", 2) == 0) )
+    {
+        return (KAL_FALSE);
+    }
+
+    /* TIM Brazil */
+    if ( (strncmp(mcc, "724", 3) == 0) && 
+            ( (strncmp(mnc, "02", 2) == 0) ||
+              (strncmp(mnc, "03", 2) == 0) ||
+              (strncmp(mnc, "04", 2) == 0) ) )
     {
         return (KAL_FALSE);
     }

@@ -926,107 +926,6 @@ void SALI_ENH_Gain_Set_DL(uint16 val)
 	*DSP_SPH_ENH_DL_GAIN = val;
 }
 
-void SALI_ENH_Dynamic_State_Par_Init()
-{
-	*DSP_SPH_ENH_DYNAMIC_STATE &= SAL_ENH_DYN_STA_PAR_INIT;
-}
-
-void SALI_ENH_Dynamic_State_Set(Sal_Enh_Dyn_Sta_t sta)
-{
-	switch(sta)
-	{
-		case SAL_ENH_DYN_PAR:
-			*DSP_SPH_ENH_DYNAMIC_STATE |= SAL_ENH_DYN_STA_PAR_SET;
-			break;
-		case SAL_ENH_DYN_DDL_SET:
-			*DSP_SPH_ENH_DYNAMIC_STATE |= SAL_ENH_DYN_STA_DDL_SET;
-			break;
-		case SAL_ENH_DYN_DDL_DONE:
-			*DSP_SPH_ENH_DYNAMIC_STATE |= SAL_ENH_DYN_STA_DDL_DONE;
-			break;
-		default:
-			ASSERT_REBOOT(false);
-	}
-	L1Audio_Msg_SAL_SET_VALUE_MULTI(SAL_DSP_VALUE_NAME(13), sta, *DSP_SPH_ENH_DYNAMIC_STATE, SAL_UNKNOWN, SAL_UNKNOWN, SAL_UNKNOWN);
-}
-
-bool SALI_ENH_Dynamic_State_Check(Sal_Enh_Dyn_Sta_t sta)
-{
-	switch(sta)
-	{
-		case SAL_ENH_DYN_PAR:
-			if((*DSP_SPH_ENH_DYNAMIC_STATE & 0x3) == SAL_ENH_DYN_STA_PAR_SET_RDY)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		case SAL_ENH_DYN_DDL_SET:
-			if(*DSP_SPH_ENH_DYNAMIC_STATE & SAL_ENH_DYN_STA_DDL_SET_RDY)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		case SAL_ENH_DYN_DDL_DONE:
-			if((*DSP_SPH_ENH_DYNAMIC_STATE & SAL_ENH_DYN_STA_DDL_DONE_CHK) == 0)
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		default:
-			ASSERT_REBOOT(false);
-	}
-	L1Audio_Msg_SAL_SET_VALUE_MULTI(SAL_DSP_VALUE_NAME(14), sta, *DSP_SPH_ENH_DYNAMIC_STATE, SAL_UNKNOWN, SAL_UNKNOWN, SAL_UNKNOWN);
-}
-
-
-void SALI_ENH_Flag_Par_Set(Sal_Enh_Flag_Par_t par)
-{
-	switch(par)
-	{
-		case SAL_ENH_FLAG_PAR_SET_UL:
-			*DSP_SPH_ENH_FLAG_PARAMETER &= 0xFFFD;
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_UL;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_DL:
-			*DSP_SPH_ENH_FLAG_PARAMETER &= 0xFFFE;
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_DL;
-			break;	
-		case SAL_ENH_FLAG_PAR_SET_UL_DL:
-			*DSP_SPH_ENH_FLAG_PARAMETER &= 0xFFFC;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_NB_BKF_UL:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_NB_BKF_UL;
-			break;	
-		case SAL_ENH_FLAG_PAR_SET_NB_BKF_DL:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_NB_BKF_DL;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_NB_MOD:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_NB_MOD;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_WB_BKF_UL:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_WB_BKF_UL;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_WB_BKF_DL:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_WB_BKF_DL;
-			break;
-		case SAL_ENH_FLAG_PAR_SET_WB_MOD:
-			*DSP_SPH_ENH_FLAG_PARAMETER |= SAL_ENH_FLAG_PAR_WB_MOD;
-			break;
-		default:
-			ASSERT_REBOOT(false);
-	}
-	L1Audio_Msg_SAL_SET_VALUE_MULTI(SAL_DSP_VALUE_NAME(15), par, *DSP_SPH_ENH_FLAG_PARAMETER, SAL_UNKNOWN, SAL_UNKNOWN, SAL_UNKNOWN);
-}
-
 volatile uint16* SALI_Parameter_GetAddr(uint8 type)
 {
 	volatile uint16* addr = 0;
@@ -1039,12 +938,6 @@ volatile uint16* SALI_Parameter_GetAddr(uint8 type)
 		case SALI_PARAMETER_TYPE_MODE_NB:
 			addr = DSP_DM_ADDR(5, *DSP_SPH_EMP_ADDR) + SAL_PARAMETERLEN_COMMON;
 			break;	
-		case SALI_PARAMETER_TYPE_MODE2_NB:
-			addr = DSP_SPH_EMP_MOD2_NB_ADDR;
-			break;
-		case SALI_PARAMETER_TYPE_MODE3_NB:
-			addr = DSP_SPH_EMP_MOD3_NB_ADDR;
-			break;
 		case SALI_PARAMETER_TYPE_MODE_WB:
 			#if defined(MT6280)
 			addr = DSP_DM_ADDR(5, 0x374E);
@@ -1052,12 +945,6 @@ volatile uint16* SALI_Parameter_GetAddr(uint8 type)
 			addr = DSP_DM_ADDR(5, *DSP_SPH_EMP_ADDR) + SAL_PARAMETERLEN_COMMON + SAL_PARAMETERLEN_MODE_NB;
 			#endif
 			break;	
-		case SALI_PARAMETER_TYPE_MODE2_WB:
-			addr = DSP_SPH_EMP_MOD2_WB_ADDR;
-			break;
-		case SALI_PARAMETER_TYPE_MODE3_WB:
-			addr = DSP_SPH_EMP_MOD3_WB_ADDR;
-			break;
 		case SALI_PARAMETER_TYPE_MODE_INTERNAL:
 			addr = DSP_SPH_ENH_INTERNAL_PAR_ADDR;
 			break;

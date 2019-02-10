@@ -59,9 +59,6 @@
  *
  * removed!
  * removed!
- *
- * removed!
- * removed!
  * removed!
  *
  * removed!
@@ -632,9 +629,8 @@
 
 #include "cust_chl_interface.h"
 
-#ifdef __CMCC_V4__
-#include "che_api.h"
-#endif
+
+
 #if !defined(__MAUI_BASIC__)
 
 #include "l4c_utility.h"
@@ -1701,159 +1697,6 @@ kal_uint8 usim_mt_default_profile[MAX_SIM_PROFILE_LEN] =
 #endif
 };
 
-#ifdef __CMCC_V4__
-STCHE che_str_mh;
-extern void che_init(STCHE *che_context, kal_uint32 type);
-extern void che_deinit(STCHE *che_context);
-#endif
-#ifdef __CMCC_V4__
-
- /*You should change vendor_code, key_ver and des_key_group to the right one related with your encryption card*/
-kal_uint8 sim_RND[20] = {0};
-kal_uint8 cm[24] = {0};
-const kal_uint8 vendor_code = 0x02;
-const kal_uint8 key_ver = 0x01;
-const kal_uint8 des_key_group[5][16]=
-{
-     {0xC9,0x4E,0x13,0x6B,0xAB,0xE9,0xD0,0xEF,0x2F,0x6C,0x27,0xB1,0x22,0x96,0x37,0x76},
-     {0xEC,0x06,0x52,0x7E,0x58,0x8B,0xC4,0xB0,0x59,0xD0,0x83,0xDF,0x4C,0x47,0x1C,0xFD},
-     {0x59,0x4F,0xBC,0x28,0xCB,0xA8,0xB8,0x02,0x24,0xA3,0x08,0xE3,0x24,0x16,0x91,0xDA},
-     {0x8F,0x7F,0xB1,0x34,0xF7,0x61,0xB7,0xEA,0xFD,0x7E,0x37,0xBB,0x8E,0x00,0xC3,0x3F},
-     {0xEA,0x0D,0x04,0x8C,0xB5,0xA2,0xD9,0xBD,0x10,0xB7,0xD0,0xF2,0x5F,0x37,0xC7,0x8F}
-};
-kal_bool  custom_cmcc_v4_lock_switch()
-{
-    return KAL_TRUE;
-}
-kal_bool  custom_cmcc_v4_lock_notify_to_ap()
-{
-    return KAL_FALSE;
-}
-void me_encrypt(kal_uint8 *rand, kal_uint8 rand_len, kal_uint8 *key, kal_uint8 key_len, kal_uint8 *code)
-{
-    kal_bool che_result = KAL_FALSE;
-    kal_uint8 i;
-
-    che_init(&che_str_mh, CHE_3DES);
-    che_key_action(&che_str_mh, CHE_SET_KEY, key, key_len);
-    che_result = che_process(&che_str_mh, CHE_3DES, CHE_ECB, CHE_ENC, rand, code, rand_len, KAL_TRUE);
-    che_deinit(&che_str_mh);
-
-    kal_prompt_trace(MOD_SIM, "che_result=%d", che_result);
-    kal_prompt_trace(MOD_SIM, "code[%d]: ", rand_len);
-    for(i=0; i<rand_len; i++)
-    {
-        kal_prompt_trace(MOD_SIM, "%x ", code[i]); 
-    }
-}
-/*Decentralization process*/
-void v4_decen_process(kal_uint8 *X, kal_uint8 *Km, kal_uint8 *Kc)
-{
-	kal_uint8 i;
-	kal_uint8 Kcl[16]; 	//8+8 for che_process
-    kal_uint8 Kcr[16]; 	//8+8 for che_process
-
-	kal_prompt_trace(MOD_SIM, "[V4]V4DecenProcess");
-	
-	kal_prompt_trace(MOD_SIM, "X[8]00-07: .2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     X[0], X[1], X[2], X[3],
-                     X[4], X[5], X[6], X[7]);
-    	
-	me_encrypt(X, 8, Km, 24, Kcl);
-
-	kal_mem_set(Kc, 0x00, 24);
-	kal_mem_cpy(Kc, Kcl, 8);
-	kal_mem_cpy(Kc+16, Kcl, 8);
-
-	for(i = 0; i < 8; i++)
-	{
-		X[i] = ~X[i];
-	}
-	
-    kal_prompt_trace(MOD_SIM, "~X[8]00-07: .2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     X[0], X[1], X[2], X[3],
-                     X[4], X[5], X[6], X[7]);
-	me_encrypt(X, 8, Km, 24, Kcr);
-
-	kal_mem_cpy(Kc+8, Kcr, 8);
-
-    kal_prompt_trace(MOD_SIM, "Kc[16]00-15: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     Kc[0], Kc[1], Kc[2], Kc[3],
-                     Kc[4], Kc[5], Kc[6], Kc[7],
-                     Kc[8], Kc[9], Kc[10], Kc[11],
-                     Kc[12], Kc[13], Kc[14], Kc[15]);
-
-}
-
-/*Get Km form RND1*/
-void v4_get_km_from_rand(kal_uint8 *rand, kal_uint8 *Km)
-{
-    kal_uint8 i;
-    kal_uint8 key_index;
-
-    key_index = (rand[3] & 0X07) % 5;
-    kal_prompt_trace(MOD_SIM, "[CMCCV4]key_index=%d", key_index);	
-
-    kal_mem_set(Km, 0x00, 24);
-    kal_mem_cpy(Km, des_key_group[key_index], 16);
-    kal_mem_cpy(Km+16, des_key_group[key_index], 8);	//for 3DES algthm, we should transform key to ABA style
-
-    kal_prompt_trace(MOD_SIM, "Km[24]00-11: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     Km[0], Km[1], Km[2], Km[3],
-                     Km[4], Km[5], Km[6], Km[7],
-                     Km[8], Km[9], Km[10], Km[11]);
-    kal_prompt_trace(MOD_SIM, "Km[24]12-23: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     Km[12], Km[13], Km[14], Km[15],
-                     Km[16], Km[17], Km[18], Km[19],
-                     Km[20], Km[21], Km[22], Km[23]);
-    
-}
-/*Main encode flow*/
-void sat_cmcc_v4_key_encode(kal_uint8 *sim_iccid )
-{
-    kal_uint8 RND1[4];
-    kal_uint8 RND2[16];
-    kal_uint8 Km[24];
-    kal_uint8 Kc[24];
-    kal_uint8 Kc_temp[24];
-    kal_uint8 X[8];
-    kal_uint8 i;
-
-    kal_prompt_trace(MOD_SIM, "[CMCCV4]V4KeyEncode");
-
-    kal_mem_set(RND1, 0x00, sizeof(RND1));
-    kal_mem_cpy(RND1, &sim_RND[0], 4);
-    kal_prompt_trace(MOD_SIM, "RND1[4]: %.2x %.2x %.2x %.2x", RND1[0], RND1[1], RND1[2], RND1[3]);
-        
-    kal_mem_set(RND2, 0x00, sizeof(RND2));
-    kal_mem_cpy(RND2, &sim_RND[4], 16);
-   
-    kal_prompt_trace(MOD_SIM, "RND2[16]: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x",
-                     RND2[0], RND2[1], RND2[2], RND2[3],RND2[4], RND2[5], RND2[6], RND2[7],
-                     RND2[8], RND2[9], RND2[10], RND2[11],RND2[12], RND2[13], RND2[14], RND2[15]);
-    
-   
-    /*Get Km with RND1 through spec*/
-    v4_get_km_from_rand(RND1, Km);
-
-    /*level-1 decentralization*/
-    kal_mem_set(X, 0x20, 8);			//Through spec, if the length of X is less than 8 byte, we should pad with 0x20
-    kal_mem_cpy(X, &sim_iccid[2], 8);
-    kal_mem_set(Kc_temp,0x00, 24);
-    v4_decen_process(X, Km, Kc_temp);
-
-    /*level-2 decentralization*/
-    kal_mem_set(X, 0x20, 8);
-    kal_mem_cpy(X, &RND1[0], 4);
-    v4_decen_process(X, Kc_temp, Kc);
-
-    kal_mem_set(cm, 0x00, 24); 
-    me_encrypt(RND2, 16, Kc, 24, cm);
-
-}
-
-/*Terminal response to sim after encoding*/
-#endif
 
 /* AT&T V5.6 [MAUI_02356244] make EF_Terminal_support_table customized */
  const kal_uint8 terminal_support_table[8] = 

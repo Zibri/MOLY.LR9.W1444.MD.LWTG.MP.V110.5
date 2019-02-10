@@ -2678,7 +2678,7 @@
 #define NVRAM_EF_MNL_SETTING_DATA_LID_VERNO                 "000"
 #define NVRAM_EF_TCM_CID_0_PROFILE_LID_VERNO                "003"
 #define NVRAM_EF_TCM_PDP_PROFILE_LID_VERNO                  "004"
-#define NVRAM_EF_IMS_PROFILE_LID_VERNO                      "008"
+#define NVRAM_EF_IMS_PROFILE_LID_VERNO                      "013"
 #define NVRAM_EF_LTECSR_PROFILE_LID_VERNO                   "000"
 #ifndef __PHB_STORAGE_BY_MMI__
 #define NVRAM_EF_PHB_LID_VERNO                              "003"
@@ -2796,7 +2796,7 @@
 
 #define NVRAM_EF_REGIONAL_PHONE_MODE_LID_VERNO "000"
 
-#define NVRAM_EF_SBP_MODEM_CONFIG_LID_VERNO "056"
+#define NVRAM_EF_SBP_MODEM_CONFIG_LID_VERNO "061"
 #define NVRAM_EF_SBP_MODEM_DATA_CONFIG_LID_VERNO "001"
 
 #ifdef __VOLTE_SUPPORT__
@@ -3785,8 +3785,8 @@ typedef struct{
   kal_uint8     UA_call_mo_invite_to_bw_cnf_time;  // 0
   kal_uint8     ipv6_zero_compression;                // 0 (0: disable, 1: enable)
   kal_uint8     support_max_retry_algo; // 0
-  kal_uint8     pad2_2;
-  kal_uint8     pad2_3;
+  kal_uint8     UA_ussd_nw_timeout_timer;
+  kal_uint8     UA_ussd_setup_timeout_timer;
   kal_uint8     user_agent[128];          // VoLTE/WFC UA
   kal_uint8     UA_call_amr_mode_set[16];      // string: 0,1,2,3,4,5,6,7
   kal_uint8     UA_call_amr_wb_mode_set[20];   // string: 0,1,2,3,4,5,6,7,8
@@ -3849,7 +3849,7 @@ typedef struct{
   kal_uint8     rel_conf_if_no_participant;     // 0
   kal_uint8     add_no_fork;                    // 0
   kal_uint8     TMO_specific_SDP;               // 0
-  kal_uint8     call_ringing_timer_timeout;     // 0
+  kal_uint16    call_ringing_timer_timeout;     // 0
   kal_uint8     call_ringback_timer_timeout;    // 0
   kal_uint8     call_tcall_timer_timeout;       // 10
   kal_uint8     call_refreshcall_timer_expire;  // 0
@@ -3866,7 +3866,12 @@ typedef struct{
   kal_uint8     ecn_init_method;                // 0
   kal_uint8     histinfo_in_supported;          // 0
   kal_bool      add_country_to_pani;            // 0
-  kal_uint8     pad3[3];
+  kal_uint8     session_id_header_enable;       // 0
+  kal_uint8     pad3[2];
+  kal_uint8     wait_second_invite_for_hold;    // 0
+  kal_uint8     video_conf_if_one_is_video;     // 0
+  kal_uint8     dereg_send_bye;                 // 0
+  kal_uint8     use_183_for_early_media;        // 0
 
   /* SMS */
   kal_uint8     force_psi_scheme_to_tel;        // 0
@@ -3874,6 +3879,8 @@ typedef struct{
   kal_uint8     update_call_id_with_host;       // 0
   kal_uint8     add_no_fork_in_SMS;             // 0
   kal_uint8     nsn_specific;                   // 0
+  kal_uint8     mo_retry_after_504;             // 0
+  kal_uint8     send_timerF_expiry;             // 0
   kal_uint8     pad4[3];
 
   /* Registration */
@@ -3934,6 +3941,9 @@ typedef struct{
   kal_uint32    UA_reg_i_timer;                 // 0
   kal_uint32    UA_reg_j_timer;                 // 0
   kal_uint32    UA_reg_k_timer;                 // 0
+  kal_uint32    try_n_next_pcscf_5626;          // 0
+  kal_uint8     try_same_pcscf_if_retry_after;  // 0
+  kal_uint8     contact_wildcard_dereg;         // 0
 } nvram_ua_struct;
 
 typedef struct{
@@ -3968,6 +3978,7 @@ typedef struct{
   kal_bool      sms_support;                          // 1
   kal_bool      voice_support;                        // 1
   kal_bool      video_over_ps_support;                // 1
+  kal_bool      ussd_support;                         // 0
   kal_uint8     resource_allocation_mode;             // 0  (NW initial:0, UE initial: 1)
   kal_uint8     icsi_resource_allocation_mode_1;      // 0
   kal_uint8     icsi_resource_allocation_mode_2;      // 0
@@ -11684,7 +11695,51 @@ LID_BIT VER_LID(NVRAM_EF_SBP_MODEM_CONFIG_LID)
                 0x1: "Enable BIP support";
             };
 
+            SBP_VDM_DISABLE_RETRY_WHEN_VOWIFI_GOT_NW_REJECT: 1 "Disable retry for when VoWIFI is rejected by NW"
+            {
+                0x0: "call will retry when VoWIFI is rejected by NW";
+                0x1: "call will not retry when VoWIFI is rejected by NW";
+            };
+
+            SBP_NO_CHANGERAT_RETRY_FOR_EMERGENCY_CALL_REJECT: 1 "Disable change RAT retry for non emergency call number dialled as a emergency call"
+            {
+                0x0: "Enable retry";
+                0x1: "Disable retry";
+            };
+
+            R12_CHECK_SSAC_IN_CONNECTED: 1 "__R12_CHECK_SSAC_IN_CONNECTED__"
+            {
+                0x0: "Not Supported";
+                0x1: "Supported";
+            };
+
+            SDM_RETRY_CS_DOMAIN_WHEN_IMS_TR1M_EXPIRY: 1 "Retry CS domain when IMS TR1M expiry"
+            {
+                0x0: "Not Supported";
+                0x1: "Supported";
+            };            
+            RAC_CHANGE_VDP_IMS_CONFIG_BY_ROAMING: 1 "__RAC_CHANGE_VDP_IMS_CONFIG_BY_ROAMING__"
+            {
+                0x0: "Not Supported";
+                0x1: "Supported";
+            };
         };
+
+        modem_sbp_config[29]
+        {
+            RTP_FLOW_USE_CID_0: 1 "Always use CID 0 for RTP flow"
+            {
+                0x0: "Disabled";
+                0x1: "Enabled";
+            };
+
+            SBP_SAT_USSD_NOT_INFORM_USER: 1 "Not inform user about the response of SAT USSD through +CUSD URC"
+            {
+                0x0: "Inform user SAT USSD result";
+                0x1: "Not inform user SAT USSD result(MD send +CUSD: 3)";
+            };
+        };
+
     };
 
 LID_BIT VER_LID(NVRAM_EF_SBP_MODEM_DATA_CONFIG_LID)

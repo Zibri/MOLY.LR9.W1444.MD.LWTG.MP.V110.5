@@ -56,10 +56,6 @@
  * Below this line, this part is controlled by PVCS VM. DO NOT MODIFY!! 
  *------------------------------------------------------------------------------
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -133,11 +129,9 @@
     } while (0)
 
 #define DECR_USED_MSG_NUM(storage_type) do { \
-        if(smsal_cntx_ptr->storage_num_info.used_sim_msg_num != 0) \
-		{ \
-		    smsal_cntx_ptr->storage_num_info.used_sim_msg_num--; \
-		} \
-	} while (0)
+        smsal_cntx_ptr->storage_num_info.used_sim_msg_num = \
+                                                       smsal_cntx_ptr->storage_num_info.used_sim_msg_num - 1; \
+    } while (0)
 
 #else
 #define INCR_USED_MSG_NUM(storage_type) do { \
@@ -145,8 +139,7 @@
         { \
             smsal_cntx_ptr->storage_num_info.used_sim_msg_num =  \
             smsal_cntx_ptr->storage_num_info.used_sim_msg_num + 1; \
-        } \
-		else if (storage_type == SMSAL_ME) \
+        } else if (storage_type == SMSAL_ME) \
         { \
             smsal_cntx_ptr->storage_num_info.used_me_msg_num =  \
             smsal_cntx_ptr->storage_num_info.used_me_msg_num + 1; \
@@ -154,13 +147,14 @@
     } while (0)
 
 #define DECR_USED_MSG_NUM(storage_type) do { \
-        if((storage_type == SMSAL_SM) && (smsal_cntx_ptr->storage_num_info.used_sim_msg_num != 0)) \
+        if(storage_type == SMSAL_SM) \
         { \
-            smsal_cntx_ptr->storage_num_info.used_sim_msg_num--; \
-        } \
-		else if ((storage_type == SMSAL_ME) && (smsal_cntx_ptr->storage_num_info.used_me_msg_num != 0)) \
+            smsal_cntx_ptr->storage_num_info.used_sim_msg_num =  \
+            smsal_cntx_ptr->storage_num_info.used_sim_msg_num - 1; \
+        } else if (storage_type == SMSAL_ME) \
         { \
-            smsal_cntx_ptr->storage_num_info.used_me_msg_num --; \
+            smsal_cntx_ptr->storage_num_info.used_me_msg_num =  \
+            smsal_cntx_ptr->storage_num_info.used_me_msg_num - 1; \
         } \
     } while (0)
 #endif /* !defined (__SMS_ME_STORAGE__) */

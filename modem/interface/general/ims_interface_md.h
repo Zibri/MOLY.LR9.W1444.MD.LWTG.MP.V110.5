@@ -264,7 +264,7 @@
  * 55 - (+) Q.850 cause from Reason: header
         (+) Aling WWOP_ID for Huawei IMS/1004
 */
-#define IMCB_IMC_HEADER_FILE_VERNO  0x00000055
+#define IMCB_IMC_HEADER_FILE_VERNO  0x00000057
 
 /* Change Log -
  * 01 - CMCC auto test tool
@@ -366,6 +366,7 @@ typedef module_type imcf_user_spec_t;
 #define IMC_MAX_CALL_NUM_IN_CONFERENCE 5
 #define IMC_MAX_URI_LENGTH          128
 #define IMC_MAX_ASSERTED_URI        (IMC_MAX_URI_LENGTH << 2)
+#define IMC_MAX_CONF_CONTROL_URI_LENGTH 512
 #define IMC_CALL_INVAL_ID           255
 #define IMC_CALL_MAX_NUM            16
 #define IMC_P_ASSERT_URI_LEN        128
@@ -456,6 +457,8 @@ typedef enum {
     IMC_ACCESS_RAT_LTE,
     IMC_ACCESS_RAT_WIFI,
     IMC_ACCESS_RAT_EHRPD,
+    IMC_ACCESS_RAT_GSM,
+    IMC_ACCESS_RAT_UMTS,
     IMC_ACCESS_RAT_NUM, /*MAX */
 } imc_access_rat_type_enum;
 
@@ -996,6 +999,10 @@ typedef enum {
     IMCB_IMC_CALL_CAUSE_ABORTED,
     IMCB_IMC_CALL_CAUSE_TIMER_B_EXPIRY,
     IMCB_IMC_CALL_CAUSE_ECT_TIMEOUT,
+    IMCB_IMC_CALL_CAUSE_TIMER_VZW_EXPIRY,
+    IMCB_IMC_CALL_CAUSE_AC_BARRED,
+    IMCB_IMC_CALL_CAUSE_NW_REJ_CONN,
+    IMCB_IMC_CALL_CAUSE_BEREJECT_503_OUTAGE_TEXT,
     IMCB_IMC_CALL_CAUSE_UA_MAX,
     IMCB_IMC_CALL_CAUSE_AVAIABLE_OF_CALLS,
     /* WFC */
@@ -1101,6 +1108,7 @@ typedef enum {
     IMCB_IMC_NOTIFY_MWI                 = 3,
     IMCB_IMC_NOTIFY_CONFERENCE          = 4,
     IMCB_IMC_NOTIFY_MT_CALL_FORWARDING  = 5,
+    IMCB_IMC_NOTIFY_DIALOG              = 6,
     IMCB_IMC_NOTIFY_MAX,
 } imcb_imc_ss_notify_service_enum;
 
@@ -2432,6 +2440,14 @@ typedef struct {
  * Direction
  *  - IMC --> IMCB
  */
+
+typedef enum {
+    IMCB_IMC_CALL_SERVICE_NORMAL = 0,
+    IMCB_IMC_CALL_SERVICE_CALL_PULL = 1,
+    //add here
+    IMCB_IMC_CALL_SERVICE_END
+} imcb_imc_call_service_enum;
+
 typedef struct {
     IMCB_IMC_LOCAL_PARA_HDR
     imcf_uint8    dial_number[128];
@@ -2442,6 +2458,8 @@ typedef struct {
     imcf_wchar    uri_scheme;   //imcb_imc_uri_scheme_type_enum
     imcf_uint8    cell_id[IMC_MAX_CELL_ID_LEN];
     imcb_imc_loc_ts_struct loc_info;
+    imcf_uint8    service;      //imcb_imc_call_service_enum
+    imcf_uint8    pad[3];
 } imcb_imc_cc_mo_call_ind_struct;
 
 /**
@@ -2467,6 +2485,8 @@ typedef struct {
     imcf_int32    duration;
     imcf_uint8    reason[128];
     imcf_uint32   ecc_category;     //imcb_imc_srvcc_call_ecc_category_enum
+    imcf_uint8    service;          //imcb_imc_call_service_enum
+    imcf_uint8    pad[3];
 } imcb_imc_cc_mo_call_rsp_struct;
 
 /**
@@ -2738,7 +2758,7 @@ typedef struct {
     imcf_uint8    call_mode;    //imcb_imc_call_mode_enum
     imcf_uint8    conf_call_participants;
     imcf_uint8    pad[2];
-    imcf_uint8    conf_call_number_list[IMC_MAX_CALL_NUM_IN_CONFERENCE][128];
+    imcf_uint8    conf_call_number_list[IMC_MAX_CALL_NUM_IN_CONFERENCE][IMC_MAX_CONF_CONTROL_URI_LENGTH];
     imcf_uint8    cell_id[IMC_MAX_CELL_ID_LEN];
     imcb_imc_loc_ts_struct loc_info;
 } imcb_imc_cc_mo_conf_call_ind_struct;
@@ -2964,7 +2984,7 @@ typedef struct {
     imcf_int32  acct_id;
     imcf_uint32 conf_call_id;
     imcf_uint32 joined_call_id;
-    imcf_uint8  dial_number[128];
+    imcf_uint8  dial_number[IMC_MAX_CONF_CONTROL_URI_LENGTH];
     imcf_int32  operation;    //imcb_imc_ss_operation_enum
     imcf_int32  result;       //imcb_imc_call_stop_result_enum
     imcf_int32  cause;        //imcb_imc_call_stop_cause_enum
@@ -2985,7 +3005,7 @@ typedef struct {
     imcf_uint32 conf_call_id;
     imcf_int32  joined_call_id;
     imcf_uint32 op;  //imcb_imc_ss_operation_enum
-    imcf_uint8  number[128];
+    imcf_uint8  number[IMC_MAX_CONF_CONTROL_URI_LENGTH];
     imcf_uint8  cell_id[IMC_MAX_CELL_ID_LEN];
     imcb_imc_loc_ts_struct loc_info;
 } imcb_imc_ss_conference_control_ind_struct;
@@ -3542,6 +3562,10 @@ typedef enum
     IMS_CC_CAUSE_ABORTED,
     IMS_CC_CAUSE_TIMER_B_EXPIRY,
     IMS_CC_CAUSE_ECT_TIMEOUT,
+    IMS_CC_CAUSE_TIMER_VZW_EXPIRY,
+    IMS_CC_CAUSE_AC_BARRED,
+    IMS_CC_CAUSE_NW_REJ_CONN,
+    IMS_CC_CAUSE_BEREJECT_503_OUTAGE_TEXT,
     IMS_CC_CAUSE_UA_MAX,
 
     // Source: IMC
@@ -3735,6 +3759,8 @@ typedef enum
     IMS_ACCESS_RAT_LTE = 0,
     IMS_ACCESS_RAT_WIFI,
     IMS_ACCESS_RAT_EHRPD,
+    IMS_ACCESS_RAT_GSM,
+    IMS_ACCESS_RAT_UMTS,
     IMS_ACCESS_RAT_NUM
 } ims_access_rat_enum;
 
@@ -3986,8 +4012,9 @@ typedef enum
 
 typedef enum
 {
-    IMCSMS_C2K_SUBMIT = 0,
-    IMCSMS_C2K_ACKNOWLEDGE
+    IMCSMS_C2K_SUBMIT = 0, //C2K SMS triggered by AP (AT+C2KCMGS)
+    IMCSMS_C2K_ACKNOWLEDGE = 1,
+	IMCSMS_CDMA_SUBMIT     //C2K SMS triggered by MD3 (SDM_VAL_C2K_IND)
 }imcsms_c2k_msg_type_enum;
 
 typedef enum
@@ -4135,6 +4162,7 @@ typedef enum {
     IMS_NOTIFY_SERVICE_CALL_MWI             = 3,    // Not used
     IMS_NOTIFY_SERVICE_CALL_CONFERENCE      = 4,    // Not used
     IMS_NOTIFY_SERVICE_CALL_MT_FORWARDING   = 257,
+    IMS_NOTIFY_SERVICE_NOTIFY_DIALOG        = 258,
     IMS_NOTIFY_SERVICE_MAX
 } ims_notify_service_enum;
 
@@ -4201,7 +4229,7 @@ typedef struct {
     kal_uint32  cause;      //unused
 } imsp_imc_set_sms_capability_cnf_struct;
 
-#define IMSP_IMC_SS_CONFERENCE_CONTROL_REQ_NUM_LEN 128 /* same as in imcb_imc_ss_conference_control_req_struct */
+#define IMSP_IMC_SS_CONFERENCE_CONTROL_REQ_NUM_LEN IMC_MAX_CONF_CONTROL_URI_LENGTH /* same as in imcb_imc_ss_conference_control_req_struct */
 
 /*
  * @brief
@@ -4318,6 +4346,13 @@ typedef struct {
     kal_uint8 	                    local_video_capability;
     kal_uint8                       remote_video_capability;
 } imsp_imc_cc_video_cap_ind_struct;
+
+typedef struct {
+    LOCAL_PARA_HDR
+    kal_uint8                       call_id;
+    kal_uint8 	                    local_text_capability;
+    kal_uint8                       remote_text_capability;
+} imsp_imc_cc_text_cap_ind_struct;
 
 /*
  * @brief Turn on/off Radio link monitor
@@ -4596,6 +4631,14 @@ typedef struct
 
 // Call Control and Supplementary Service
 // MO call establishment related
+
+typedef enum {
+    IMS_CALL_SERVICE_NORMAL = 0,
+    IMS_CALL_SERVICE_CALL_PULL = 1,
+    //add here
+    IMS_CALL_SERVICE_END
+} ims_call_service_enum;
+
 typedef struct
 {
     LOCAL_PARA_HDR
@@ -4606,6 +4649,8 @@ typedef struct
     ims_call_type_enum          call_type;
     ims_access_rat_enum         rat;
     kal_uint16                  emergency_service_category; //ims_ecc_category_enum
+    kal_uint8                   service;  //ims_call_service_enum
+    kal_uint8                   clir;
 } vdm_imc_ims_cc_mo_call_req_struct;
 
 typedef struct
@@ -4616,6 +4661,7 @@ typedef struct
     ims_cc_cause_enum           cause;
     ims_access_rat_enum         rat;
     kal_uint16                  emergency_service_category; //ims_ecc_category_enum
+    kal_uint8                   service;  //ims_call_service_enum
 } vdm_imc_ims_cc_mo_call_cnf_struct;
 
 typedef struct
@@ -4938,7 +4984,23 @@ typedef struct volte_event_media_config {
     kal_uint8   rtcp_xr_rtt_mode;
     kal_uint8   rtcp_xr_stat_flags;
 
-    kal_uint8   resv[2000];
+    /* TTY */
+    kal_uint32  text_b_as; 			  // RTP bandwidth
+    kal_uint32  text_b_rs; 			  // RTCP sender bandwidth
+    kal_uint32  text_b_rr; 			  // RTCP receiver bandwidth
+    kal_uint16  text_remote_rtp_port;
+    kal_uint16  text_remote_rtcp_port;
+    kal_uint16  text_local_rtcp_port;	   ///< rtcp port number. we may configure it not rtp_port+1
+    kal_uint16  text_local_rtp_port;	   ///< rtp port number for media attribute in SDP message
+    kal_int8    text_remote_rtp_address[IMCB_IMC_IPADDR_LENGTH];
+    kal_int8    text_remote_rtcp_address[IMCB_IMC_IPADDR_LENGTH];
+    kal_uint8   text_rtp_direction;		///< VoLTE_Event_RTP_DIRECTION_e
+    kal_uint8   text_t140_payload_type;		 ///< payload type
+    kal_uint8   text_red_payload_type; 	 ///< payload type
+    kal_uint8   text_red_level;		 ///< T140 Red level
+    kal_uint8   text_cps;		 ///< T140 Red level	
+    kal_uint8   text_pad[3];
+    kal_uint8   resv[1940];
 } VoLTE_Event_Media_config_t;
 
 typedef struct s_media_param {

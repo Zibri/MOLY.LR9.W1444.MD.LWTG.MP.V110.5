@@ -651,11 +651,7 @@ kal_bool    ABF_GetAcousticLoopbackStatus( void );
 
 
 #define NUM_COMMON_PARAS  12
-#if defined(__AUTOMOTIVE_TELEMATICS__) 
-#define NUM_MODE_PARAS   48
-#else
 #define NUM_MODE_PARAS   16
-#endif
 #define NUM_VOL_PARAS     4
 
 #define NUM_FIR_COEFFS    45

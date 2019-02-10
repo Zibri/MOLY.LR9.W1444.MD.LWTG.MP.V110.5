@@ -36,9 +36,6 @@
  *
  * removed!
  * removed!
- *
- * removed!
- * removed!
  * removed!
  * removed!
  * removed!
@@ -62,9 +59,7 @@
 
 typedef enum{
    DIRECT_MODE,
-   FULL_MODE = 1,
-   VCO_MODE = 2,
-   HCO_MODE = 4
+   BAUDOT_MODE       
 } L1Ctm_Interface; 
 
 typedef enum{

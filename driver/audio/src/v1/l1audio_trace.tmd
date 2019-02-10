@@ -58,9 +58,6 @@
  * $Modtime:   Jun 26 2005 23:25:38  $
  * $Log:   //mtkvs01/vmdata/Maui_sw/archives/mcu/l1audio/l1audio_trace.tmd-arc  $
  *
- * 07 06 2016 kuenyeh.hsieh
- * [MOLY00188541] 2635 codebase -- SAL part
- *
  * 07 14 2014 fu-shing.ju
  * [MOLY00072213] [TMO-US][Pre-FT][VoLTE][1stCall]Modem EE in am.c when call is hang up by remote side
  * Fix 4G/2G handover issue.
@@ -468,10 +465,7 @@
          			"UPDATE_SIDETONE_CTRL",
          			"UPDATE_AGC2_CTRL",
          			"UPDATE_AGC3_CTRL",
-         			"UPDATE_AGC4_CTRL",
-         			"UPDATE_ENH_DYNAMIC_STATE_SET",
-         			"UPDATE_ENH_DYNAMIC_STATE_CHECK",
-         			"UPDATE_ENH_FLAG_PAR"
+         			"UPDATE_AGC4_CTRL"
          }
          
          SAL_PROC_NAME
@@ -506,12 +500,7 @@
          			"SAL_PCM_ROUTER_OPEN",
          			"SAL_PCM_ROUTER_CLOSE",
          			"4G_G_CODEC_CALL_OPEN",
-         			"4G_G_CODEC_CALL_CLOSE",
-         			"ENH_DYNAMIC_STATE_PARAMETER_INIT",
-         			"SPH_PAR_MODE2_NB_ADDR",
-         			"SPH_PAR_MODE3_NB_ADDR",
-         			"SPH_PAR_MODE2_WB_ADDR",
-         			"SPH_PAR_MODE3_WB_ADDR"
+         			"4G_G_CODEC_CALL_CLOSE"
          }
 
          

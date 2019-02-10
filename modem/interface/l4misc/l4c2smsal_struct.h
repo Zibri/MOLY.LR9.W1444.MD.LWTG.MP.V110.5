@@ -469,7 +469,6 @@ typedef struct {
     kal_uint8  mms_mode; 
     kal_uint16 reply_index;
     kal_uint16 message_len; /* Length of Message*/
-    kal_uint8  stksms;
     union {
        smsal_send_msg_req_hdr_struct      submit;
        smsal_command_msg_hdr_struct       command;

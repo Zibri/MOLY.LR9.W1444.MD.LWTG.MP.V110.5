@@ -502,20 +502,17 @@ void phb_sat_file_change_handler(ilm_struct *ilm_ptr, control_block_type *contro
         else if ((phb_ptr->state == PHB_STATE_READY) ||
                  (phb_ptr->state == PHB_STATE_NOT_READY_FDN_READY) || (phb_ptr->state == PHB_STATE_NOT_READY))
         {
-        	kal_uint8 ecc;
          /** 
           * Assume data descriptor obtained from nvram_get_infor() and
           * sim_service_table_query() remains consistent, DO NOT reset it.
           * What needs to be reset is their free_count!
           */
-          	ecc = ECC_SRC_SIM1 + phb_which_sim_ex();
             phb_data_desc_reset();
             
             phb_se_reset();
 
             /* Reset context */
             kal_mem_set(&phb_ptr->ecc, 0, sizeof(sim_ecc_struct));
-		ecc_custom_reset_sim_context(ecc);
             phb_ptr->state = PHB_STATE_NOT_READY;
         #ifdef __PHB_USIM_SUPPORT__
             phb_ptr->is_global = KAL_TRUE;

@@ -41,11 +41,7 @@
 #endif
 
 #if defined(MT6735)
-#if defined(__AUTOMOTIVE_TELEMATICS__)
-#include "dpram_2635.h"
-#else
 #include "dpram_6735.h"
-#endif
 #endif
 
 //defined in dpram.h start
@@ -221,18 +217,6 @@
 #define DSP_SPH_UL_COMFORT_NOISE_SHIFT		DPRAM2_base(DP_UL_COMFORT_NOISE_SHIFT)
 
 #define DSP_SPH_EMP_ADDR				DPRAM2_base(SPH_DM_ADDR_EMP) //value = 0x2e80
-
-#if defined(__AUTOMOTIVE_TELEMATICS__)
-#define DSP_SPH_EMP_MOD2_NB_ADDR          DSP_DM_ADDR(6, 0x0000)
-#define DSP_SPH_EMP_MOD3_NB_ADDR          DSP_DM_ADDR(7, 0x0000)
-#define DSP_SPH_EMP_MOD2_WB_ADDR          DSP_DM_ADDR(6, 0x0010)
-#define DSP_SPH_EMP_MOD3_WB_ADDR          DSP_DM_ADDR(7, 0x0010)
-#else
-#define DSP_SPH_EMP_MOD2_NB_ADDR          DPRAM2_base(SPH_BKCP_DUMMY)
-#define DSP_SPH_EMP_MOD3_NB_ADDR          DPRAM2_base(SPH_BKCP_DUMMY)
-#define DSP_SPH_EMP_MOD2_WB_ADDR          DPRAM2_base(SPH_BKCP_DUMMY)
-#define DSP_SPH_EMP_MOD3_WB_ADDR          DPRAM2_base(SPH_BKCP_DUMMY)
-#endif
 
 #define DSP_SPH_SE_BUF_PTR				DPRAM2_base(SPH_DM_ADDR_SE_PTR)
 #define DSP_SPH_SD_BUF_PTR				DPRAM2_base(SPH_DM_ADDR_SD_PTR)
@@ -450,15 +434,6 @@
 #else //defined(MT6572) || defined(MT6582) || defined(MT6592) || defined(MT6571) || defined(MT6290) || defined(MT6595)
 #define DSP_SPH_ENH_DL_GAIN				DPRAM2_base(SPH_ENH_DL_GAIN)
 #endif
-
-#if defined(__AUTOMOTIVE_TELEMATICS__)
-#define DSP_SPH_ENH_DYNAMIC_STATE       DPRAM2_base(ENH_DYNAMIC_STATE_MACHINE)
-#define DSP_SPH_ENH_FLAG_PARAMETER      DPRAM2_base(ENH_FLAG_PARAMETER)
-#else
-#define DSP_SPH_ENH_DYNAMIC_STATE       DPRAM2_base(SPH_BKCP_DUMMY)
-#define DSP_SPH_ENH_FLAG_PARAMETER      DPRAM2_base(SPH_BKCP_DUMMY)
-#endif
-
 
 #if defined(MT6280) || defined(MT6589)
 #define DSP_SPH_8K_RESYNC_CTRL 		DPRAM2_base(SPH_BKCP_DUMMY)

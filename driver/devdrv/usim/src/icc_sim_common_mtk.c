@@ -176,9 +176,7 @@ void SIM_PlugEvent_Cb(SIM_ICC_APPLICATION app)
 	hw_cb = (sim_HW_cb *)(hwCbArray[sim_get_logicalNum_from_app(app)]);
 	SimCard = GET_SIM_CB(hw_cb->simInterface);
 	usim_dcb = GET_USIM_CB(hw_cb->simInterface);
-#if defined(SIM_DRV_RETRY_3V_WHEN_CMD_FAIL)
-	usim_dcb->retry_3v_prefer = KAL_FALSE;
-#endif
+
 	if(SimCard->sim_nullByteIssueGPT != (kal_uint32) NULL)
 	{
 		// Stop gpt timer for null byte

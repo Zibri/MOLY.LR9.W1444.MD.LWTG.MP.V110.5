@@ -105,8 +105,6 @@ typedef struct
     kal_uint32 pkt_filter_del;
     kal_uint32 pkt_filter_delall;
     kal_uint32 pkt_filter_del_bearer;
-    kal_uint32 pkt_filter_add_match_all;
-    kal_uint32 pkt_filter_del_match_all;
 }upcm_epsb_stats_t;
 
 typedef struct 

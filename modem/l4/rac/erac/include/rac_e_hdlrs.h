@@ -1341,6 +1341,50 @@ void rac_e_get_sat_location_info(sat_location_info_ind_struct *loc_info_ptr);
  *****************************************************************************/
 domain_id_enum rac_e_get_detach_domain_by_rat_mode(rat_enum new_rat_mode);
 
+ /*****************************************************************************
+ * FUNCTION
+ *  erac_change_vdp_by_ims_config
+ *
+ * DESCRIPTION
+ *  DCM's requirement:Change voice domain preference according to ims config
+ *  Home: If IMS is on, change VDP to IMS PS voice preferred, CS voice?as secondary
+ *        If IMS is off, change VDP to CS voice only. 
+ *  Roaming: IMS should always be set to off, and change VDP to CS voice only.
+ *
+ *  If VDP is changed, and then force to update UE mode.
+ *
+ * PARAMETERS
+ *  none
+ *
+ * RETURNS
+ *  none
+ *
+ * GLOBALS AFFECTED
+ *  none
+ *
+ *****************************************************************************/
+void erac_change_vdp_by_ims_config(void);
+
+ /*****************************************************************************
+ * FUNCTION
+ *  erac_judge_is_dcm_hplmn
+ *
+ * DESCRIPTION 
+ *  If PLMN ID==440xx, then record is_on_dcm_hplmn_flag as KAL_TRUE
+ *  else record as KAL_FALSE
+ *
+ * PARAMETERS
+ *  plmn    [IN]    PLMN id
+ *
+ * RETURNS
+ *  none
+ *
+ * GLOBALS AFFECTED
+ *  none
+ *
+ *****************************************************************************/
+void erac_judge_is_dcm_hplmn(const plmn_id_struct *plmn);
+
 /*****************************************************************************
  * FUNCTION
  *  rac_e_clean_nvram_ef_epsloci_epsnsc_tin_if_sim_replaced()

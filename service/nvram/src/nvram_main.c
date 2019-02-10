@@ -64,10 +64,6 @@
  * removed!
  * removed!
  * removed!
- *
- * removed!
- * removed!
- * removed!
  * removed!
  * removed!
  *
@@ -1153,12 +1149,6 @@ void nvram_main(ilm_struct *ilm_ptr)
             else if (ilm_ptr->msg_id == MSG_ID_NVRAM_SET_LOCK_REQ)
             {
                 nvram_set_lock_handler(ilm_ptr);
-            }
-            else if (ilm_ptr->msg_id == MSG_ID_NVRAM_CALLBACK_REQ)
-            {
-                /*when user call nvram_register_read_req() will send this message to NVRAM
-                  this is used to wakeup NVRAM task if NVRAM task is waiting for extq msg*/
-                return; 
             }
 #if 0
 /* under construction !*/

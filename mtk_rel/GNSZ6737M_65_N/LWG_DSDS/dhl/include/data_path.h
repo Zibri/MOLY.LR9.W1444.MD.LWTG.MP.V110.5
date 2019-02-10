@@ -344,27 +344,9 @@
 #endif
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
-	#define TFTPF_AddMatchAll(v1, v2) do {\
-		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_2_word(0x2513 | ((short)(v1) << 16), (long)(v2));\
-	} while(0)
-#else
-	#define TFTPF_AddMatchAll(v1, v2)
-#endif
-
-#if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
-	#define TFTPF_DelMatchAll(v1, v2, v3) do {\
-		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_3_word(0x2613 | ((short)(v1) << 16), (long)(v2), (long)(v3));\
-	} while(0)
-#else
-	#define TFTPF_DelMatchAll(v1, v2, v3)
-#endif
-
-#if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_SetDftMatch(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_2_word(0x2713 | ((short)(v1) << 16), (long)(v2));\
+			l2trc_send_2_word(0x2513 | ((short)(v1) << 16), (long)(v2));\
 	} while(0)
 #else
 	#define TFTPF_SetDftMatch(v1, v2)
@@ -373,7 +355,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DelAll(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_2_word(0x2813 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
+			l2trc_send_2_word(0x2613 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
 	} while(0)
 #else
 	#define TFTPF_DelAll(v1, v2)
@@ -382,7 +364,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_PF_NotFound(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_2_word(0x2913 | ((short)(v1) << 16), (long)(v2));\
+			l2trc_send_2_word(0x2713 | ((short)(v1) << 16), (long)(v2));\
 	} while(0)
 #else
 	#define TFTPF_PF_NotFound(v1, v2)
@@ -391,7 +373,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_PF_Link_AllocFail(v1) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x08)!=0 )\
-			l2trc_send_1_word(0x2A13 | ((short)(v1) << 16));\
+			l2trc_send_1_word(0x2813 | ((short)(v1) << 16));\
 	} while(0)
 #else
 	#define TFTPF_PF_Link_AllocFail(v1)
@@ -400,7 +382,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPktFilter1(v1, v2, v3, v4) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_4_word(0x2B13 | ((short)(v1) << 16), (kal_uint32)((char)(v3)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24), (long)(v2), (long)(v4));\
+			l2trc_send_4_word(0x2913 | ((short)(v1) << 16), (kal_uint32)((char)(v3)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24), (long)(v2), (long)(v4));\
 	} while(0)
 #else
 	#define TFTPF_DumpPktFilter1(v1, v2, v3, v4)
@@ -409,7 +391,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpIPAddr(v1, v2, v3, v4) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_4_word(0x2C13 | ((short)(v1) << 16), (unsigned long)(v2), (long)(v3), (unsigned long)(v4));\
+			l2trc_send_4_word(0x2A13 | ((short)(v1) << 16), (unsigned long)(v2), (long)(v3), (unsigned long)(v4));\
 	} while(0)
 #else
 	#define TFTPF_DumpIPAddr(v1, v2, v3, v4)
@@ -418,7 +400,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpIPAddrMsk(v1, v2, v3, v4) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_4_word(0x2D13 | ((short)(v1) << 16), (unsigned long)(v2), (long)(v3), (unsigned long)(v4));\
+			l2trc_send_4_word(0x2B13 | ((short)(v1) << 16), (unsigned long)(v2), (long)(v3), (unsigned long)(v4));\
 	} while(0)
 #else
 	#define TFTPF_DumpIPAddrMsk(v1, v2, v3, v4)
@@ -427,7 +409,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPFProtocol(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_2_word(0x2E13 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
+			l2trc_send_2_word(0x2C13 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
 	} while(0)
 #else
 	#define TFTPF_DumpPFProtocol(v1, v2)
@@ -436,7 +418,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPFPort(v1, v2, v3) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_3_word(0x2F13 | ((short)(v1) << 16), (long)(v2), (long)(v3));\
+			l2trc_send_3_word(0x2D13 | ((short)(v1) << 16), (long)(v2), (long)(v3));\
 	} while(0)
 #else
 	#define TFTPF_DumpPFPort(v1, v2, v3)
@@ -445,7 +427,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPFSPI(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_2_word(0x3013 | ((short)(v1) << 16), (unsigned long)(v2));\
+			l2trc_send_2_word(0x2E13 | ((short)(v1) << 16), (unsigned long)(v2));\
 	} while(0)
 #else
 	#define TFTPF_DumpPFSPI(v1, v2)
@@ -454,7 +436,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPFTOS(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_2_word(0x3113 | ((unsigned short)(v1) << 16), (unsigned long)(v2));\
+			l2trc_send_2_word(0x2F13 | ((unsigned short)(v1) << 16), (unsigned long)(v2));\
 	} while(0)
 #else
 	#define TFTPF_DumpPFTOS(v1, v2)
@@ -463,7 +445,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_DumpPFFlowLabel(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_2_word(0x3213 | ((short)(v1) << 16), (unsigned long)(v2));\
+			l2trc_send_2_word(0x3013 | ((short)(v1) << 16), (unsigned long)(v2));\
 	} while(0)
 #else
 	#define TFTPF_DumpPFFlowLabel(v1, v2)
@@ -472,7 +454,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_PktCorrupted(v1, v2) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_2_word(0x3313 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
+			l2trc_send_2_word(0x3113 | ((short)(v1) << 16), (kal_uint32)((char)(v2)) | (((kal_uint32)TRC_L2_PAD) << 8) | (((kal_uint32)TRC_L2_PAD) << 16) | (((kal_uint32)TRC_L2_PAD) << 24));\
 	} while(0)
 #else
 	#define TFTPF_PktCorrupted(v1, v2)
@@ -481,7 +463,7 @@
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 1) )
 	#define TFTPF_MatchCorrupted(v1) do {\
 		if(NAS_DATA_PATH_Trace_Filter[0]==1 && (NAS_DATA_PATH_Trace_Filter[1]&0x10)!=0 )\
-			l2trc_send_1_word(0x3413 | ((short)(v1) << 16));\
+			l2trc_send_1_word(0x3213 | ((short)(v1) << 16));\
 	} while(0)
 #else
 	#define TFTPF_MatchCorrupted(v1)
@@ -535,8 +517,6 @@ void L1TRC_Send_TFTPF_DeactEPSB(short v1, long v2, char v3);
 void L1TRC_Send_TFTPF_AddPF(short v1, char v2, long v3, long v4);
 void L1TRC_Send_TFTPF_ReplacePF(short v1, char v2, long v3);
 void L1TRC_Send_TFTPF_DelPF(short v1, char v2, long v3);
-void L1TRC_Send_TFTPF_AddMatchAll(short v1, long v2);
-void L1TRC_Send_TFTPF_DelMatchAll(short v1, long v2, long v3);
 void L1TRC_Send_TFTPF_SetDftMatch(short v1, long v2);
 void L1TRC_Send_TFTPF_DelAll(short v1, char v2);
 void L1TRC_Send_TFTPF_PF_NotFound(short v1, long v2);
@@ -603,8 +583,6 @@ void Set_NAS_DATA_PATH_Filter(unsigned char *setting);
 #define ChkL1MsgFltr_TFTPF_AddPF()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
 #define ChkL1MsgFltr_TFTPF_ReplacePF()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
 #define ChkL1MsgFltr_TFTPF_DelPF()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
-#define ChkL1MsgFltr_TFTPF_AddMatchAll()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
-#define ChkL1MsgFltr_TFTPF_DelMatchAll()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
 #define ChkL1MsgFltr_TFTPF_SetDftMatch()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
 #define ChkL1MsgFltr_TFTPF_DelAll()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()
 #define ChkL1MsgFltr_TFTPF_PF_NotFound()	ChkL1ClsFltr_NAS_DATA_PATH_TFTPF_INFO()

@@ -366,7 +366,7 @@ static void aud_ecall_send_hack_ind(eCall_Modem_Event event)
  * RETURNS
  *  void
  *****************************************************************************/
-void aud_ecall_event_callback(eCall_Modem_Event event, void *param)
+static void aud_ecall_event_callback(eCall_Modem_Event event, void *param)
 {
     /*----------------------------------------------------------------*/
     /* Local Variables                                                */

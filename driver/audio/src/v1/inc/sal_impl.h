@@ -21,10 +21,6 @@
 #define SALI_PARAMETER_TYPE_MODE_NB 1
 #define SALI_PARAMETER_TYPE_MODE_WB 2
 #define SALI_PARAMETER_TYPE_MODE_INTERNAL 3
-#define SALI_PARAMETER_TYPE_MODE2_NB 4
-#define SALI_PARAMETER_TYPE_MODE3_NB 5
-#define SALI_PARAMETER_TYPE_MODE2_WB 6
-#define SALI_PARAMETER_TYPE_MODE3_WB 7
 
 //Improve Ctrl
 #define SALI_IMPROVE_2G_SMR SAL_BIT1
@@ -71,10 +67,6 @@ void sali_enh_toberemovedtodsp();
 void SALI_ENH_PathEnable(uint8 ul_dl, bool on);
 void SALI_ENH_Dynamic_Ctrl(bool on, Sal_Enh_Dynamic_t fea);
 void SALI_ENH_Gain_Set_DL(uint16 val);
-void SALI_ENH_Dynamic_State_Par_Init(void);
-void SALI_ENH_Dynamic_State_Set(Sal_Enh_Dyn_Sta_t sta);
-bool SALI_ENH_Dynamic_State_Check(Sal_Enh_Dyn_Sta_t sta);
-void SALI_ENH_Flag_Par_Set(Sal_Enh_Flag_Par_t par);
 volatile uint16* SALI_Parameter_GetAddr(uint8 type);
 
 bool SALI_Int_Resolve(uint16 iid, uint32* sph_int);

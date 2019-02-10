@@ -120,6 +120,14 @@
  * removed!
  * removed!
  * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
+ *
+ * removed!
+ * removed!
+ * removed!
  * removed!
  *------------------------------------------------------------------------------
  * Upper this line, this part is controlled by PVCS VM. DO NOT MODIFY!!
@@ -129,7 +137,7 @@
 #define CUSTOM_L4_UTILITY_H
 
 #include "ps_public_enum.h"
-
+#include "smu_common_enums.h"
 
 typedef enum
 {
@@ -202,6 +210,11 @@ extern void custom_get_eregchk_method(kal_uint8 *cs_method, kal_uint8 *ps_method
 extern kal_bool custom_cs_reg_state_change_check(kal_uint8 state1, kal_uint8 state2);
 extern kal_bool custom_ps_reg_state_change_check(kal_uint8 state1, kal_uint8 state2);
 extern l4c_feature_support_enum custom_query_feature_is_supported(kal_uint8 feature_id);
+extern kal_bool custom_check_ecc_change_rat_retry_allowed_for_plmn(void);
+
+extern void custom_set_imsi_mapping_to_sbp_id(kal_uint8 *imsi, kal_uint8 mnc_length_from_sim, kal_uint8 sim_id);
+extern kal_uint16 custom_get_sim_sbp_id();
+extern kal_uint16 custom_judge_sbp_id_use_mcc_mnc(kal_uint16 mcc, kal_uint16 mnc);
 
 #endif /* CUSTOM_L4_UTILITY_H */
 

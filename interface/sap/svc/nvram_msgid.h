@@ -506,18 +506,6 @@ MODULE_MSG_BEGIN( MSG_ID_NVRAM_CODE_BEGIN )
 **************************************************************************************/
 #define MSG_ID_NVRAM_BIN_REGION_CNF
 
-/**************************************************************************************
-* Description
-* <pre>
-*  Dummy message just for wakeup nvram task if nvram task is waiting for extq msg
-* </pre>
-* Note
-*   App -> NVRAM
-* See Also
-*   Local Parameter: nvram_callback_req_struct
-**************************************************************************************/
-#define MSG_ID_NVRAM_CALLBACK_REQ
-
 #else
 
     MSG_ID_NVRAM_STARTUP_REQ = MSG_ID_NVRAM_CODE_BEGIN,
@@ -548,7 +536,7 @@ MODULE_MSG_BEGIN( MSG_ID_NVRAM_CODE_BEGIN )
     MSG_ID_NVRAM_SDS_CNF,
     MSG_ID_NVRAM_BIN_REGION_REQ,
     MSG_ID_NVRAM_BIN_REGION_CNF,
-    MSG_ID_NVRAM_CALLBACK_REQ,
+    MSG_ID_NVRAM_RESERVED_1,
     MSG_ID_NVRAM_RESERVED_2,
     MSG_ID_NVRAM_RESERVED_3,
     MSG_ID_NVRAM_RESERVED_4,

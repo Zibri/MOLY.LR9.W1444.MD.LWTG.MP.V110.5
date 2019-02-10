@@ -342,104 +342,94 @@
 #define UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REFINED_CRC_NOFLTR(v1, v2) TRC_SEND_2_DATA(TRC_MERGE_2S(0x2031, (short)(v1)), TRC_MERGE_1S2C((short)(v2), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
-	#define UL1D_TRC_DL_DUALTF_DATA(v1, v2, v3) do {\
-		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[1]&0x20)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x2131, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
-	} while(0)
-#else
-	#define UL1D_TRC_DL_DUALTF_DATA(v1, v2, v3)
-#endif
-#define UL1D_TRC_DL_DUALTF_DATA_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x2131, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
-
-#if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
 	#define UL1D_TRC_DL_BRP_RAW_Data(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[1]&0x80)!=0 )\
-			TRC_SEND_5_DATA(TRC_MERGE_2S(0x2231, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_5_DATA(TRC_MERGE_2S(0x2131, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define UL1D_TRC_DL_BRP_RAW_Data(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15)
 #endif
-#define UL1D_TRC_DL_BRP_RAW_Data_NOFLTR(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) TRC_SEND_5_DATA(TRC_MERGE_2S(0x2231, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define UL1D_TRC_DL_BRP_RAW_Data_NOFLTR(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) TRC_SEND_5_DATA(TRC_MERGE_2S(0x2131, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
 	#define UL1D_TRC_UL_BRP_RAW_DATA(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[1]&0x80)!=0 )\
-			TRC_SEND_5_DATA(TRC_MERGE_2S(0x2331, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_5_DATA(TRC_MERGE_2S(0x2231, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define UL1D_TRC_UL_BRP_RAW_DATA(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15)
 #endif
-#define UL1D_TRC_UL_BRP_RAW_DATA_NOFLTR(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) TRC_SEND_5_DATA(TRC_MERGE_2S(0x2331, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define UL1D_TRC_UL_BRP_RAW_DATA_NOFLTR(v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) TRC_SEND_5_DATA(TRC_MERGE_2S(0x2231, (short)(v2)), TRC_MERGE_4C((unsigned char)(v1), (unsigned char)(v3), (unsigned char)(v4), (unsigned char)(v5)), TRC_MERGE_4C((unsigned char)(v6), (unsigned char)(v7), (unsigned char)(v8), (unsigned char)(v9)), TRC_MERGE_4C((unsigned char)(v10), (unsigned char)(v11), (unsigned char)(v12), (unsigned char)(v13)), TRC_MERGE_4C((unsigned char)(v14), (unsigned char)(v15), TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER)
 	#define UL1D_TRC_L1_ASSERT_BYPASS(v1) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x01)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_2S(0x2431, (short)(v1)));\
+			TRC_SEND_1_DATA(TRC_MERGE_2S(0x2331, (short)(v1)));\
 	} while(0)
 #else
 	#define UL1D_TRC_L1_ASSERT_BYPASS(v1)
 #endif
-#define UL1D_TRC_L1_ASSERT_BYPASS_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_2S(0x2431, (short)(v1)))
+#define UL1D_TRC_L1_ASSERT_BYPASS_NOFLTR(v1) TRC_SEND_1_DATA(TRC_MERGE_2S(0x2331, (short)(v1)))
 
 #if defined(L1_CATCHER)
 	#define UL1D_TRC_QUERY_DAC(v1, v2, v3) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x02)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_2S(0x2531, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
+			TRC_SEND_2_DATA(TRC_MERGE_2S(0x2431, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)));\
 	} while(0)
 #else
 	#define UL1D_TRC_QUERY_DAC(v1, v2, v3)
 #endif
-#define UL1D_TRC_QUERY_DAC_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x2531, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
+#define UL1D_TRC_QUERY_DAC_NOFLTR(v1, v2, v3) TRC_SEND_2_DATA(TRC_MERGE_2S(0x2431, (short)(v1)), TRC_MERGE_2S((short)(v2), (short)(v3)))
 
 #if defined(L1_CATCHER)
 	#define UL1D_TRC_DFTC_SET_RXNCO(v1, v2, v3, v4) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x02)!=0 )\
-			TRC_SEND_3_DATA(TRC_MERGE_2S(0x2631, (short)(v1)), TRC_MERGE_2S((short)(v3), (short)(v4)), (long)(v2));\
+			TRC_SEND_3_DATA(TRC_MERGE_2S(0x2531, (short)(v1)), TRC_MERGE_2S((short)(v3), (short)(v4)), (long)(v2));\
 	} while(0)
 #else
 	#define UL1D_TRC_DFTC_SET_RXNCO(v1, v2, v3, v4)
 #endif
-#define UL1D_TRC_DFTC_SET_RXNCO_NOFLTR(v1, v2, v3, v4) TRC_SEND_3_DATA(TRC_MERGE_2S(0x2631, (short)(v1)), TRC_MERGE_2S((short)(v3), (short)(v4)), (long)(v2))
+#define UL1D_TRC_DFTC_SET_RXNCO_NOFLTR(v1, v2, v3, v4) TRC_SEND_3_DATA(TRC_MERGE_2S(0x2531, (short)(v1)), TRC_MERGE_2S((short)(v3), (short)(v4)), (long)(v2))
 
 #if defined(L1_CATCHER)
 	#define UL1D_TRC_DFTC_RESET_PPB(v1) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x02)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2731, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2631, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1));\
 	} while(0)
 #else
 	#define UL1D_TRC_DFTC_RESET_PPB(v1)
 #endif
-#define UL1D_TRC_DFTC_RESET_PPB_NOFLTR(v1) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2731, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1))
+#define UL1D_TRC_DFTC_RESET_PPB_NOFLTR(v1) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2631, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1))
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
 	#define UL1D_TRC_DFTC_RESET_X() do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x04)!=0 )\
-			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x2831, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
+			TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x2731, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD));\
 	} while(0)
 #else
 	#define UL1D_TRC_DFTC_RESET_X()
 #endif
-#define UL1D_TRC_DFTC_RESET_X_NOFLTR() TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x2831, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
+#define UL1D_TRC_DFTC_RESET_X_NOFLTR() TRC_SEND_1_DATA(TRC_MERGE_1S2C(0x2731, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD))
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
 	#define UL1D_TRC_DFTC_UPDATE_X(v1, v2) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x04)!=0 )\
-			TRC_SEND_3_DATA(TRC_MERGE_1S2C(0x2931, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1), (long)(v2));\
+			TRC_SEND_3_DATA(TRC_MERGE_1S2C(0x2831, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1), (long)(v2));\
 	} while(0)
 #else
 	#define UL1D_TRC_DFTC_UPDATE_X(v1, v2)
 #endif
-#define UL1D_TRC_DFTC_UPDATE_X_NOFLTR(v1, v2) TRC_SEND_3_DATA(TRC_MERGE_1S2C(0x2931, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1), (long)(v2))
+#define UL1D_TRC_DFTC_UPDATE_X_NOFLTR(v1, v2) TRC_SEND_3_DATA(TRC_MERGE_1S2C(0x2831, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1), (long)(v2))
 
 #if defined(L1_CATCHER) && ( !defined(_L1_DISABLE_TRACE_LEVEL_) || (_L1_DISABLE_TRACE_LEVEL_ < 2) )
 	#define UL1D_TRC_DFTC_X_SUM(v1) do {\
 		if(UL1D_FIFTH_Trace_Filter[0]==1 && (UL1D_FIFTH_Trace_Filter[2]&0x04)!=0 )\
-			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2A31, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1));\
+			TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2931, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1));\
 	} while(0)
 #else
 	#define UL1D_TRC_DFTC_X_SUM(v1)
 #endif
-#define UL1D_TRC_DFTC_X_SUM_NOFLTR(v1) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2A31, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1))
+#define UL1D_TRC_DFTC_X_SUM_NOFLTR(v1) TRC_SEND_2_DATA(TRC_MERGE_1S2C(0x2931, TRC_BOXSTER_PAD, TRC_BOXSTER_PAD), (long)(v1))
 
 
 
@@ -485,7 +475,6 @@ void L1TRC_Send_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_CALC_Gi(short v1, short v2, shor
 void L1TRC_Send_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REF_TRCH(short v1, short v2);
 void L1TRC_Send_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REFINED_INFO(short v1, short v2, short v3, short v4, short v5);
 void L1TRC_Send_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REFINED_CRC(short v1, short v2);
-void L1TRC_Send_UL1D_TRC_DL_DUALTF_DATA(unsigned char v1, short v2, unsigned char v3);
 void L1TRC_Send_UL1D_TRC_DL_BRP_RAW_Data(unsigned char v1, short v2, unsigned char v3, unsigned char v4, unsigned char v5, unsigned char v6, unsigned char v7, unsigned char v8, unsigned char v9, unsigned char v10, unsigned char v11, unsigned char v12, unsigned char v13, unsigned char v14, unsigned char v15);
 void L1TRC_Send_UL1D_TRC_UL_BRP_RAW_DATA(unsigned char v1, short v2, unsigned char v3, unsigned char v4, unsigned char v5, unsigned char v6, unsigned char v7, unsigned char v8, unsigned char v9, unsigned char v10, unsigned char v11, unsigned char v12, unsigned char v13, unsigned char v14, unsigned char v15);
 void L1TRC_Send_UL1D_TRC_L1_ASSERT_BYPASS(short v1);
@@ -549,7 +538,6 @@ void Set_UL1D_FIFTH_Filter(unsigned char *setting);
 #define ChkL1MsgFltr_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REF_TRCH()	ChkL1ClsFltr_UL1D_FIFTH_DUAL_TF_H()
 #define ChkL1MsgFltr_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REFINED_INFO()	ChkL1ClsFltr_UL1D_FIFTH_DUAL_TF_H()
 #define ChkL1MsgFltr_UL1D_TRC_MLT_RXBRP_BTFD_DUAL_TF_REFINED_CRC()	ChkL1ClsFltr_UL1D_FIFTH_DUAL_TF_H()
-#define ChkL1MsgFltr_UL1D_TRC_DL_DUALTF_DATA()	ChkL1ClsFltr_UL1D_FIFTH_DUAL_TF_M()
 #define ChkL1MsgFltr_UL1D_TRC_DL_BRP_RAW_Data()	ChkL1ClsFltr_UL1D_FIFTH_BRP_RAW_DATA_M()
 #define ChkL1MsgFltr_UL1D_TRC_UL_BRP_RAW_DATA()	ChkL1ClsFltr_UL1D_FIFTH_BRP_RAW_DATA_M()
 #define ChkL1MsgFltr_UL1D_TRC_L1_ASSERT_BYPASS()	ChkL1ClsFltr_UL1D_FIFTH_L1_ASSERT_BYPASS_H()

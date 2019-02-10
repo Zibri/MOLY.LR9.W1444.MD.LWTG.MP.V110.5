@@ -572,6 +572,8 @@ MODULE_MSG_BEGIN( MSG_ID_EM_CODE_BEGIN )
     MSG_ID_L1_GSM_MAX_TX_PWR_RED_REQ,
     MSG_ID_UL1_UMTS_MAX_TX_PWR_RED_REQ,
     MSG_ID_EL1_LTE_MAX_TX_PWR_RED_REQ,
+    /* RF TEST result from L1 */
+    MSG_ID_L4CL1_EM_RF_TEST_GSM_RX_TEST_IND,
 
     MSG_ID_L4CL1_GET_RF_TEMPERATURE_REQ,
     MSG_ID_L4CL1_GET_RF_TEMPERATURE_CNF,
@@ -606,7 +608,10 @@ MODULE_MSG_BEGIN( MSG_ID_EM_CODE_BEGIN )
 
     /* EM request: UL1 TX power dector measurement */
     MSG_ID_L4CUL1_EM_TX_REPORT_IND,
- 
+    
+    /* EM request: UL1 RF test */
+    MSG_ID_L4CUL1_RSSI_MEASUREMENT_IND,
+
     /* If the message is not to send EM information to AP or Logging tool,
      * please add before MSG_ID_EM_STATUS_BEGIN. Below are EM messages to 
      * report to AP or Logging tool

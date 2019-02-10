@@ -241,8 +241,7 @@ smsal_send_submit_to_sms(kal_uint8         msg_ref,
                          kal_uint8         seq_num,
                          kal_uint8         mms_mode,
                          peer_buff_struct  *peer_buff_ptr,
-                         sms_addr_struct   *sc_addr,
-                         kal_bool          is_stk_sms);
+                         sms_addr_struct   *sc_addr);
 
 void
 smsal_send_command_to_sms(kal_uint8         msg_ref,
@@ -259,8 +258,7 @@ smsal_send_pdu_mode(kal_uint8            msg_ref,
                     kal_uint8            mms_mode,
                     smsal_mti_enum       mti,
                     peer_buff_struct     *peer_buff_ptr,
-                    sms_addr_struct      *sc_addr,
-                    kal_bool             is_stk_sms);
+                    sms_addr_struct      *sc_addr);
 
 #ifndef __SMS_STORAGE_BY_MMI__
 

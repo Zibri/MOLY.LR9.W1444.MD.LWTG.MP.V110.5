@@ -158,7 +158,6 @@ typedef struct {
     kal_uint8  mms_mode; /* more msg to send */
     sms_addr_struct sc_addr; /* service centre address*/
     kal_uint8 seq_num;
-	kal_bool  is_stk_sms;
 } sms_submit_struct;
 
 typedef struct {

@@ -426,6 +426,12 @@ typedef struct
 typedef struct
 {
     LOCAL_PARA_HDR
+    sr_failure_cause_enum  failure_cause;
+} l4c_eval_sr_failure_ind_struct;
+
+typedef struct
+{
+    LOCAL_PARA_HDR
     kal_uint32 event;
 	kal_uint32 band;
 
@@ -439,5 +445,11 @@ typedef struct
 
 } l4c_eval_erlq_report_ind_struct;
 
+typedef struct
+{
+    LOCAL_PARA_HDR
+    kal_uint8 camera_status;    /* 1:on  0:off*/
+    
+}l4c_eval_camera_status_req_struct;
 #endif   /* ----- #ifndef L4C_EVAL_STRUCT_INC ----- */
 
